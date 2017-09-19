@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: username)
+    @user = User.find(params[:id])
     if @user
       render json: @user
     else
@@ -24,6 +24,6 @@ class Api::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :email)
   end
 end
