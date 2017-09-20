@@ -7,21 +7,30 @@ export const receiveCurrentUser = (currentUser) => ({
   currentUser
 });
 
-export const receiveErrors = (errors) => ({
-  type: RECEIVE_SESSION_ERRORS,
-  errors
-});
+export const receiveErrors = (errors) => {
+  return {type: RECEIVE_SESSION_ERRORS,
+  errors};
+};
 
-export const login = (user) => dispatch => (
-  SessionUtil.login(user).then(currentUser =>
-     dispatch(receiveCurrentUser(currentUser))
-   ), err => (
-     dispatch(receiveErrors(err.responseJSON))
-   )
+export const login = user => dispatch => (
+  SessionUtil.login(user).then(currentUser => (
+    dispatch(receiveCurrentUser(currentUser))
+  ), err => (
+    dispatch(receiveErrors(err.responseJSON))
+  ))
 );
 
 export const logout = () => dispatch => (
   SessionUtil.logout().then(user =>
     dispatch(receiveCurrentUser(null))
   )
+);
+
+
+export const guest = (guestUser = {username:"Test1",password:"123456"}) => dispatch => (
+  SessionUtil.login(guestUser).then(currentUser => (
+    dispatch(receiveCurrentUser(currentUser))
+  ), err => (
+    dispatch(receiveErrors(err.responseJSON))
+  ))
 );

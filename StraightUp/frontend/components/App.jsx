@@ -7,7 +7,6 @@ import { Route } from 'react-router-dom';
 const App = () => (
   <div>
     <header>
-      <h1>Straight Up From AppJSX</h1>
       <NavBar />
     </header>
 

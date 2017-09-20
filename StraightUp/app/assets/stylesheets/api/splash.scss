@@ -2,8 +2,31 @@ body {
   background-color: green;
 }
 
-a {
-  background-color: green;
-  font-size: 200px;
-  padding: 20px;
+
+
+div.login-signup {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: red;
+  font-size: 30px;
+  justify-content: space-between;
+  padding: 10px;
+
+}
+
+
+.guest-button-container{
+  display: flex;
+  padding-left: 20px;
+  align-content: center;
+  justify-content: center;
+}
+a{
+  border-color: red;
+  background-color: transparent;
+  border-width: thick;
+
+}
+.guest-button {
+
 }

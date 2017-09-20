@@ -8,9 +8,10 @@ const receiveUsers = (users) => ({
   users
 });
 
-const receiveErrors = (errors) => ({
-  type: RECEIVE_USER_ERRORS
-});
+const receiveErrors = (errors) => {
+  return {type: RECEIVE_USER_ERRORS,
+  errors};
+};
 
 const receiveUser = (user) => ({
   type: RECEIVE_USER,
@@ -18,19 +19,30 @@ const receiveUser = (user) => ({
 });
 
 export const fetchUser = (user) => dispatch => (
-  UsersUtil.fetchUser(user).then(res => dispatch(receiveUser(res))
+  UsersUtil.fetchUser(user).then(res =>
+    dispatch(receiveUser(res))
   ), err => (
     dispatch(receiveErrors(err.responseJSON))
   )
 );
 
 export const fetchUsers = () => dispatch => (
-  UsersUtil.fetchUsers().tehn(users => dispatch(receiveUsers(users)))
+  UsersUtil.fetchUsers().then(users => dispatch(receiveUsers(users)))
 );
+//
+// export const createUser = user => dispatch => (
+//   UsersUtil.createUser(user).then(res => (
+//     dispatch(receiveUser(res))
+//   ), err => (
+//
+//     dispatch(receiveErrors(err.responseJSON))
+//   ))
+// );
 
-export const createUser = (user) => dispatch => (
-  UsersUtil.createUser(user).then(res => dispatch(receiveUser(res))
+export const createUser = user => dispatch => (
+  UsersUtil.createUser(user).then(res => (
+    dispatch(receiveUser(res))
   ), err => (
-    dispatch(receiveErrors(err.responseJson))
-  )
+    dispatch(receiveErrors(err.responseJSON))
+  ))
 );

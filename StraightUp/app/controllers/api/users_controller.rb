@@ -2,11 +2,14 @@ class Api::UsersController < ApplicationController
 
   def create
 
-    @user = User.create(user_params)
+    @user = User.new(user_params)
+
     if @user.save
       login!(@user)
       render json: @user
     else
+      p @user.errors.full_messages
+
       render json: @user.errors.full_messages, status: 422
     end
   end
@@ -16,7 +19,7 @@ class Api::UsersController < ApplicationController
     if @user
       render json: @user
     else
-      render "api/users"
+      render json: ["INVALID"], status: 422
     end
   end
 

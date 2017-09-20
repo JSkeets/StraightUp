@@ -35,16 +35,17 @@ class LoginForm extends React.Component {
 
   renderErrors(){
     return(
-
       <ul>
-        {console.log(this.props.errors,"INSIDE OF RENDER ERRORS")}
-
+        {this.props.errors.map((error,i) => (
+          <li key={`error-${i}`}>
+            {error}
+          </li>
+        ))}
       </ul>
     );
   }
 
   render(){
-    console.log(this.props);
     return(
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
