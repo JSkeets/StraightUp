@@ -18,8 +18,9 @@ const sessionLinks = (guest) => (
 );
 
 const loggedInLinks = (currentUser, logout, guest) => (
+
     <hgroup className="header-group">
-      <h2 className="header-name">Hello, {currentUser.username}</h2>
+      <h2 className="header-name">Welcome {currentUser.extract.username}</h2>
       <button className="logout-button" onClick={logout}>Log Out</button>
     </hgroup>
 );
