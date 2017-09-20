@@ -1,32 +1,52 @@
 body {
   background-color: green;
+  background-image:url(https://static.pexels.com/photos/260922/pexels-photo-260922.jpeg);
 }
 
-
-
-div.login-signup {
+.login-signup, .header-group {
   display: flex;
   flex-direction: row-reverse;
-  background-color: red;
+  background-color: transparent;
   font-size: 30px;
   justify-content: space-between;
   padding: 10px;
 
+  align-items: center;
+  height: 45px;
+
 }
 
-
-.guest-button-container{
-  display: flex;
-  padding-left: 20px;
-  align-content: center;
-  justify-content: center;
+.straightup {
+  font-weight: bold;
+  font-family: $playFair;
+  font-size:75px;
+  color: red;
+  margin-top: 30px;
 }
-a{
-  border-color: red;
+.guest-button{
+  height: 50px;
+}
+
+.login,.sign-up, .guest-button, .logout-button{
+  border-color: black;
   background-color: transparent;
   border-width: thick;
+  border-width: 2px;
+  border-style: solid;
+  text-decoration: none;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 5px;
+  margin-right:10px;
+  font-weight: bold;
+  height: 44px;
+  color: red;
 
+  font-family: $playFair;
 }
-.guest-button {
 
+.login:hover,.sign-up:hover, .guest-button:hover, .logout-button:hover{
+  background-color: black;
+  color: white;
 }

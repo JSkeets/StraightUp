@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 const sessionLinks = (guest) => (
 
   <div className="login-signup">
-    <div>
-      <Link className="login" to="/login">Log In</Link>
-      <Link className="sign-up" to="/signup">Sign Up!</Link>
+    <div className="login-signup-right">
+      <Link className="login" to="/login">LOG IN</Link>
+      <Link className="sign-up" to="/signup">SIGN UP</Link>
+    </div>
+    <div className="straightup">
+      <h1>Straight Up</h1>
     </div>
     <div className="guest-button-container">
-      <button className="guest-button" onClick={guest}>Guest Login</button>
+      <button className="guest-button" onClick={guest}>GUEST LOGIN</button>
     </div>
   </div>
 );

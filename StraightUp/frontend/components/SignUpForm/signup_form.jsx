@@ -58,6 +58,7 @@ class SignUpForm extends React.Component {
             <br/>
             <label> Username:
               <input type="text"
+
                 value={this.state.username}
                 onChange={this.update('username')}
                 className="signup-input"
@@ -73,15 +74,14 @@ class SignUpForm extends React.Component {
             </label>
             <br />
             <label>Email:
-              <input type="password"
+              <input type="text"
                 value={this.state.email}
                 onChange={this.update('email')}
                 className="signup-input"
                 />
             </label>
             <br />
-
-            <input type="submit" value="Submit" />
+            <input className="submit-button" type="submit" value="Submit" />
           </div>
         </form>
       </div>

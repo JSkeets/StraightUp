@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
           {this.renderErrors()}
           <div className="login-form">
             <br/>
-            <label> Username:
+            <label className="login-username"> Username:
               <input type="text"
                 value={this.state.username}
                 onChange={this.update('username')}
@@ -62,7 +62,7 @@ class LoginForm extends React.Component {
                 />
             </label>
             <br />
-            <label>Password:
+            <label className="login-password">Password:
               <input type="password"
                 value={this.state.password}
                 onChange={this.update('password')}
@@ -70,7 +70,9 @@ class LoginForm extends React.Component {
                 />
             </label>
             <br />
-            <input type="submit" value="Submit" />
+            <div className="submit-button">
+              <input className="submit-button" type="submit" value="Submit" />
+            </div>
           </div>
         </form>
       </div>
