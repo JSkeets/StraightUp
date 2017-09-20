@@ -5,7 +5,7 @@ export const fetchAllUsers = () => (
   })
 );
 
-export const signup = (user) => (
+export const createUser = (user) => (
   $.ajax({
     method: "POST",
     url: "/api/users",
