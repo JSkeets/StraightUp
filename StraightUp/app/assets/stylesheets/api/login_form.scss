@@ -1,11 +1,4 @@
 div.login-form-container, div.signup-form-container{
-  // display: flex;
-  // background-color: green;
-  // height: 100px;
-  // width: 260px;
-  // margin-top: 300px;
-  // margin-left: 500px;
-  // flex-direction:column;
   display: block;
   text-align: center;
   height: 100%;
@@ -38,6 +31,17 @@ label, input {
     text-align: left;
     font-family: $questrial;
     color:#53131E;
+}
+button.submit-button{
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: black;
+  font-size:30px;
+}
+button.submit-button:hover{
+  background-color: #6F6E63;
+  color:#53131E;
 }
 
 label {

@@ -71,7 +71,8 @@ class LoginForm extends React.Component {
             </label>
             <br />
             <div className="submit-button">
-              <input className="submit-button" type="submit" value="Submit" />
+              <button className="submit-button" type="submit">Submit</button>
+
             </div>
           </div>
         </form>

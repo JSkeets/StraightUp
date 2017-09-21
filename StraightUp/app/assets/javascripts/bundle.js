@@ -7546,12 +7546,13 @@ var _users_api_util = __webpack_require__(269);
 
 var UsersUtil = _interopRequireWildcard(_users_api_util);
 
+var _session_actions = __webpack_require__(31);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var RECEIVE_USERS = exports.RECEIVE_USERS = "RECEIVE_USERS";
 var RECEIVE_USER_ERRORS = exports.RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 var RECEIVE_USER = exports.RECEIVE_USER = "RECEIVE_USER";
-
 
 var receiveUsers = function receiveUsers(users) {
   return {
@@ -7602,7 +7603,7 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
 var createUser = exports.createUser = function createUser(user) {
   return function (dispatch) {
     return UsersUtil.createUser(user).then(function (res) {
-      return dispatch(receiveUser(res));
+      return dispatch(receiveUser(res)), dispatch((0, _session_actions.login)(user));
     }, function (err) {
       return dispatch(receiveErrors(err.responseJSON));
     });
@@ -32904,7 +32905,11 @@ var LoginForm = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'submit-button' },
-              _react2.default.createElement('input', { className: 'submit-button', type: 'submit', value: 'Submit' })
+              _react2.default.createElement(
+                'button',
+                { className: 'submit-button', type: 'submit' },
+                'Submit'
+              )
             )
           )
         )
@@ -33099,7 +33104,15 @@ var SignUpForm = function (_React$Component) {
               })
             ),
             _react2.default.createElement('br', null),
-            _react2.default.createElement('input', { className: 'submit-button', type: 'submit', value: 'Submit' })
+            _react2.default.createElement(
+              'div',
+              { className: 'submit-button' },
+              _react2.default.createElement(
+                'button',
+                { className: 'submit-button', type: 'submit' },
+                'Submit'
+              )
+            )
           )
         )
       );

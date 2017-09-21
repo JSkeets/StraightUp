@@ -2,7 +2,7 @@ export const RECEIVE_USERS = "RECEIVE_USERS";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 export const RECEIVE_USER = "RECEIVE_USER";
 import * as UsersUtil from '../util/users_api_util';
-
+import { login } from './session_actions'
 const receiveUsers = (users) => ({
   type: RECEIVE_USERS,
   users
@@ -41,7 +41,8 @@ export const fetchUsers = () => dispatch => (
 
 export const createUser = user => dispatch => (
   UsersUtil.createUser(user).then(res => (
-    dispatch(receiveUser(res))
+    dispatch(receiveUser(res)),
+    dispatch(login(user))
   ), err => (
     dispatch(receiveErrors(err.responseJSON))
   ))
