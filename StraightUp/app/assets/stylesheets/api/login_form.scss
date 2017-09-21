@@ -15,16 +15,20 @@ form {
   display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    text-align: left;
     vertical-align: middle;
     margin-top: 350px;
-    background-color: white;
-    font-family: $playFair;
-    font-size: 35px;
-    border-color: black;
-    border-style: groove;
-    border-width: 5px;
+    background-color: #B8BFB4;
+    font-family: $questrial;
+    font-size: 40px;
+    color:#53131E;
+    opacity: 0.9;
+    padding: 25px;
 
+
+input {
+  font-size:20px;
+  height: 20px;
+}
 
 }
 label, input {
@@ -32,11 +36,13 @@ label, input {
     vertical-align: baseline;
     width: 125px;
     text-align: left;
+    font-family: $questrial;
+    color:#53131E;
 }
 
 label {
     color: #2D2D2D;
-    font-size: 15px;
+    font-size: 25px;
 }
 
 form, input {

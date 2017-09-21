@@ -18,17 +18,20 @@ body {
 
 .straightup {
   font-weight: bold;
-  font-family: $playFair;
+  font-family: $questrial;
   font-size:75px;
-  color: red;
+  color: #58A4B0;
   margin-top: 30px;
 }
 .guest-button{
-  height: 50px;
+  height: 35px;
+}
+a.login, a.sign-up {
+  height: 60px;
 }
 
 .login,.sign-up, .guest-button, .logout-button{
-  border-color: black;
+  border-color: white;
   background-color: transparent;
   border-width: thick;
   border-width: 2px;
@@ -40,13 +43,12 @@ body {
   margin-left: 5px;
   margin-right:10px;
   font-weight: bold;
-  height: 44px;
-  color: red;
+  color: #B8BFB4;
 
-  font-family: $playFair;
+  font-family: $questrial;
 }
 
 .login:hover,.sign-up:hover, .guest-button:hover, .logout-button:hover{
-  background-color: black;
+  background-color: #53131E;
   color: white;
 }
