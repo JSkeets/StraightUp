@@ -51,19 +51,23 @@ class LoginForm extends React.Component {
         <form onSubmit={this.handleSubmit} className="login-form-box">
           Welcome to Straight Up!
           <br/>
+          Please Log In
+          <br />
           {this.renderErrors()}
           <div className="login-form">
             <br/>
-            <label className="login-username"> Username:
+            <label className="login-username">
               <input type="text"
+                placeholder="username"
                 value={this.state.username}
                 onChange={this.update('username')}
                 className="login-input"
                 />
             </label>
             <br />
-            <label className="login-password">Password:
+            <label className="login-password">
               <input type="password"
+                placeholder="password"
                 value={this.state.password}
                 onChange={this.update('password')}
                 className="login-input"
@@ -71,7 +75,7 @@ class LoginForm extends React.Component {
             </label>
             <br />
             <div className="submit-button">
-              <button className="submit-button" type="submit">Submit</button>
+              <button className="submit-button" type="submit">Log In</button>
 
             </div>
           </div>

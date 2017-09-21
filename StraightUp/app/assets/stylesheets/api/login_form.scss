@@ -9,19 +9,21 @@ form {
     margin-left: auto;
     margin-right: auto;
     vertical-align: middle;
-    margin-top: 350px;
     background-color: #B8BFB4;
     font-family: $questrial;
     font-size: 40px;
-    color:#53131E;
+    color:black;
     opacity: 0.9;
     padding: 25px;
     border-radius: 10px;
 
 input {
   font-size:20px;
-  height: 20px;
+  height:30px;
+  width:150px;
+  text-align: center;
 }
+
 
 }
 label, input {
@@ -30,7 +32,8 @@ label, input {
     width: 125px;
     text-align: left;
     font-family: $questrial;
-    color:#53131E;
+    color:black;
+    padding:10px;
 }
 button.submit-button{
   border-style: solid;
@@ -39,14 +42,16 @@ button.submit-button{
   border-color: black;
   font-size:30px;
   padding: 5px;
+  margin-left: 23px;
+  margin-bottom: 20px;
 }
 button.submit-button:hover{
-  background-color: #6F6E63;
-  color:#53131E;
+  background-color: #e5aa44;
+  color: white;
 }
 
 label {
-    color: #2D2D2D;
+    color:black;
     font-size: 25px;
 }
 

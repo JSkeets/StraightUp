@@ -32680,19 +32680,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var sessionLinks = function sessionLinks(guest) {
   return _react2.default.createElement(
     'div',
-    { className: 'login-signup' },
+    null,
     _react2.default.createElement(
       'div',
-      { className: 'login-signup-right' },
+      { className: 'login-signup' },
       _react2.default.createElement(
-        _reactRouterDom.Link,
-        { className: 'login', to: '/login' },
-        'LOG IN'
+        'div',
+        { className: 'login-signup-right' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'login', to: '/login' },
+          'LOG IN'
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'sign-up', to: '/signup' },
+          'SIGN UP'
+        )
       ),
       _react2.default.createElement(
-        _reactRouterDom.Link,
-        { className: 'sign-up', to: '/signup' },
-        'SIGN UP'
+        'div',
+        { className: 'guest-button-container' },
+        _react2.default.createElement(
+          'button',
+          { className: 'guest-button', onClick: guest },
+          'GUEST LOGIN'
+        )
       )
     ),
     _react2.default.createElement(
@@ -32702,15 +32715,11 @@ var sessionLinks = function sessionLinks(guest) {
         'h1',
         null,
         'Straight Up'
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'guest-button-container' },
+      ),
       _react2.default.createElement(
-        'button',
-        { className: 'guest-button', onClick: guest },
-        'GUEST LOGIN'
+        'p',
+        { id: 'motto' },
+        'Where the World comes to rate cocktails'
       )
     )
   );
@@ -32901,6 +32910,8 @@ var LoginForm = function (_React$Component) {
           { onSubmit: this.handleSubmit, className: 'login-form-box' },
           'Welcome to Straight Up!',
           _react2.default.createElement('br', null),
+          'Please Log In',
+          _react2.default.createElement('br', null),
           this.renderErrors(),
           _react2.default.createElement(
             'div',
@@ -32909,8 +32920,8 @@ var LoginForm = function (_React$Component) {
             _react2.default.createElement(
               'label',
               { className: 'login-username' },
-              ' Username:',
               _react2.default.createElement('input', { type: 'text',
+                placeholder: 'username',
                 value: this.state.username,
                 onChange: this.update('username'),
                 className: 'login-input'
@@ -32920,8 +32931,8 @@ var LoginForm = function (_React$Component) {
             _react2.default.createElement(
               'label',
               { className: 'login-password' },
-              'Password:',
               _react2.default.createElement('input', { type: 'password',
+                placeholder: 'password',
                 value: this.state.password,
                 onChange: this.update('password'),
                 className: 'login-input'
@@ -32934,7 +32945,7 @@ var LoginForm = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { className: 'submit-button', type: 'submit' },
-                'Submit'
+                'Log In'
               )
             )
           )
@@ -33091,6 +33102,8 @@ var SignUpForm = function (_React$Component) {
           { onSubmit: this.handleSubmit, className: 'signup-form-box' },
           'Welcome to Straight Up!',
           _react2.default.createElement('br', null),
+          'Create an account!',
+          _react2.default.createElement('br', null),
           this.renderErrors(),
           _react2.default.createElement(
             'div',
@@ -33099,9 +33112,8 @@ var SignUpForm = function (_React$Component) {
             _react2.default.createElement(
               'label',
               null,
-              ' Username:',
               _react2.default.createElement('input', { type: 'text',
-
+                placeholder: 'username',
                 value: this.state.username,
                 onChange: this.update('username'),
                 className: 'signup-input'
@@ -33111,8 +33123,8 @@ var SignUpForm = function (_React$Component) {
             _react2.default.createElement(
               'label',
               null,
-              'Password:',
               _react2.default.createElement('input', { type: 'password',
+                placeholder: 'password',
                 value: this.state.password,
                 onChange: this.update('password'),
                 className: 'signup-input'
@@ -33122,8 +33134,8 @@ var SignUpForm = function (_React$Component) {
             _react2.default.createElement(
               'label',
               null,
-              'Email:',
               _react2.default.createElement('input', { type: 'text',
+                placeholder: 'email',
                 value: this.state.email,
                 onChange: this.update('email'),
                 className: 'signup-input'
@@ -33136,7 +33148,7 @@ var SignUpForm = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { className: 'submit-button', type: 'submit' },
-                'Submit'
+                'Sign Up'
               )
             )
           )

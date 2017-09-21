@@ -53,28 +53,33 @@ class SignUpForm extends React.Component {
         <form onSubmit={this.handleSubmit} className="signup-form-box">
           Welcome to Straight Up!
           <br/>
+
+          Create an account!
+          <br/>
           {this.renderErrors()}
           <div className="signup-form">
             <br/>
-            <label> Username:
+            <label>
               <input type="text"
-
+                placeholder="username"
                 value={this.state.username}
                 onChange={this.update('username')}
                 className="signup-input"
                 />
             </label>
             <br />
-            <label>Password:
+            <label>
               <input type="password"
+                placeholder="password"
                 value={this.state.password}
                 onChange={this.update('password')}
                 className="signup-input"
                 />
             </label>
             <br />
-            <label>Email:
+            <label>
               <input type="text"
+                placeholder="email"
                 value={this.state.email}
                 onChange={this.update('email')}
                 className="signup-input"
@@ -82,7 +87,7 @@ class SignUpForm extends React.Component {
             </label>
             <br />
               <div className="submit-button">
-                <button className="submit-button" type="submit">Submit</button>
+                <button className="submit-button" type="submit">Sign Up</button>
               </div>
 
           </div>

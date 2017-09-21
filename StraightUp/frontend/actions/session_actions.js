@@ -30,6 +30,7 @@ export const logout = () => dispatch => (
 export const guest = (guestUser = {username:"Test1",password:"123456"}) => dispatch => (
   SessionUtil.login(guestUser).then(currentUser => (
     dispatch(receiveCurrentUser(currentUser))
+
   ), err => (
     dispatch(receiveErrors(err.responseJSON))
   ))

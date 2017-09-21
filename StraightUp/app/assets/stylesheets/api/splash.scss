@@ -16,12 +16,36 @@ body {
 
 }
 
+.login-form-container {
+  align-content: center;
+  margin:auto;
+}
+h1 {
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+#motto{
+  color:#e5aa44;
+  font-size: 30px;
+  text-align:center;
+}
+
 .straightup {
+  margin:auto;
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
   font-family: $questrial;
   font-size:75px;
   color: #58A4B0;
-  margin-top: 30px;
+  margin: 20px auto;
+  align-content: center;
+
+
+}
+.motto{
+  align-items: center;
 }
 .guest-button{
   height: 35px;
@@ -49,6 +73,6 @@ a.login, a.sign-up {
 }
 
 .login:hover,.sign-up:hover, .guest-button:hover, .logout-button:hover, .global:hover, .check-in:hover ,.top-rated:hover{
-  background-color: #53131E;
+  background-color: #e5aa44;
   color: white;
 }
