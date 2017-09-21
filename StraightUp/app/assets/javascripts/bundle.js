@@ -32588,6 +32588,10 @@ var _signup_form_container = __webpack_require__(384);
 
 var _signup_form_container2 = _interopRequireDefault(_signup_form_container);
 
+var _dashboard_container = __webpack_require__(401);
+
+var _dashboard_container2 = _interopRequireDefault(_dashboard_container);
+
 var _route_util = __webpack_require__(386);
 
 var _reactRouterDom = __webpack_require__(33);
@@ -32598,22 +32602,20 @@ var App = function App() {
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(
-      'header',
-      null,
-      _react2.default.createElement(_navbar_container2.default, null)
-    ),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/api/drinks', component: _drink_index_container2.default }),
-    _react2.default.createElement(
-      _reactRouterDom.Switch,
-      null,
-      _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
-      _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
-    )
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _navbar_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _drink_index_container2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _navbar_container2.default }),
+    _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _navbar_container2.default }),
+    _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
+    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _navbar_container2.default }),
+    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
   );
 };
 
 exports.default = App;
+
+// <ProtectedRoute path="/" component={DrinkIndexContainer} />
+// <Route path="/dashboard" component={DashboardContainer} />
 
 /***/ }),
 /* 380 */
@@ -32719,15 +32721,30 @@ var loggedInLinks = function loggedInLinks(currentUser, logout, guest) {
     'hgroup',
     { className: 'header-group' },
     _react2.default.createElement(
+      'button',
+      { className: 'logout-button', onClick: logout },
+      'LOG OUT'
+    ),
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { className: 'check-in', to: '/checkin' },
+      'CHECK IN'
+    ),
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { className: 'top-rated', to: '/toprated' },
+      'TOP RATED'
+    ),
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { className: 'global', to: '/global' },
+      'WORLDLY'
+    ),
+    _react2.default.createElement(
       'h2',
       { className: 'header-name' },
       'Welcome ',
       currentUser.extract.username
-    ),
-    _react2.default.createElement(
-      'button',
-      { className: 'logout-button', onClick: logout },
-      'Log Out'
     )
   );
 };
@@ -33160,7 +33177,7 @@ var Auth = function Auth(_ref) {
       path = _ref.path,
       loggedIn = _ref.loggedIn;
   return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
-      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
     } });
 };
 
@@ -33701,6 +33718,13 @@ var DrinkIndexItem = function DrinkIndexItem(_ref) {
 };
 
 exports.default = DrinkIndexItem;
+
+/***/ }),
+/* 401 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 /***/ })
 /******/ ]);

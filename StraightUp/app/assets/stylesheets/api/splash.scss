@@ -30,7 +30,7 @@ a.login, a.sign-up {
   height: 60px;
 }
 
-.login,.sign-up, .guest-button, .logout-button{
+.login,.sign-up, .guest-button, .logout-button, .global, .check-in, .top-rated{
   border-color: white;
   background-color: transparent;
   border-width: thick;
@@ -48,7 +48,7 @@ a.login, a.sign-up {
   font-family: $questrial;
 }
 
-.login:hover,.sign-up:hover, .guest-button:hover, .logout-button:hover{
+.login:hover,.sign-up:hover, .guest-button:hover, .logout-button:hover, .global:hover, .check-in:hover ,.top-rated:hover{
   background-color: #53131E;
   color: white;
 }
