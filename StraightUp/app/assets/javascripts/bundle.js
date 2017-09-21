@@ -7590,15 +7590,6 @@ var fetchUsers = exports.fetchUsers = function fetchUsers() {
     });
   };
 };
-//
-// export const createUser = user => dispatch => (
-//   UsersUtil.createUser(user).then(res => (
-//     dispatch(receiveUser(res))
-//   ), err => (
-//
-//     dispatch(receiveErrors(err.responseJSON))
-//   ))
-// );
 
 var createUser = exports.createUser = function createUser(user) {
   return function (dispatch) {
@@ -13700,9 +13691,12 @@ var _root = __webpack_require__(343);
 
 var _root2 = _interopRequireDefault(_root);
 
+var _drink_actions = __webpack_require__(388);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener("DOMContentLoaded", function () {
+
   var root = document.getElementById("root");
   var store = void 0;
   if (window.currentUser) {
@@ -26459,11 +26453,16 @@ var _users_errors_reducer = __webpack_require__(268);
 
 var _users_errors_reducer2 = _interopRequireDefault(_users_errors_reducer);
 
+var _drinks_errors_reducer = __webpack_require__(390);
+
+var _drinks_errors_reducer2 = _interopRequireDefault(_drinks_errors_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ErrorsReducer = (0, _redux.combineReducers)({
   session: _session_errors_reducer2.default,
-  users: _users_errors_reducer2.default
+  users: _users_errors_reducer2.default,
+  drinks: _drinks_errors_reducer2.default
 });
 
 exports.default = ErrorsReducer;
@@ -26637,10 +26636,15 @@ var _users_reducer = __webpack_require__(272);
 
 var _users_reducer2 = _interopRequireDefault(_users_reducer);
 
+var _drinks_reducer = __webpack_require__(387);
+
+var _drinks_reducer2 = _interopRequireDefault(_drinks_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EntitiesReducer = (0, _redux.combineReducers)({
-  users: _users_reducer2.default
+  users: _users_reducer2.default,
+  drinks: _drinks_reducer2.default
 });
 
 exports.default = EntitiesReducer;
@@ -32576,6 +32580,10 @@ var _login_form_container = __webpack_require__(382);
 
 var _login_form_container2 = _interopRequireDefault(_login_form_container);
 
+var _drink_index_container = __webpack_require__(391);
+
+var _drink_index_container2 = _interopRequireDefault(_drink_index_container);
+
 var _signup_form_container = __webpack_require__(384);
 
 var _signup_form_container2 = _interopRequireDefault(_signup_form_container);
@@ -32595,6 +32603,7 @@ var App = function App() {
       null,
       _react2.default.createElement(_navbar_container2.default, null)
     ),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/api/drinks', component: _drink_index_container2.default }),
     _react2.default.createElement(
       _reactRouterDom.Switch,
       null,
@@ -33171,6 +33180,527 @@ var mapStateToProps = function mapStateToProps(state) {
 var AuthRoute = exports.AuthRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
 
 var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Protected));
+
+/***/ }),
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _drink_actions = __webpack_require__(388);
+
+var _merge2 = __webpack_require__(273);
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var DrinksReducer = function DrinksReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  Object.freeze(state);
+  var newState = {};
+  switch (action.type) {
+    case _drink_actions.RECEIVE_DRINKS:
+      return (0, _merge3.default)({}, state, action.drinks);
+    case _drink_actions.RECEIVE_DRINK:
+      return (0, _merge3.default)({}, state, _defineProperty({}, action.drink.id, action.drink));
+    default:
+      return state;
+  }
+};
+
+exports.default = DrinksReducer;
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createDrink = exports.fetchDrinks = exports.fetchDrink = exports.RECEIVE_DRINK_ERRORS = exports.RECEIVE_DRINKS = exports.RECEIVE_DRINK = undefined;
+
+var _drinks_api_util = __webpack_require__(389);
+
+var DrinksUtil = _interopRequireWildcard(_drinks_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_DRINK = exports.RECEIVE_DRINK = "RECEIVE_DRINK";
+var RECEIVE_DRINKS = exports.RECEIVE_DRINKS = "RECEIVE_DRINKS";
+var RECEIVE_DRINK_ERRORS = exports.RECEIVE_DRINK_ERRORS = "RECEIVE_DRINK_ERRORS";
+
+var receiveDrinks = function receiveDrinks(drinks) {
+  return {
+    type: RECEIVE_DRINKS,
+    drinks: drinks
+  };
+};
+
+var receiveDrinkErrors = function receiveDrinkErrors(errors) {
+  return {
+    type: RECEIVE_DRINK_ERRORS,
+    errors: errors
+  };
+};
+
+var receiveDrink = function receiveDrink(drink) {
+  return {
+    type: RECEIVE_DRINK,
+    drink: drink
+  };
+};
+
+var fetchDrink = exports.fetchDrink = function fetchDrink(drink) {
+  return function (dispatch) {
+    return DrinksUtil.fetchDrink(drink).then(function (res) {
+      return dispatch(receiveDrink(res));
+    }), function (err) {
+      return dispatch(receiveDrinkErrors(err.responseJSON));
+    };
+  };
+};
+
+var fetchDrinks = exports.fetchDrinks = function fetchDrinks() {
+  return function (dispatch) {
+    return DrinksUtil.fetchDrinks().then(function (drinks) {
+      return dispatch(receiveDrinks(drinks));
+    });
+  };
+};
+
+var createDrink = exports.createDrink = function createDrink(drink) {
+  return function (dispatch) {
+    return DrinksUtil.createDrink(drink).then(function (res) {
+      return dispatch(receiveDrink(res));
+    }, function (err) {
+      return dispatch(receiveDrinkErrors(err.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchDrinks = exports.fetchDrinks = function fetchDrinks() {
+  return $.ajax({
+    method: "GET",
+    url: "api/drinks"
+  });
+};
+
+var createDrink = exports.createDrink = function createDrink(drink) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/drinks",
+    data: { drink: drink }
+  });
+};
+
+var fetchDrink = exports.fetchDrink = function fetchDrink(id) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/" + id
+  });
+};
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _drink_actions = __webpack_require__(388);
+
+var _nullErrors = [];
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _drink_actions.RECEIVE_DRINK_ERRORS:
+      return action.errors;
+    default:
+      return state;
+
+  }
+};
+
+/***/ }),
+/* 391 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(52);
+
+var _drink_index = __webpack_require__(392);
+
+var _drink_index2 = _interopRequireDefault(_drink_index);
+
+var _drink_actions = __webpack_require__(388);
+
+var _selectors = __webpack_require__(393);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    drinks: (0, _selectors.selectAllDrinks)(state)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchDrinks: function fetchDrinks() {
+      return dispatch((0, _drink_actions.fetchDrinks)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_drink_index2.default);
+
+/***/ }),
+/* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(33);
+
+var _drink_index_item = __webpack_require__(400);
+
+var _drink_index_item2 = _interopRequireDefault(_drink_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DrinkIndex = function (_React$Component) {
+  _inherits(DrinkIndex, _React$Component);
+
+  function DrinkIndex() {
+    _classCallCheck(this, DrinkIndex);
+
+    return _possibleConstructorReturn(this, (DrinkIndex.__proto__ || Object.getPrototypeOf(DrinkIndex)).apply(this, arguments));
+  }
+
+  _createClass(DrinkIndex, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchDrinks();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          ' HELLO FROM DRINKS '
+        ),
+        this.props.drinks.map(function (drink) {
+          return _react2.default.createElement(_drink_index_item2.default, {
+            key: drink.id,
+            drink: drink
+          });
+        })
+      );
+    }
+  }]);
+
+  return DrinkIndex;
+}(_react2.default.Component);
+
+exports.default = DrinkIndex;
+
+/***/ }),
+/* 393 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.selectAllDrinks = undefined;
+
+var _values = __webpack_require__(394);
+
+var _values2 = _interopRequireDefault(_values);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var selectAllDrinks = exports.selectAllDrinks = function selectAllDrinks(state) {
+  return (0, _values2.default)(state.entities.drinks);
+};
+
+/***/ }),
+/* 394 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseValues = __webpack_require__(395),
+    keys = __webpack_require__(397);
+
+/**
+ * Creates an array of the own enumerable string keyed property values of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property values.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.values(new Foo);
+ * // => [1, 2] (iteration order is not guaranteed)
+ *
+ * _.values('hi');
+ * // => ['h', 'i']
+ */
+function values(object) {
+  return object == null ? [] : baseValues(object, keys(object));
+}
+
+module.exports = values;
+
+
+/***/ }),
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayMap = __webpack_require__(396);
+
+/**
+ * The base implementation of `_.values` and `_.valuesIn` which creates an
+ * array of `object` property values corresponding to the property names
+ * of `props`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array} props The property names to get values for.
+ * @returns {Object} Returns the array of property values.
+ */
+function baseValues(object, props) {
+  return arrayMap(props, function(key) {
+    return object[key];
+  });
+}
+
+module.exports = baseValues;
+
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+module.exports = arrayMap;
+
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeKeys = __webpack_require__(327),
+    baseKeys = __webpack_require__(398),
+    isArrayLike = __webpack_require__(77);
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+module.exports = keys;
+
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isPrototype = __webpack_require__(127),
+    nativeKeys = __webpack_require__(399);
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = baseKeys;
+
+
+/***/ }),
+/* 399 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var overArg = __webpack_require__(316);
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeKeys = overArg(Object.keys, Object);
+
+module.exports = nativeKeys;
+
+
+/***/ }),
+/* 400 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DrinkIndexItem = function DrinkIndexItem(_ref) {
+  var drink = _ref.drink;
+  return _react2.default.createElement(
+    'li',
+    { className: 'drink-index-item' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      drink.name
+    ),
+    _react2.default.createElement('img', { src: drink.image_url })
+  );
+};
+
+exports.default = DrinkIndexItem;
 
 /***/ })
 /******/ ]);

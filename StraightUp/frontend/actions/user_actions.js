@@ -29,15 +29,7 @@ export const fetchUser = (user) => dispatch => (
 export const fetchUsers = () => dispatch => (
   UsersUtil.fetchUsers().then(users => dispatch(receiveUsers(users)))
 );
-//
-// export const createUser = user => dispatch => (
-//   UsersUtil.createUser(user).then(res => (
-//     dispatch(receiveUser(res))
-//   ), err => (
-//
-//     dispatch(receiveErrors(err.responseJSON))
-//   ))
-// );
+
 
 export const createUser = user => dispatch => (
   UsersUtil.createUser(user).then(res => (

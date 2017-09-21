@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
+
 const configureStore = (preloadedState = {}) => (
   createStore(
     RootReducer,
