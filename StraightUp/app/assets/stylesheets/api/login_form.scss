@@ -16,6 +16,7 @@ form {
     color:#53131E;
     opacity: 0.9;
     padding: 25px;
+    border-radius: 10px;
 
 
 input {
@@ -38,6 +39,7 @@ button.submit-button{
   border-width: 2px;
   border-color: black;
   font-size:30px;
+  padding: 5px;
 }
 button.submit-button:hover{
   background-color: #6F6E63;
