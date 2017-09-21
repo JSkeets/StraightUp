@@ -1,15 +1,14 @@
 # == Schema Information
 #
-# Table name: drinks
+# Table name: locations
 #
 #  id         :integer          not null, primary key
 #  name       :string           not null
-#  image_url  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Drink < ApplicationRecord
+class Location < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   has_many :reviews
 end

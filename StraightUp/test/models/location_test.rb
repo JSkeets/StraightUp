@@ -1,15 +1,17 @@
 # == Schema Information
 #
-# Table name: drinks
+# Table name: locations
 #
 #  id         :integer          not null, primary key
 #  name       :string           not null
-#  image_url  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class Drink < ApplicationRecord
-  validates :name, uniqueness: true, presence: true
-  has_many :reviews
+require 'test_helper'
+
+class LocationTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end
