@@ -32633,6 +32633,10 @@ var _dashboard_container = __webpack_require__(401);
 
 var _dashboard_container2 = _interopRequireDefault(_dashboard_container);
 
+var _review_index_container = __webpack_require__(408);
+
+var _review_index_container2 = _interopRequireDefault(_review_index_container);
+
 var _route_util = __webpack_require__(386);
 
 var _reactRouterDom = __webpack_require__(33);
@@ -32646,7 +32650,7 @@ var App = function App() {
     _react2.default.createElement(_navbar_container2.default, null),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _home2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _dashboard2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _drink_index_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _review_index_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
   );
@@ -33535,7 +33539,7 @@ exports.default = DrinkIndex;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectAllDrinks = undefined;
+exports.selectAllReviews = exports.selectAllDrinks = undefined;
 
 var _values = __webpack_require__(394);
 
@@ -33545,6 +33549,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var selectAllDrinks = exports.selectAllDrinks = function selectAllDrinks(state) {
   return (0, _values2.default)(state.entities.drinks);
+};
+
+var selectAllReviews = exports.selectAllReviews = function selectAllReviews(state) {
+  return (0, _values2.default)(state.entities.reviews);
 };
 
 /***/ }),
@@ -34007,6 +34015,174 @@ exports.default = function () {
 
   }
 };
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(52);
+
+var _review_index = __webpack_require__(409);
+
+var _review_index2 = _interopRequireDefault(_review_index);
+
+var _review_actions = __webpack_require__(405);
+
+var _selectors = __webpack_require__(393);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    reviews: (0, _selectors.selectAllReviews)(state)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchReviews: function fetchReviews() {
+      return dispatch((0, _review_actions.fetchReviews)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_review_index2.default);
+
+/***/ }),
+/* 409 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(33);
+
+var _review_index_item = __webpack_require__(410);
+
+var _review_index_item2 = _interopRequireDefault(_review_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ReviewIndex = function (_React$Component) {
+  _inherits(ReviewIndex, _React$Component);
+
+  function ReviewIndex() {
+    _classCallCheck(this, ReviewIndex);
+
+    return _possibleConstructorReturn(this, (ReviewIndex.__proto__ || Object.getPrototypeOf(ReviewIndex)).apply(this, arguments));
+  }
+
+  _createClass(ReviewIndex, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchReviews();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'dashboard' },
+        _react2.default.createElement(
+          'ul',
+          { id: 'review-index' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            ' HELLO FROM REVIEWS '
+          ),
+          this.props.reviews.map(function (review) {
+            return _react2.default.createElement(_review_index_item2.default, {
+              key: review.id,
+              review: review
+            });
+          })
+        )
+      );
+    }
+  }]);
+
+  return ReviewIndex;
+}(_react2.default.Component);
+
+exports.default = ReviewIndex;
+
+/***/ }),
+/* 410 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ReviewIndexItem = function ReviewIndexItem(_ref) {
+  var review = _ref.review;
+  return _react2.default.createElement(
+    'li',
+    { className: 'review-index-item' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Review'
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      review.location_id
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      review.user_id
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      review.rating
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      review.body
+    )
+  );
+};
+
+exports.default = ReviewIndexItem;
 
 /***/ })
 /******/ ]);
