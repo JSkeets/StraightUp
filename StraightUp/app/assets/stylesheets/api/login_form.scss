@@ -1,14 +1,8 @@
 div.login-form-container, div.signup-form-container{
-  display: block;
   text-align: center;
-  height: 100%;
-  align-content: center;
 }
 form {
   display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    vertical-align: middle;
     background-color: #B8BFB4;
     font-family: $questrial;
     font-size: 40px;
@@ -19,21 +13,29 @@ form {
 
 input {
   font-size:20px;
-  height:30px;
-  width:150px;
+  height:35px;
   text-align: center;
 }
+.session-errors, .user-errors{
+  font-size: 20px;
+  color: red;
+}
 
 
 }
+input.signup-input, input.login-input{
+  width:200px;
+}
 label, input {
-    display: inline-block;
     vertical-align: baseline;
     width: 125px;
     text-align: left;
     font-family: $questrial;
     color:black;
     padding:10px;
+}
+div.submit-button {
+  padding-top: 20px;
 }
 button.submit-button{
   border-style: solid;
@@ -42,8 +44,6 @@ button.submit-button{
   border-color: black;
   font-size:30px;
   padding: 5px;
-  margin-left: 23px;
-  margin-bottom: 20px;
 }
 button.submit-button:hover{
   background-color: #e5aa44;

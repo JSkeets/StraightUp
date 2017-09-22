@@ -1,5 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar/navbar_container';
+import Home  from './Home/home';
+import Dashboard from './Dashboard/dashboard'
 import LoginFormContainer from '../components/LoginForm/login_form_container';
 import DrinkIndexContainer from '../components/Drinks/drink_index_container';
 import SignUpFormContainer from '../components/SignUpForm/signup_form_container';
@@ -9,21 +11,15 @@ import { Route, Redirect, Switch, Link, HashRouter} from 'react-router-dom';
 
 const App = () => (
   <div>
-
-    <ProtectedRoute path="/dashboard" component={NavBar} />
+    <NavBar />
+    <AuthRoute exact path="/" component={ Home}/>
+    <ProtectedRoute path="/dashboard" component={Dashboard} />
     <ProtectedRoute path="/dashboard" component={DrinkIndexContainer} />
-    <Route exact path="/" component={NavBar} />
 
-    <AuthRoute path="/login" component={NavBar} />
     <AuthRoute path="/login" component={LoginFormContainer} />
-
-      <AuthRoute path="/signup" component={NavBar} />
     <AuthRoute path="/signup" component={SignUpFormContainer} />
 
   </div>
 );
 
 export default App;
-
-// <ProtectedRoute path="/" component={DrinkIndexContainer} />
-// <Route path="/dashboard" component={DashboardContainer} />

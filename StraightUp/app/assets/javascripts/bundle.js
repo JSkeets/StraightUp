@@ -32576,6 +32576,14 @@ var _navbar_container = __webpack_require__(380);
 
 var _navbar_container2 = _interopRequireDefault(_navbar_container);
 
+var _home = __webpack_require__(403);
+
+var _home2 = _interopRequireDefault(_home);
+
+var _dashboard = __webpack_require__(402);
+
+var _dashboard2 = _interopRequireDefault(_dashboard);
+
 var _login_form_container = __webpack_require__(382);
 
 var _login_form_container2 = _interopRequireDefault(_login_form_container);
@@ -32602,20 +32610,16 @@ var App = function App() {
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _navbar_container2.default }),
+    _react2.default.createElement(_navbar_container2.default, null),
+    _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _home2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _dashboard2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _drink_index_container2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _navbar_container2.default }),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _navbar_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _navbar_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
   );
 };
 
 exports.default = App;
-
-// <ProtectedRoute path="/" component={DrinkIndexContainer} />
-// <Route path="/dashboard" component={DashboardContainer} />
 
 /***/ }),
 /* 380 */
@@ -32706,20 +32710,6 @@ var sessionLinks = function sessionLinks(guest) {
           { className: 'guest-button', onClick: guest },
           'GUEST LOGIN'
         )
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'straightup' },
-      _react2.default.createElement(
-        'h1',
-        null,
-        'Straight Up'
-      ),
-      _react2.default.createElement(
-        'p',
-        { id: 'motto' },
-        'Where the World comes to rate cocktails'
       )
     )
   );
@@ -32889,7 +32879,7 @@ var LoginForm = function (_React$Component) {
     value: function renderErrors() {
       return _react2.default.createElement(
         'ul',
-        null,
+        { className: 'session-errors' },
         this.props.errors.map(function (error, i) {
           return _react2.default.createElement(
             'li',
@@ -33080,7 +33070,7 @@ var SignUpForm = function (_React$Component) {
     value: function renderErrors() {
       return _react2.default.createElement(
         'ul',
-        null,
+        { className: 'user-errors' },
         this.props.errors.map(function (error, i) {
           return _react2.default.createElement(
             'li',
@@ -33470,7 +33460,7 @@ var DrinkIndex = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'ul',
-        null,
+        { className: 'drink-index' },
         _react2.default.createElement(
           'h1',
           null,
@@ -33737,6 +33727,71 @@ exports.default = DrinkIndexItem;
 
 "use strict";
 
+
+/***/ }),
+/* 402 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Dashboard = function Dashboard() {
+
+  return _react2.default.createElement(
+    "div",
+    { className: "dashboard" },
+    "Hello from the dashboard"
+  );
+};
+
+exports.default = Dashboard;
+
+/***/ }),
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Home = function Home() {
+
+  return _react2.default.createElement(
+    "div",
+    { className: "straightup" },
+    _react2.default.createElement(
+      "h1",
+      null,
+      "Straight Up"
+    ),
+    _react2.default.createElement(
+      "p",
+      { id: "motto" },
+      "Where the World comes to rate cocktails"
+    )
+  );
+};
+
+exports.default = Home;
 
 /***/ })
 /******/ ]);

@@ -15,10 +15,7 @@ const sessionLinks = (guest) => (
       <button className="guest-button" onClick={guest}>GUEST LOGIN</button>
     </div>
   </div>
-  <div className="straightup">
-    <h1>Straight Up</h1>
-    <p id="motto">Where the World comes to rate cocktails</p>
-  </div>
+
   </div>
 );
 
