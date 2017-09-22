@@ -1,9 +1,9 @@
 body {
-  background-color: green;
+  background-color: white;
   background-image:url(https://static.pexels.com/photos/260922/pexels-photo-260922.jpeg);
 }
 
-.login-signup, .header-group {
+.login-signup,  {
   display: flex;
   flex-direction: row-reverse;
   background-color: transparent;
@@ -14,6 +14,18 @@ body {
   align-items: center;
   height: 45px;
 
+}
+.header-group{
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: transparent;
+  font-size: 30px;
+  justify-content: space-between;
+  padding: 10px;
+
+  align-items: center;
+  height: 45px;
+  background-color: #B8BFB4;
 }
 
 h1 {

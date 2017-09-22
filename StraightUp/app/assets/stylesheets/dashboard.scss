@@ -1,16 +1,15 @@
 
 .dashboard {
-  background-color: white;
-  margin: 0;
-  height: 500px;
-  zIndex: 0;
-  position: absolute;
-  width: 1000px;
+display: inline-block;
+ width: 20000px;
+ height: 20000px;
+ background: red;
+ color: white;
 }
 
-.drink-index {
-  display: flex;
-  flex-direction: column;
-  background-color: blue;
-  transform: translate(-10,-10);
+#drink-index {
+  position: absolute;
+   top: 100px;
+   left: 100px;
+   background: blue;
 }

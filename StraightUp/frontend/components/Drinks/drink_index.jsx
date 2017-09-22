@@ -11,7 +11,8 @@ class DrinkIndex extends React.Component {
 
   render(){
     return (
-      <ul className="drink-index">
+      <div className="dashboard">
+      <ul id="drink-index">
         <h1> HELLO FROM DRINKS </h1>
         {this.props.drinks.map(drink =>
           <DrinkIndexItem
@@ -20,6 +21,7 @@ class DrinkIndex extends React.Component {
             />
         )}
       </ul>
+      </div>
     );
   }
 }

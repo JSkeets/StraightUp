@@ -33459,19 +33459,23 @@ var DrinkIndex = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'ul',
-        { className: 'drink-index' },
+        'div',
+        { className: 'dashboard' },
         _react2.default.createElement(
-          'h1',
-          null,
-          ' HELLO FROM DRINKS '
-        ),
-        this.props.drinks.map(function (drink) {
-          return _react2.default.createElement(_drink_index_item2.default, {
-            key: drink.id,
-            drink: drink
-          });
-        })
+          'ul',
+          { id: 'drink-index' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            ' HELLO FROM DRINKS '
+          ),
+          this.props.drinks.map(function (drink) {
+            return _react2.default.createElement(_drink_index_item2.default, {
+              key: drink.id,
+              drink: drink
+            });
+          })
+        )
       );
     }
   }]);

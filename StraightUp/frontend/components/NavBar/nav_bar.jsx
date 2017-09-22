@@ -21,6 +21,7 @@ const sessionLinks = (guest) => (
 
 const loggedInLinks = (currentUser, logout, guest) => (
 
+
     <hgroup className="header-group">
       <button className="logout-button" onClick={logout}>LOG OUT</button>
       <Link className="check-in" to="/checkin">CHECK IN</Link>
