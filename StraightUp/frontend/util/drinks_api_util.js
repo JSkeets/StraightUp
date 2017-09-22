@@ -19,3 +19,10 @@ export const fetchDrink = (id) => (
     url: `/api/users/${id}`
   })
 );
+
+export const fetchDrinkReviews = (review) => (
+  $.ajax({
+    method: "GET",
+    url: `/api/users/${review.drink_id}/reviews/${review.id}`
+  })
+);

@@ -19,3 +19,25 @@ export const fetchUser = (id) => (
     url: `/api/users/${id}`
   })
 );
+
+export const updateUserReview = (review) => (
+  $.ajax({
+    method: "PATCH",
+    url: `/api/users/${review.user_id}/${review.id}`,
+    data: {review}
+  })
+);
+
+export const destroyUserReview = (review) => (
+  $.ajax({
+    method: "DELETE",
+    url: `/api/users/${review.user_id}/${review.id}`
+  })
+);
+
+export const fetchUserReviews = (review) => (
+  $.ajax({
+    method: "GET",
+    url: `/api/users/${review.user_id}/reviews/${review.id}`
+  })
+);

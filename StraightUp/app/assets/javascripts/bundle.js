@@ -26587,6 +26587,28 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
   });
 };
 
+var updateUserReview = exports.updateUserReview = function updateUserReview(review) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/users/" + review.user_id + "/" + review.id,
+    data: { review: review }
+  });
+};
+
+var destroyUserReview = exports.destroyUserReview = function destroyUserReview(review) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/users/" + review.user_id + "/" + review.id
+  });
+};
+
+var fetchUserReviews = exports.fetchUserReviews = function fetchUserReviews(review) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/" + review.user_id + "/reviews/" + review.id
+  });
+};
+
 /***/ }),
 /* 270 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -33339,6 +33361,13 @@ var fetchDrink = exports.fetchDrink = function fetchDrink(id) {
   return $.ajax({
     method: "GET",
     url: "/api/users/" + id
+  });
+};
+
+var fetchDrinkReviews = exports.fetchDrinkReviews = function fetchDrinkReviews(review) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/" + review.drink_id + "/reviews/" + review.id
   });
 };
 
