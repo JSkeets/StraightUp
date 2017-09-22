@@ -26457,12 +26457,18 @@ var _drinks_errors_reducer = __webpack_require__(390);
 
 var _drinks_errors_reducer2 = _interopRequireDefault(_drinks_errors_reducer);
 
+var _reviews_errors_reducer = __webpack_require__(407);
+
+var _reviews_errors_reducer2 = _interopRequireDefault(_reviews_errors_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ErrorsReducer = (0, _redux.combineReducers)({
   session: _session_errors_reducer2.default,
   users: _users_errors_reducer2.default,
-  drinks: _drinks_errors_reducer2.default
+  drinks: _drinks_errors_reducer2.default,
+  reviews: _reviews_errors_reducer2.default
+
 });
 
 exports.default = ErrorsReducer;
@@ -26662,11 +26668,16 @@ var _drinks_reducer = __webpack_require__(387);
 
 var _drinks_reducer2 = _interopRequireDefault(_drinks_reducer);
 
+var _reviews_reducer = __webpack_require__(404);
+
+var _reviews_reducer2 = _interopRequireDefault(_reviews_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EntitiesReducer = (0, _redux.combineReducers)({
   users: _users_reducer2.default,
-  drinks: _drinks_reducer2.default
+  drinks: _drinks_reducer2.default,
+  reviews: _reviews_reducer2.default
 });
 
 exports.default = EntitiesReducer;
@@ -33825,6 +33836,177 @@ var Home = function Home() {
 };
 
 exports.default = Home;
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _review_actions = __webpack_require__(405);
+
+var _merge2 = __webpack_require__(273);
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ReviewsReducer = function ReviewsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  Object.freeze(state);
+  var newState = {};
+  switch (action.type) {
+    case _review_actions.RECEIVE_REVIEWS:
+      return (0, _merge3.default)({}, state, action.reviews);
+    case _review_actions.RECEIVE_REVIEW:
+      return (0, _merge3.default)({}, state, _defineProperty({}, action.review.id, action.review));
+    default:
+      return state;
+  }
+};
+
+exports.default = ReviewsReducer;
+
+/***/ }),
+/* 405 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createReview = exports.fetchReview = exports.fetchReviews = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
+
+var _reviews_api_util = __webpack_require__(406);
+
+var ReviewsUtil = _interopRequireWildcard(_reviews_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_REVIEW = exports.RECEIVE_REVIEW = "RECEIVE_REVIEW";
+var RECEIVE_REVIEWS = exports.RECEIVE_REVIEWS = "RECEIVE_REVIEWS";
+var RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEW_ERRORS = "RECEIVE_REVIEW_ERRORS";
+
+var receiveReviews = function receiveReviews(reviews) {
+  return {
+    type: RECEIVE_REVIEWS,
+    reviews: reviews
+  };
+};
+
+var receiveReviewErrors = function receiveReviewErrors(errors) {
+  return {
+    type: RECEIVE_REVIEW_ERRORS,
+    errors: errors
+  };
+};
+
+var receiveReview = function receiveReview(review) {
+  return {
+    type: RECEIVE_REVIEW,
+    review: review
+  };
+};
+
+var fetchReviews = exports.fetchReviews = function fetchReviews() {
+  return function (dispatch) {
+    return ReviewsUtil.fetchReviews().then(function (reviews) {
+      return dispatch(receiveReviews(reviews));
+    });
+  };
+};
+
+var fetchReview = exports.fetchReview = function fetchReview(review) {
+  return function (dispatch) {
+    return ReviewsUtil.fetchReview(review).then(function (res) {
+      return dispatch(receiveReview(res));
+    }), function (err) {
+      return dispatch(receiveReviewErrors(err.responseJSON));
+    };
+  };
+};
+
+var createReview = exports.createReview = function createReview(review) {
+  return function (dispatch) {
+    return ReviewsUtil.createReview(review).then(function (res) {
+      return dispatch(receiveReview(res));
+    }, function (err) {
+      return dispatch(receiveReviewErrors(err.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+/* 406 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchReviews = exports.fetchReviews = function fetchReviews() {
+  return $.ajax({
+    method: "GET",
+    url: "api/reviews"
+  });
+};
+
+var createReview = exports.createReview = function createReview(review) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/reviews",
+    data: { review: review }
+  });
+};
+
+var fetchReview = exports.fetchReview = function fetchReview(id) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/reviews/" + id
+  });
+};
+
+/***/ }),
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _review_actions = __webpack_require__(405);
+
+var _nullErrors = [];
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _review_actions.RECEIVE_REVIEW_ERRORS:
+      return action.errors;
+    default:
+      return state;
+
+  }
+};
 
 /***/ })
 /******/ ]);
