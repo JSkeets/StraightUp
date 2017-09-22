@@ -34064,7 +34064,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state) {
   return {
     reviews: (0, _selectors.selectAllReviews)(state),
-    users: (0, _selectors.selectAllUsers)(state),
+    users: state.entities.users,
     locations: state.entities.locations
   };
 };
