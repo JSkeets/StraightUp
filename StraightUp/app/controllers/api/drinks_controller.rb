@@ -20,7 +20,7 @@ class Api::DrinksController < ApplicationController
       render json: @drinks
     else
       render json: @drink.errors.full_messages, status: 422
-    end 
+    end
   end
 
   def drink_params

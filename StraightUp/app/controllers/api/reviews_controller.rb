@@ -1,6 +1,11 @@
 class Api::ReviewsController < ApplicationController
+
   def index
-    @reviews = Review.all
+    if params[:user_id] === nil
+      @reviews = Review.all
+    else
+      @reviews = Review.where(user_id: params[:user_id])
+    end
     render json: @reviews
   end
 
@@ -38,7 +43,7 @@ class Api::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    render json: @reviews 
+    render json: @reviews
   end
 
   def review_params

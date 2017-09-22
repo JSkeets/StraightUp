@@ -1,4 +1,4 @@
-export const fetchDrinks = () => (
+  export const fetchDrinks = () => (
   $.ajax({
     method: "GET",
     url: "api/drinks"
