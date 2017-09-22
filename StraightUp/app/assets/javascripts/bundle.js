@@ -26571,7 +26571,7 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var fetchAllUsers = exports.fetchAllUsers = function fetchAllUsers() {
+var fetchUsers = exports.fetchUsers = function fetchUsers() {
   return $.ajax({
     method: "GET",
     url: "/api/users"
@@ -32637,6 +32637,10 @@ var _review_index_container = __webpack_require__(408);
 
 var _review_index_container2 = _interopRequireDefault(_review_index_container);
 
+var _review_form_container = __webpack_require__(411);
+
+var _review_form_container2 = _interopRequireDefault(_review_form_container);
+
 var _route_util = __webpack_require__(386);
 
 var _reactRouterDom = __webpack_require__(33);
@@ -32649,8 +32653,9 @@ var App = function App() {
     null,
     _react2.default.createElement(_navbar_container2.default, null),
     _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _home2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _dashboard2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _review_index_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/', component: _dashboard2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/global', component: _review_index_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/checkin', component: _review_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
   );
@@ -33539,7 +33544,7 @@ exports.default = DrinkIndex;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectAllReviews = exports.selectAllDrinks = undefined;
+exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
 
 var _values = __webpack_require__(394);
 
@@ -33553,6 +33558,10 @@ var selectAllDrinks = exports.selectAllDrinks = function selectAllDrinks(state) 
 
 var selectAllReviews = exports.selectAllReviews = function selectAllReviews(state) {
   return (0, _values2.default)(state.entities.reviews);
+};
+
+var selectAllUsers = exports.selectAllUsers = function selectAllUsers(state) {
+  return (0, _values2.default)(state.entities.users);
 };
 
 /***/ }),
@@ -34035,13 +34044,16 @@ var _review_index2 = _interopRequireDefault(_review_index);
 
 var _review_actions = __webpack_require__(405);
 
+var _user_actions = __webpack_require__(73);
+
 var _selectors = __webpack_require__(393);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    reviews: (0, _selectors.selectAllReviews)(state)
+    reviews: (0, _selectors.selectAllReviews)(state),
+    users: (0, _selectors.selectAllUsers)(state)
   };
 };
 
@@ -34049,6 +34061,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchReviews: function fetchReviews() {
       return dispatch((0, _review_actions.fetchReviews)());
+    },
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
     }
   };
 };
@@ -34099,10 +34114,12 @@ var ReviewIndex = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.fetchReviews();
+      this.props.fetchUsers();
     }
   }, {
     key: 'render',
     value: function render() {
+
       return _react2.default.createElement(
         'div',
         { className: 'dashboard' },
@@ -34183,6 +34200,225 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
 };
 
 exports.default = ReviewIndexItem;
+
+/***/ }),
+/* 411 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(52);
+
+var _review_actions = __webpack_require__(405);
+
+var _review_form = __webpack_require__(412);
+
+var _review_form2 = _interopRequireDefault(_review_form);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    errors: state.errors.reviews || []
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    processForm: function processForm(review) {
+      return dispatch((0, _review_actions.createReview)(review));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_review_form2.default);
+
+/***/ }),
+/* 412 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(33);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ReviewForm = function (_React$Component) {
+  _inherits(ReviewForm, _React$Component);
+
+  function ReviewForm(props) {
+    _classCallCheck(this, ReviewForm);
+
+    var _this = _possibleConstructorReturn(this, (ReviewForm.__proto__ || Object.getPrototypeOf(ReviewForm)).call(this, props));
+
+    _this.state = {
+      drink: "",
+      location: "",
+      rating: "",
+      body: ""
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.loggedIn){
+  //     this.props.history.push('/');
+  //   }
+  // }
+
+  _createClass(ReviewForm, [{
+    key: 'update',
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (e) {
+        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var review = this.state;
+      this.props.processForm(review);
+    }
+
+    // navLink() {
+    //   return <Link to="/login"> Already a user? Login!</Link>;
+    // }
+
+  }, {
+    key: 'renderErrors',
+    value: function renderErrors() {
+      return _react2.default.createElement(
+        'ul',
+        { className: 'review-errors' },
+        this.props.errors.map(function (error, i) {
+          return _react2.default.createElement(
+            'li',
+            { key: 'error-' + i },
+            error
+          );
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'review-form-container' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSubmit, className: 'review-form-box' },
+          'Welcome to Straight Up',
+          _react2.default.createElement('br', null),
+          'Leave a review',
+          _react2.default.createElement('br', null),
+          this.renderErrors(),
+          _react2.default.createElement(
+            'div',
+            { className: 'review-form' },
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'drink_id',
+                value: this.state.drink_id,
+                onChange: this.update('drink_id'),
+                className: 'review-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'location_id',
+                value: this.state.location_id,
+                onChange: this.update('location_id'),
+                className: 'review-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'user_id',
+                value: this.state.user_id,
+                onChange: this.update('user_id'),
+                className: 'review-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'rating',
+                value: this.state.rating,
+                onChange: this.update('rating'),
+                className: 'review-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'body',
+                value: this.state.body,
+                onChange: this.update('body'),
+                className: 'review-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'div',
+              { className: 'submit-button' },
+              _react2.default.createElement(
+                'button',
+                { className: 'submit-button', type: 'submit' },
+                'SUBMIT REVIEW'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return ReviewForm;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(ReviewForm);
 
 /***/ })
 /******/ ]);
