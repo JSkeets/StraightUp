@@ -5,3 +5,5 @@ export const selectAllDrinks = (state) => values(state.entities.drinks);
 export const selectAllReviews = (state) => values(state.entities.reviews);
 
 export const selectAllUsers = (state) => values(state.entities.users);
+
+export const selectAllLocations = (state) => values(state.entities.locations);

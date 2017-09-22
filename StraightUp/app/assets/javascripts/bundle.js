@@ -26672,12 +26672,17 @@ var _reviews_reducer = __webpack_require__(404);
 
 var _reviews_reducer2 = _interopRequireDefault(_reviews_reducer);
 
+var _locations_reducer = __webpack_require__(415);
+
+var _locations_reducer2 = _interopRequireDefault(_locations_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EntitiesReducer = (0, _redux.combineReducers)({
   users: _users_reducer2.default,
   drinks: _drinks_reducer2.default,
-  reviews: _reviews_reducer2.default
+  reviews: _reviews_reducer2.default,
+  locations: _locations_reducer2.default
 });
 
 exports.default = EntitiesReducer;
@@ -33544,7 +33549,7 @@ exports.default = DrinkIndex;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
+exports.selectAllLocations = exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
 
 var _values = __webpack_require__(394);
 
@@ -33562,6 +33567,10 @@ var selectAllReviews = exports.selectAllReviews = function selectAllReviews(stat
 
 var selectAllUsers = exports.selectAllUsers = function selectAllUsers(state) {
   return (0, _values2.default)(state.entities.users);
+};
+
+var selectAllLocations = exports.selectAllLocations = function selectAllLocations(state) {
+  return (0, _values2.default)(state.entities.locations);
 };
 
 /***/ }),
@@ -34046,6 +34055,8 @@ var _review_actions = __webpack_require__(405);
 
 var _user_actions = __webpack_require__(73);
 
+var _location_actions = __webpack_require__(413);
+
 var _selectors = __webpack_require__(393);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34053,7 +34064,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state) {
   return {
     reviews: (0, _selectors.selectAllReviews)(state),
-    users: (0, _selectors.selectAllUsers)(state)
+    users: (0, _selectors.selectAllUsers)(state),
+    locations: state.entities.locations
   };
 };
 
@@ -34064,6 +34076,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
+    },
+    fetchLocations: function fetchLocations() {
+      return dispatch((0, _location_actions.fetchLocations)());
     }
   };
 };
@@ -34115,12 +34130,15 @@ var ReviewIndex = function (_React$Component) {
     value: function componentDidMount() {
       this.props.fetchReviews();
       this.props.fetchUsers();
+      this.props.fetchLocations();
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props.locations);
+      console.log(this.props.users);
       return _react2.default.createElement(
         'div',
         { className: 'dashboard' },
@@ -34136,7 +34154,8 @@ var ReviewIndex = function (_React$Component) {
             return _react2.default.createElement(_review_index_item2.default, {
               key: review.id,
               review: review,
-              user: _this2.props.users[review.user_id]
+              user: _this2.props.users[review.user_id],
+              location: _this2.props.locations[review.location_id]
             });
           })
         )
@@ -34157,7 +34176,7 @@ exports.default = ReviewIndex;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _react = __webpack_require__(6);
@@ -34169,37 +34188,39 @@ var _reactRouterDom = __webpack_require__(33);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ReviewIndexItem = function ReviewIndexItem(_ref) {
-  var review = _ref.review,
-      user = _ref.user;
-  return _react2.default.createElement(
-    'li',
-    { className: 'review-index-item' },
-    _react2.default.createElement(
-      'h1',
-      null,
-      'Review'
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      review.location_id
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      user.username
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      review.rating
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      review.body
-    )
-  );
+    var review = _ref.review,
+        user = _ref.user,
+        location = _ref.location;
+
+    return _react2.default.createElement(
+        'li',
+        { className: 'review-index-item' },
+        _react2.default.createElement(
+            'h1',
+            null,
+            'Review'
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            location.name
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            user.username
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            review.rating
+        ),
+        _react2.default.createElement(
+            'p',
+            null,
+            review.body
+        )
+    );
 };
 
 exports.default = ReviewIndexItem;
@@ -34422,6 +34443,155 @@ var ReviewForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(ReviewForm);
+
+/***/ }),
+/* 413 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createLocation = exports.fetchLocation = exports.fetchLocations = exports.RECEIVE_LOCATION_ERRORS = exports.RECEIVE_LOCATIONS = exports.RECEIVE_LOCATION = undefined;
+
+var _locations_api_util = __webpack_require__(414);
+
+var LocationsUtil = _interopRequireWildcard(_locations_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_LOCATION = exports.RECEIVE_LOCATION = "RECEIVE_LOCATION";
+var RECEIVE_LOCATIONS = exports.RECEIVE_LOCATIONS = "RECEIVE_LOCATIONS";
+var RECEIVE_LOCATION_ERRORS = exports.RECEIVE_LOCATION_ERRORS = "RECEIVE_LOCATION_ERRORS";
+
+var receiveLocations = function receiveLocations(locations) {
+  return {
+    type: RECEIVE_LOCATIONS,
+    locations: locations
+  };
+};
+
+var receiveLocationErrors = function receiveLocationErrors(errors) {
+  return {
+    type: RECEIVE_LOCATION_ERRORS,
+    errors: errors
+  };
+};
+
+var receiveLocation = function receiveLocation(review) {
+  return {
+    type: RECEIVE_LOCATION,
+    review: review
+  };
+};
+
+var fetchLocations = exports.fetchLocations = function fetchLocations() {
+  return function (dispatch) {
+    return LocationsUtil.fetchLocations().then(function (locations) {
+      return dispatch(receiveLocations(locations));
+    });
+  };
+};
+
+var fetchLocation = exports.fetchLocation = function fetchLocation(review) {
+  return function (dispatch) {
+    return LocationsUtil.fetchLocation(review).then(function (res) {
+      return dispatch(receiveLocation(res));
+    }), function (err) {
+      return dispatch(receiveLocationErrors(err.responseJSON));
+    };
+  };
+};
+
+var createLocation = exports.createLocation = function createLocation(review) {
+  return function (dispatch) {
+    return LocationsUtil.createLocation(review).then(function (res) {
+      return dispatch(receiveLocation(res));
+    }, function (err) {
+      return dispatch(receiveLocationErrors(err.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+/* 414 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchLocationReviews = exports.fetchLocationReviews = function fetchLocationReviews(review) {
+  return $.ajax({
+    method: "GET",
+    url: "/api/users/" + review.location_id + "/reviews/" + review.id
+  });
+};
+
+var fetchLocations = exports.fetchLocations = function fetchLocations() {
+  return $.ajax({
+    method: "GET",
+    url: "api/locations"
+  });
+};
+
+var fetchLocation = exports.fetchLocation = function fetchLocation(id) {
+  return $.ajax({
+    method: "GET",
+    url: "api/locations/" + id
+  });
+};
+
+var createLocation = exports.createLocation = function createLocation(location) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/locations",
+    data: { location: location }
+  });
+};
+
+/***/ }),
+/* 415 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _location_actions = __webpack_require__(413);
+
+var _merge2 = __webpack_require__(273);
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var LocationsReducer = function LocationsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  Object.freeze(state);
+  var newState = {};
+  switch (action.type) {
+    case _location_actions.RECEIVE_LOCATIONS:
+      return (0, _merge3.default)({}, state, action.locations);
+    case _location_actions.RECEIVE_LOCATION:
+      return (0, _merge3.default)({}, state, _defineProperty({}, action.location.id, action.location));
+    default:
+      return state;
+  }
+};
+
+exports.default = LocationsReducer;
 
 /***/ })
 /******/ ]);

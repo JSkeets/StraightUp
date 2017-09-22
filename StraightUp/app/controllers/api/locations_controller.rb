@@ -1,7 +1,7 @@
 class Api::LocationsController < ApplicationController
   def index
     @locations = Location.all
-    render json: @locations
+    render "api/locations/index"
   end
 
   def show

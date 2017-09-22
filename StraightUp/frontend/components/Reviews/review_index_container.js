@@ -2,17 +2,20 @@ import { connect } from 'react-redux';
 import ReviewIndex from './review_index';
 import { fetchReviews } from '../../actions/review_actions';
 import { fetchUsers } from '../../actions/user_actions';
-import { selectAllReviews, selectAllUsers } from '../../reducers/selectors';
+import { fetchLocations } from '../../actions/location_actions';
+import { selectAllReviews, selectAllUsers, selectAllLocations } from '../../reducers/selectors';
 
 
 const mapStateToProps = state => ({
   reviews: selectAllReviews(state),
-  users: selectAllUsers(state)
+  users: selectAllUsers(state),
+  locations: state.entities.locations
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchReviews: () => dispatch(fetchReviews()),
-  fetchUsers: () => dispatch(fetchUsers())
+  fetchUsers: () => dispatch(fetchUsers()),
+  fetchLocations: () => dispatch(fetchLocations())
 });
 
 export default connect(
