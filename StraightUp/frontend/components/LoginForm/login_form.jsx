@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
     return(
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          Welcome to Straight Up!
+          Welcome to Straight Up
           <br/>
           Please Log In
           <br />
@@ -75,7 +75,7 @@ class LoginForm extends React.Component {
             </label>
             <br />
             <div className="submit-button">
-              <button className="submit-button" type="submit">Log In</button>
+              <button className="submit-button" type="submit">LOG IN</button>
 
             </div>
           </div>

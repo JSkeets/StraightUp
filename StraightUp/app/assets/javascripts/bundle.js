@@ -32898,7 +32898,7 @@ var LoginForm = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit, className: 'login-form-box' },
-          'Welcome to Straight Up!',
+          'Welcome to Straight Up',
           _react2.default.createElement('br', null),
           'Please Log In',
           _react2.default.createElement('br', null),
@@ -32935,7 +32935,7 @@ var LoginForm = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { className: 'submit-button', type: 'submit' },
-                'Log In'
+                'LOG IN'
               )
             )
           )
@@ -33090,9 +33090,9 @@ var SignUpForm = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit, className: 'signup-form-box' },
-          'Welcome to Straight Up!',
+          'Welcome to Straight Up',
           _react2.default.createElement('br', null),
-          'Create an account!',
+          'Create an account',
           _react2.default.createElement('br', null),
           this.renderErrors(),
           _react2.default.createElement(
@@ -33138,7 +33138,7 @@ var SignUpForm = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { className: 'submit-button', type: 'submit' },
-                'Sign Up'
+                'SIGN UP'
               )
             )
           )
