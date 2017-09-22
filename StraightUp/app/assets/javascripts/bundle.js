@@ -34119,6 +34119,7 @@ var ReviewIndex = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -34134,7 +34135,8 @@ var ReviewIndex = function (_React$Component) {
           this.props.reviews.map(function (review) {
             return _react2.default.createElement(_review_index_item2.default, {
               key: review.id,
-              review: review
+              review: review,
+              user: _this2.props.users[review.user_id]
             });
           })
         )
@@ -34167,7 +34169,8 @@ var _reactRouterDom = __webpack_require__(33);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ReviewIndexItem = function ReviewIndexItem(_ref) {
-  var review = _ref.review;
+  var review = _ref.review,
+      user = _ref.user;
   return _react2.default.createElement(
     'li',
     { className: 'review-index-item' },
@@ -34184,7 +34187,7 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
     _react2.default.createElement(
       'p',
       null,
-      review.user_id
+      user.username
     ),
     _react2.default.createElement(
       'p',
