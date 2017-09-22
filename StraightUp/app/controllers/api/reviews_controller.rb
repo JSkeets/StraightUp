@@ -1,10 +1,14 @@
 class Api::ReviewsController < ApplicationController
 
   def index
-    if params[:user_id] === nil
+    if params[:user_id] === nil && params[:drink_id] === nil && params[:location_id] === nil
       @reviews = Review.all
-    else
+    elsif params[:user_id] != nil
       @reviews = Review.where(user_id: params[:user_id])
+    elsif params[:drink_id] != nil
+      @reviews = Review.where(drink_id: params[:drink_id])
+    elsif params[:location_id] != nil
+      @reviews = Review.where(location_id: params[:location_id])
     end
     render json: @reviews
   end
