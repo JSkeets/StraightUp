@@ -25,7 +25,12 @@ body {
 
   align-items: center;
   height: 45px;
-  background-color: #B8BFB4;
+  // background-color: #58A4B0;
+  // background-color: #58A4B0;
+  // background-color: #9b7129;
+  // background-color: #c1933e;
+  // background-color: #6A4326;
+  background-color: #8B6445;
 }
 
 h1 {
@@ -62,7 +67,7 @@ a.login, a.sign-up {
   height: 60px;
 }
 
-.login,.sign-up, .guest-button, .logout-button, .global, .check-in, .top-rated{
+.login,.sign-up, .guest-button,{
   border-color: white;
   background-color: transparent;
   border-width: thick;
@@ -80,7 +85,32 @@ a.login, a.sign-up {
   font-family: $questrial;
 }
 
-.login:hover,.sign-up:hover, .guest-button:hover, .logout-button:hover, .global:hover, .check-in:hover ,.top-rated:hover{
+ .logout-button, .global, .check-in, .top-rated{
+   border-color: white;
+  background-color:#6F6E63;
+   border-width: thick;
+   border-width: 2px;
+   border-style: solid;
+   text-decoration: none;
+   text-align: center;
+   padding-left: 10px;
+   padding-right: 10px;
+   margin-left: 5px;
+   margin-right:10px;
+   font-weight: bold;
+   color: white;
+
+   font-family: $questrial;
+
+ }
+ .logout-button:hover, .global:hover, .check-in:hover ,.top-rated:hover{
+
+   border-color: white;
+
+    background-color: #e5aa44;
+ }
+
+.login:hover,.sign-up:hover, .guest-button:hover, {
   background-color: #e5aa44;
   color: white;
 }
