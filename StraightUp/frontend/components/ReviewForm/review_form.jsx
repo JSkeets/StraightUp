@@ -5,8 +5,8 @@ class ReviewForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      drink: "",
-      location: "",
+      drink_id: "",
+      location_id: "",
       rating: "",
       body:""
     };

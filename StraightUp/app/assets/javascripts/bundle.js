@@ -34300,8 +34300,8 @@ var ReviewForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ReviewForm.__proto__ || Object.getPrototypeOf(ReviewForm)).call(this, props));
 
     _this.state = {
-      drink: "",
-      location: "",
+      drink_id: "",
+      location_id: "",
       rating: "",
       body: ""
     };
