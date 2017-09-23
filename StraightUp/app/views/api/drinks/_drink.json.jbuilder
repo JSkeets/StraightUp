@@ -1,1 +1,1 @@
-json.extract drink, :name, :id, :image_url
+json.extract! drink, :name, :id, :image_url

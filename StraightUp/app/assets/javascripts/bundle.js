@@ -34158,6 +34158,8 @@ var _user_actions = __webpack_require__(47);
 
 var _location_actions = __webpack_require__(141);
 
+var _drink_actions = __webpack_require__(48);
+
 var _selectors = __webpack_require__(154);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34166,7 +34168,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     reviews: (0, _selectors.selectAllReviews)(state),
     users: state.entities.users,
-    locations: state.entities.locations
+    locations: state.entities.locations,
+    drinks: state.entities.drinks
   };
 };
 
@@ -34180,6 +34183,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchLocations: function fetchLocations() {
       return dispatch((0, _location_actions.fetchLocations)());
+    },
+    fetchDrinks: function fetchDrinks() {
+      return dispatch((0, _drink_actions.fetchDrinks)());
     }
   };
 };
@@ -34232,14 +34238,12 @@ var ReviewIndex = function (_React$Component) {
       this.props.fetchReviews();
       this.props.fetchUsers();
       this.props.fetchLocations();
+      this.props.fetchDrinks();
     }
   }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
-
-      console.log(this.props.locations);
-      console.log(this.props.users);
 
       return _react2.default.createElement(
         'div',
@@ -34256,6 +34260,7 @@ var ReviewIndex = function (_React$Component) {
             return _react2.default.createElement(_review_index_item2.default, {
               key: review.id,
               review: review,
+              drink: _this2.props.drinks[review.drink_id],
               user: _this2.props.users[review.user_id],
               location: _this2.props.locations[review.location_id]
             });
@@ -34292,7 +34297,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ReviewIndexItem = function ReviewIndexItem(_ref) {
   var review = _ref.review,
       user = _ref.user,
-      location = _ref.location;
+      location = _ref.location,
+      drink = _ref.drink;
 
   if (!user) {
     return null;
@@ -34303,23 +34309,28 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
   if (!location) {
     return null;
   }
+
+  if (!drink) {
+    return null;
+  }
   return _react2.default.createElement(
     'li',
     { className: 'review-index-item' },
     _react2.default.createElement(
-      'h1',
+      'p',
       null,
-      'Review'
+      user.username,
+      ' is boozing on'
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      drink.name
     ),
     _react2.default.createElement(
       'p',
       null,
       location.name
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      user.username
     ),
     _react2.default.createElement(
       'p',
@@ -34442,11 +34453,6 @@ var ReviewForm = function (_React$Component) {
         return _this3.props.history.push('/global');
       });
     }
-
-    // navLink() {
-    //   return <Link to="/login"> Already a user? Login!</Link>;
-    // }
-
   }, {
     key: 'renderErrors',
     value: function renderErrors() {
@@ -34472,8 +34478,6 @@ var ReviewForm = function (_React$Component) {
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit, className: 'review-form-box' },
-          'Welcome to Straight Up',
-          _react2.default.createElement('br', null),
           'Leave a review',
           _react2.default.createElement('br', null),
           this.renderErrors(),

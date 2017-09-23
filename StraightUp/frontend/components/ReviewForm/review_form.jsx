@@ -29,10 +29,6 @@ class ReviewForm extends React.Component {
 
   }
 
-  // navLink() {
-  //   return <Link to="/login"> Already a user? Login!</Link>;
-  // }
-
   renderErrors(){
     return(
       <ul className="review-errors">
@@ -50,8 +46,6 @@ class ReviewForm extends React.Component {
     return(
       <div className="review-form-container">
         <form onSubmit={this.handleSubmit} className="review-form-box">
-          Welcome to Straight Up
-          <br/>
           Leave a review
           <br/>
           {this.renderErrors()}

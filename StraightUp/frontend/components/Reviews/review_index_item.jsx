@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ReviewIndexItem = ({ review, user, location}) => {
+const ReviewIndexItem = ({ review, user, location, drink}) => {
   if (!user ){
     return null;
   }
@@ -11,10 +11,14 @@ const ReviewIndexItem = ({ review, user, location}) => {
   if (!location){
     return null;
   }
+
+  if(!drink){
+    return null;
+  }
     return (<li className="review-index-item">
-    <h1>Review</h1>
+    <p>{user.username} is boozing on</p>
+    <p>{drink.name}</p>
     <p>{location.name}</p>
-    <p>{user.username}</p>
     <p>{review.rating}</p>
     <p>{review.body}</p>
   </li>

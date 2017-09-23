@@ -2,13 +2,13 @@ class Api::DrinksController < ApplicationController
 
   def index
     @drinks = Drink.all
-    render json: @drinks
+    render "api/drinks/index"
   end
 
   def show
     @drink = Drink.find(params[:id])
     if @drink
-      render json: @drink
+      render "/api/drinks/show"
     else
       render json: ["Drink isn't created yet"], status: 422
     end
@@ -17,7 +17,7 @@ class Api::DrinksController < ApplicationController
   def create
     @drink = Drink.new(drink_params)
     if @drink.save
-      render json: @drinks
+      render "/api/drinks/show"
     else
       render json: @drink.errors.full_messages, status: 422
     end

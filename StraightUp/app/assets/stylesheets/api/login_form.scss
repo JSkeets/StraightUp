@@ -1,4 +1,4 @@
-div.login-form-container, div.signup-form-container{
+div.login-form-container, div.signup-form-container,div.review-form-container{
   text-align: center;
   margin-top:50px;
 }
@@ -17,14 +17,14 @@ input {
   height:35px;
   text-align: center;
 }
-.session-errors, .user-errors{
+.session-errors, .user-errors, .review-errors{
   font-size: 20px;
   color: red;
 }
 
 
 }
-input.signup-input, input.login-input{
+input.signup-input, input.login-input,input.review-input{
   width:200px;
 }
 label, input {

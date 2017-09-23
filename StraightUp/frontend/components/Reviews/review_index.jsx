@@ -8,11 +8,10 @@ class ReviewIndex extends React.Component {
     this.props.fetchReviews();
     this.props.fetchUsers();
     this.props.fetchLocations();
+    this.props.fetchDrinks();
   }
 
   render(){
-    console.log(this.props.locations);
-    console.log(this.props.users);
 
     return (
       <div className="dashboard">
@@ -22,6 +21,7 @@ class ReviewIndex extends React.Component {
           <ReviewIndexItem
             key={review.id}
             review={review}
+            drink={this.props.drinks[review.drink_id]}
             user={this.props.users[review.user_id]}
             location={this.props.locations[review.location_id]}
             />
