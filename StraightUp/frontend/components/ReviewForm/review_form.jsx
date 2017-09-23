@@ -51,6 +51,23 @@ class ReviewForm extends React.Component {
           {this.renderErrors()}
           <div className="review-form">
             <br/>
+            <div className="starRating">
+              <label id="rating1">1
+                <input id="rating1" type="radio" name="rating" value={this.state.rating=1}/>
+              </label>
+              <label id="rating2">2
+                <input id="rating2" type="radio" name="rating" value={this.state.rating=2}/>
+              </label>
+              <label id="rating3">3
+                <input id="rating3" type="radio" name="rating" value={this.state.rating=3}/>
+              </label>
+              <label id="rating4">4
+                <input id="rating4" type="radio" name="rating" value={this.state.rating=4}/>
+              </label>
+              <label id="rating5"> 5
+                <input id="rating5" type="radio" name="rating" value={this.state.rating=5}/>
+              </label>
+            </div>
             <label>
               <input type="text"
                 placeholder="drink_id"
@@ -71,16 +88,7 @@ class ReviewForm extends React.Component {
             <br />
             <label>
               <input type="text"
-                placeholder="rating"
-                value={this.state.rating}
-                onChange={this.update('rating')}
-                className="review-input"
-                />
-            </label>
-            <br />
-            <label>
-              <input type="text"
-                placeholder="body"
+                placeholder="comment"
                 value={this.state.body}
                 onChange={this.update('body')}
                 className="review-input"
@@ -90,7 +98,6 @@ class ReviewForm extends React.Component {
               <div className="submit-button">
                 <button className="submit-button" type="submit">SUBMIT REVIEW</button>
               </div>
-
           </div>
         </form>
       </div>
@@ -99,3 +106,14 @@ class ReviewForm extends React.Component {
 }
 
 export default withRouter(ReviewForm);
+
+
+
+
+//   <input type="text"
+//     placeholder="rating"
+//     value={this.state.rating}
+//     onChange={this.update('rating')}
+//     className="review-input"
+//     />
+// </label>

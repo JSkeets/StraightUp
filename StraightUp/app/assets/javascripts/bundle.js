@@ -34486,6 +34486,40 @@ var ReviewForm = function (_React$Component) {
             { className: 'review-form' },
             _react2.default.createElement('br', null),
             _react2.default.createElement(
+              'div',
+              { className: 'starRating' },
+              _react2.default.createElement(
+                'label',
+                { id: 'rating1' },
+                '1',
+                _react2.default.createElement('input', { id: 'rating1', type: 'radio', name: 'rating', value: this.state.rating = 1 })
+              ),
+              _react2.default.createElement(
+                'label',
+                { id: 'rating2' },
+                '2',
+                _react2.default.createElement('input', { id: 'rating2', type: 'radio', name: 'rating', value: this.state.rating = 2 })
+              ),
+              _react2.default.createElement(
+                'label',
+                { id: 'rating3' },
+                '3',
+                _react2.default.createElement('input', { id: 'rating3', type: 'radio', name: 'rating', value: this.state.rating = 3 })
+              ),
+              _react2.default.createElement(
+                'label',
+                { id: 'rating4' },
+                '4',
+                _react2.default.createElement('input', { id: 'rating4', type: 'radio', name: 'rating', value: this.state.rating = 4 })
+              ),
+              _react2.default.createElement(
+                'label',
+                { id: 'rating5' },
+                ' 5',
+                _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: this.state.rating = 5 })
+              )
+            ),
+            _react2.default.createElement(
               'label',
               null,
               _react2.default.createElement('input', { type: 'text',
@@ -34511,18 +34545,7 @@ var ReviewForm = function (_React$Component) {
               'label',
               null,
               _react2.default.createElement('input', { type: 'text',
-                placeholder: 'rating',
-                value: this.state.rating,
-                onChange: this.update('rating'),
-                className: 'review-input'
-              })
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text',
-                placeholder: 'body',
+                placeholder: 'comment',
                 value: this.state.body,
                 onChange: this.update('body'),
                 className: 'review-input'
@@ -34548,6 +34571,14 @@ var ReviewForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(ReviewForm);
+
+//   <input type="text"
+//     placeholder="rating"
+//     value={this.state.rating}
+//     onChange={this.update('rating')}
+//     className="review-input"
+//     />
+// </label>
 
 /***/ }),
 /* 415 */

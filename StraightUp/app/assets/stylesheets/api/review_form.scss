@@ -1,0 +1,10 @@
+.starRating {
+  display:flex;
+  justify-content: center;
+}
+
+#rating1, #rating2, #rating3, #rating4, #rating5 {
+  width : 20px;
+  align-items: center;
+  margin: 0px;
+}
