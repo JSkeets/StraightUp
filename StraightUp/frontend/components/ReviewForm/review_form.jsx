@@ -8,16 +8,13 @@ class ReviewForm extends React.Component {
       drink_id: "",
       location_id: "",
       rating: "",
-      body:""
+      body:"",
+      user_id:this.props.currentUser
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.loggedIn){
-  //     this.props.history.push('/');
-  //   }
-  // }
+
 
   update(field) {
     return e => this.setState({
@@ -28,7 +25,8 @@ class ReviewForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const review = this.state;
-    this.props.processForm(review);
+    this.props.processForm(review).then( () => this.props.history.push('/global'));
+
   }
 
   // navLink() {
@@ -48,6 +46,7 @@ class ReviewForm extends React.Component {
   }
 
   render(){
+    console.log(this.props.currentUser);
     return(
       <div className="review-form-container">
         <form onSubmit={this.handleSubmit} className="review-form-box">
@@ -72,15 +71,6 @@ class ReviewForm extends React.Component {
                 placeholder="location_id"
                 value={this.state.location_id}
                 onChange={this.update('location_id')}
-                className="review-input"
-                />
-            </label>
-            <br />
-            <label>
-              <input type="text"
-                placeholder="user_id"
-                value={this.state.user_id}
-                onChange={this.update('user_id')}
                 className="review-input"
                 />
             </label>

@@ -27,7 +27,7 @@ const loggedInLinks = (currentUser, logout, guest) => (
       <Link className="check-in" to="/checkin">CHECK IN</Link>
       <Link className="top-rated" to="/toprated">TOP RATED</Link>
       <Link className="global" to="/global">WORLDLY</Link>
-      <h2 className="header-name">Welcome {currentUser.extract.username}</h2>
+      <h2 className="header-name">Welcome {currentUser.username}</h2>
     </hgroup>
 );
 

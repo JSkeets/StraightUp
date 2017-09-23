@@ -5,12 +5,13 @@ import ReviewForm from './review_form';
 
 const mapStateToProps = (state) => {
   return {
-    errors: state.errors.reviews || []
+    errors: state.errors.reviews || [],
+    currentUser: state.session.currentUser.id
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    processForm: review => dispatch(createReview(review))
+    processForm: review => dispatch(createReview(review)),
 });
 
 export default connect(

@@ -10,13 +10,13 @@ class Api::ReviewsController < ApplicationController
     elsif params[:location_id] != nil
       @reviews = Review.where(location_id: params[:location_id])
     end
-    render json: @reviews
+    render  "/api/reviews/index"
   end
 
   def show
     @review = Review.find(params[:id])
     if @review
-      render json: @review
+      render  "/api/reviews/show"
     else
       render json: ["Review isn't created yet"], status: 422
     end
@@ -25,7 +25,7 @@ class Api::ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     if @review.save
-      render json: @reviews
+      render  "/api/reviews/show"
     else
       render json: @review.errors.full_messages, status: 422
     end

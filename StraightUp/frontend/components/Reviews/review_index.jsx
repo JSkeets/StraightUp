@@ -13,6 +13,7 @@ class ReviewIndex extends React.Component {
   render(){
     console.log(this.props.locations);
     console.log(this.props.users);
+
     return (
       <div className="dashboard">
       <ul id="review-index">
