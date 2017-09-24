@@ -16,7 +16,7 @@ class ReviewIndex extends React.Component {
     return (
       <div className="dashboard">
       <ul id="review-index">
-        <h1> HELLO FROM REVIEWS </h1>
+
         {this.props.reviews.map(review =>
           <ReviewIndexItem
             key={review.id}

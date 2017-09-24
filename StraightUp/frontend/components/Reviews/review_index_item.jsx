@@ -16,10 +16,8 @@ const ReviewIndexItem = ({ review, user, location, drink}) => {
     return null;
   }
     return (<li className="review-index-item">
-    <p>{user.username} is boozing on</p>
-    <p>{drink.name}</p>
-    <p>{location.name}</p>
-    <p>{review.rating}</p>
+    <p> {user.username} is drinking a {drink.name} at {location.name} and rates it a {review.rating} </p>
+
     <p>{review.body}</p>
     <br />
   </li>

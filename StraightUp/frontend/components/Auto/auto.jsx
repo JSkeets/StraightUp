@@ -29,13 +29,10 @@ class AutoComplete extends React.Component {
     let that = this;
     let results = [];
     let names = this.prop.names;
-
-
     for (let i = 0; i < names.length; i++){
       if (names[i].name.startsWith(this.state.inputVal)){
         results.push(names[i]);
       }
-
     }
     return results;
   }
@@ -48,16 +45,35 @@ class AutoComplete extends React.Component {
 
   render(){
     let names = this.filterNames();
-    let content = <div>
-      <input type="text" onChange={this.setInputVal} value={this.state.inputVal} placeholder={this.prop.type}></input>
-      <ul>
-        {names.map((name) => {
-          console.log(name);
-          return <li onClick={ (event) => this.click(event)} value={name.id} >{name.name}</li>;
-        })}
+
+    if (names.length === 0 ) {
+      let content = <div>
+        <input type="text" onChange={this.setInputVal} value={this.state.inputVal} placeholder={this.prop.type}></input>
+        <ul className="autoNames">
+
+            <li> NO RESULTS</li>
+
       </ul>
     </div>;
     return content;
+
+    } else {
+      let content = <div>
+        <input type="text" onChange={this.setInputVal} value={this.state.inputVal} placeholder={this.prop.type}></input>
+        <ul className="autoNames">
+
+          {names.map((name) => {
+            return (
+              <li onClick={ (event) => this.click(event)} value={name.id} >{name.name}</li>
+
+
+              );
+          })}
+        </ul>
+      </div>;
+      return content;
+    }
+
   }
 
 }

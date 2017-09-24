@@ -34247,11 +34247,6 @@ var ReviewIndex = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           { id: 'review-index' },
-          _react2.default.createElement(
-            'h1',
-            null,
-            ' HELLO FROM REVIEWS '
-          ),
           this.props.reviews.map(function (review) {
             return _react2.default.createElement(_review_index_item2.default, {
               key: review.id,
@@ -34315,23 +34310,15 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
     _react2.default.createElement(
       'p',
       null,
+      ' ',
       user.username,
-      ' is boozing on'
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      drink.name
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      location.name
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      review.rating
+      ' is drinking a ',
+      drink.name,
+      ' at ',
+      location.name,
+      ' and rates it a ',
+      review.rating,
+      ' '
     ),
     _react2.default.createElement(
       'p',
@@ -34724,7 +34711,6 @@ var AutoComplete = function (_React$Component) {
       var that = this;
       var results = [];
       var names = this.prop.names;
-
       for (var i = 0; i < names.length; i++) {
         if (names[i].name.startsWith(this.state.inputVal)) {
           results.push(names[i]);
@@ -34745,26 +34731,44 @@ var AutoComplete = function (_React$Component) {
       var _this2 = this;
 
       var names = this.filterNames();
-      var content = _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
-        _react2.default.createElement(
-          'ul',
+
+      if (names.length === 0) {
+        var content = _react2.default.createElement(
+          'div',
           null,
-          names.map(function (name) {
-            console.log(name);
-            return _react2.default.createElement(
+          _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'autoNames' },
+            _react2.default.createElement(
               'li',
-              { onClick: function onClick(event) {
-                  return _this2.click(event);
-                }, value: name.id },
-              name.name
-            );
-          })
-        )
-      );
-      return content;
+              null,
+              ' NO RESULTS'
+            )
+          )
+        );
+        return content;
+      } else {
+        var _content = _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'autoNames' },
+            names.map(function (name) {
+              return _react2.default.createElement(
+                'li',
+                { onClick: function onClick(event) {
+                    return _this2.click(event);
+                  }, value: name.id },
+                name.name
+              );
+            })
+          )
+        );
+        return _content;
+      }
     }
   }]);
 
