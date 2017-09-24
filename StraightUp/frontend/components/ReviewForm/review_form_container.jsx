@@ -6,14 +6,14 @@ import { fetchReviews } from '../../actions/review_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { fetchLocations } from '../../actions/location_actions';
 import { fetchDrinks } from '../../actions/drink_actions';
-import { selectAllDrinks } from '../../reducers/selectors';
+import { selectAllDrinks, selectAllLocations } from '../../reducers/selectors';
 
 const mapStateToProps = (state) => {
   return {
     errors: state.errors.reviews || [],
     currentUser: state.session.currentUser.id,
     users: state.entities.users,
-    locations: state.entities.locations,
+    locations: selectAllLocations(state),
     drinks: selectAllDrinks(state)
   };
 };

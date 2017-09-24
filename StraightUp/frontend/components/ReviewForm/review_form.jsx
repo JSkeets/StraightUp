@@ -13,7 +13,8 @@ class ReviewForm extends React.Component {
       user_id:this.props.currentUser
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handler = this.handler.bind(this);
+    this.handleDrink = this.handleDrink.bind(this);
+    this.handleLocation = this.handleLocation.bind(this);
   }
 
   componentDidMount(){
@@ -49,11 +50,17 @@ class ReviewForm extends React.Component {
     );
   }
 
-  handler (input) {
+  handleDrink (input) {
        this.setState({
            drink_id: input
        });
    }
+
+   handleLocation (input) {
+        this.setState({
+            location_id: input
+        });
+    }
 
   render(){
     return(
@@ -83,17 +90,10 @@ class ReviewForm extends React.Component {
             </div>
 
 
-            <AutoComplete action={this.handler} names={this.props.drinks}/>
+            <AutoComplete action={this.handleDrink} names={this.props.drinks} type={"drink"}/>
 
             <br />
-            <label>
-              <input type="text"
-                placeholder="location_id"
-                value={this.state.location_id}
-                onChange={this.update('location_id')}
-                className="review-input"
-                />
-            </label>
+            <AutoComplete action={this.handleLocation} names={this.props.locations} type={"locations"}/>
             <br />
             <label>
               <input type="text"

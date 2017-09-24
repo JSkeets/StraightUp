@@ -34378,7 +34378,7 @@ var mapStateToProps = function mapStateToProps(state) {
     errors: state.errors.reviews || [],
     currentUser: state.session.currentUser.id,
     users: state.entities.users,
-    locations: state.entities.locations,
+    locations: (0, _selectors.selectAllLocations)(state),
     drinks: (0, _selectors.selectAllDrinks)(state)
   };
 };
@@ -34454,7 +34454,8 @@ var ReviewForm = function (_React$Component) {
       user_id: _this.props.currentUser
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handler = _this.handler.bind(_this);
+    _this.handleDrink = _this.handleDrink.bind(_this);
+    _this.handleLocation = _this.handleLocation.bind(_this);
     return _this;
   }
 
@@ -34502,10 +34503,17 @@ var ReviewForm = function (_React$Component) {
       );
     }
   }, {
-    key: 'handler',
-    value: function handler(input) {
+    key: 'handleDrink',
+    value: function handleDrink(input) {
       this.setState({
         drink_id: input
+      });
+    }
+  }, {
+    key: 'handleLocation',
+    value: function handleLocation(input) {
+      this.setState({
+        location_id: input
       });
     }
   }, {
@@ -34558,18 +34566,9 @@ var ReviewForm = function (_React$Component) {
                 _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: this.state.rating = 5 })
               )
             ),
-            _react2.default.createElement(_auto2.default, { action: this.handler, names: this.props.drinks }),
+            _react2.default.createElement(_auto2.default, { action: this.handleDrink, names: this.props.drinks, type: "drink" }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text',
-                placeholder: 'location_id',
-                value: this.state.location_id,
-                onChange: this.update('location_id'),
-                className: 'review-input'
-              })
-            ),
+            _react2.default.createElement(_auto2.default, { action: this.handleLocation, names: this.props.locations, type: "locations" }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'label',
@@ -34749,7 +34748,7 @@ var AutoComplete = function (_React$Component) {
       var content = _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal }),
+        _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
         _react2.default.createElement(
           'ul',
           null,

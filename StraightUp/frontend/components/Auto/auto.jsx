@@ -49,11 +49,11 @@ class AutoComplete extends React.Component {
   render(){
     let names = this.filterNames();
     let content = <div>
-      <input type="text" onChange={this.setInputVal} value={this.state.inputVal}></input>
+      <input type="text" onChange={this.setInputVal} value={this.state.inputVal} placeholder={this.prop.type}></input>
       <ul>
         {names.map((name) => {
           console.log(name);
-          return <li onClick={ (event) => this.click(event)} value={name.id}>{name.name}</li>;
+          return <li onClick={ (event) => this.click(event)} value={name.id} >{name.name}</li>;
         })}
       </ul>
     </div>;
