@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import AutoComplete from '../Auto/auto';
 
 class ReviewForm extends React.Component {
   constructor(props) {
@@ -12,8 +13,15 @@ class ReviewForm extends React.Component {
       user_id:this.props.currentUser
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handler = this.handler.bind(this);
   }
 
+  componentDidMount(){
+    this.props.fetchReviews();
+    this.props.fetchUsers();
+    this.props.fetchLocations();
+    this.props.fetchDrinks();
+  }
 
 
   update(field) {
@@ -41,8 +49,13 @@ class ReviewForm extends React.Component {
     );
   }
 
+  handler (input) {
+       this.setState({
+           drink_id: input
+       });
+   }
+
   render(){
-    console.log(this.props.currentUser);
     return(
       <div className="review-form-container">
         <form onSubmit={this.handleSubmit} className="review-form-box">
@@ -68,14 +81,10 @@ class ReviewForm extends React.Component {
                 <input id="rating5" type="radio" name="rating" value={this.state.rating=5}/>
               </label>
             </div>
-            <label>
-              <input type="text"
-                placeholder="drink_id"
-                value={this.state.drink_id}
-                onChange={this.update('drink_id')}
-                className="review-input"
-                />
-            </label>
+
+
+            <AutoComplete action={this.handler} names={this.props.drinks}/>
+
             <br />
             <label>
               <input type="text"

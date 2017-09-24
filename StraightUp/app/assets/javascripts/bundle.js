@@ -33392,11 +33392,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Dashboard = function Dashboard() {
 
-  return _react2.default.createElement(
-    "div",
-    { className: "dashboard" },
-    "Hello from the dashboard"
-  );
+  return _react2.default.createElement("div", { className: "dashboard" });
 };
 
 exports.default = Dashboard;
@@ -34341,7 +34337,8 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
       'p',
       null,
       review.body
-    )
+    ),
+    _react2.default.createElement('br', null)
   );
 };
 
@@ -34366,12 +34363,23 @@ var _review_form = __webpack_require__(414);
 
 var _review_form2 = _interopRequireDefault(_review_form);
 
+var _user_actions = __webpack_require__(47);
+
+var _location_actions = __webpack_require__(141);
+
+var _drink_actions = __webpack_require__(48);
+
+var _selectors = __webpack_require__(154);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     errors: state.errors.reviews || [],
-    currentUser: state.session.currentUser.id
+    currentUser: state.session.currentUser.id,
+    users: state.entities.users,
+    locations: state.entities.locations,
+    drinks: (0, _selectors.selectAllDrinks)(state)
   };
 };
 
@@ -34379,6 +34387,18 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     processForm: function processForm(review) {
       return dispatch((0, _review_actions.createReview)(review));
+    },
+    fetchReviews: function fetchReviews() {
+      return dispatch((0, _review_actions.fetchReviews)());
+    },
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
+    },
+    fetchLocations: function fetchLocations() {
+      return dispatch((0, _location_actions.fetchLocations)());
+    },
+    fetchDrinks: function fetchDrinks() {
+      return dispatch((0, _drink_actions.fetchDrinks)());
     }
   };
 };
@@ -34403,6 +34423,10 @@ var _react = __webpack_require__(4);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(14);
+
+var _auto = __webpack_require__(416);
+
+var _auto2 = _interopRequireDefault(_auto);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34430,10 +34454,19 @@ var ReviewForm = function (_React$Component) {
       user_id: _this.props.currentUser
     };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handler = _this.handler.bind(_this);
     return _this;
   }
 
   _createClass(ReviewForm, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchReviews();
+      this.props.fetchUsers();
+      this.props.fetchLocations();
+      this.props.fetchDrinks();
+    }
+  }, {
     key: 'update',
     value: function update(field) {
       var _this2 = this;
@@ -34469,9 +34502,15 @@ var ReviewForm = function (_React$Component) {
       );
     }
   }, {
+    key: 'handler',
+    value: function handler(input) {
+      this.setState({
+        drink_id: input
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.currentUser);
       return _react2.default.createElement(
         'div',
         { className: 'review-form-container' },
@@ -34519,16 +34558,7 @@ var ReviewForm = function (_React$Component) {
                 _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: this.state.rating = 5 })
               )
             ),
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text',
-                placeholder: 'drink_id',
-                value: this.state.drink_id,
-                onChange: this.update('drink_id'),
-                className: 'review-input'
-              })
-            ),
+            _react2.default.createElement(_auto2.default, { action: this.handler, names: this.props.drinks }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'label',
@@ -34627,6 +34657,122 @@ var mapStateToProps = function mapStateToProps(state) {
 var AuthRoute = exports.AuthRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
 
 var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Protected));
+
+/***/ }),
+/* 416 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(170);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AutoComplete = function (_React$Component) {
+  _inherits(AutoComplete, _React$Component);
+
+  function AutoComplete(prop) {
+    _classCallCheck(this, AutoComplete);
+
+    var _this = _possibleConstructorReturn(this, (AutoComplete.__proto__ || Object.getPrototypeOf(AutoComplete)).call(this, prop));
+
+    _this.prop = prop;
+    _this.state = {
+      inputVal: ""
+    };
+    _this.setInputVal = _this.setInputVal.bind(_this);
+    _this.fillInput = _this.fillInput.bind(_this);
+    return _this;
+  }
+
+  _createClass(AutoComplete, [{
+    key: 'setInputVal',
+    value: function setInputVal(event) {
+      event.preventDefault();
+      var val = event.currentTarget.value;
+      this.setState({ inputVal: val });
+    }
+  }, {
+    key: 'click',
+    value: function click(event) {
+      this.fillInput(event);
+      console.log(event.target.value);
+      this.prop.action(event.target.value);
+    }
+  }, {
+    key: 'filterNames',
+    value: function filterNames() {
+
+      var that = this;
+      var results = [];
+      var names = this.prop.names;
+
+      for (var i = 0; i < names.length; i++) {
+        if (names[i].name.startsWith(this.state.inputVal)) {
+          results.push(names[i]);
+        }
+      }
+      return results;
+    }
+  }, {
+    key: 'fillInput',
+    value: function fillInput(event) {
+      event.preventDefault();
+      var val = event.currentTarget.innerHTML;
+      this.setState({ inputVal: val });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var names = this.filterNames();
+      var content = _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal }),
+        _react2.default.createElement(
+          'ul',
+          null,
+          names.map(function (name) {
+            console.log(name);
+            return _react2.default.createElement(
+              'li',
+              { onClick: function onClick(event) {
+                  return _this2.click(event);
+                }, value: name.id },
+              name.name
+            );
+          })
+        )
+      );
+      return content;
+    }
+  }]);
+
+  return AutoComplete;
+}(_react2.default.Component);
+
+exports.default = AutoComplete;
 
 /***/ })
 /******/ ]);

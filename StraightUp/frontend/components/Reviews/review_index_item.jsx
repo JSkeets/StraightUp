@@ -21,6 +21,7 @@ const ReviewIndexItem = ({ review, user, location, drink}) => {
     <p>{location.name}</p>
     <p>{review.rating}</p>
     <p>{review.body}</p>
+    <br />
   </li>
 );
 };
