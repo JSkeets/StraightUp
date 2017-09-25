@@ -1,6 +1,7 @@
 export const RECEIVE_REVIEW = "RECEIVE_REVIEW";
 export const RECEIVE_REVIEWS = "RECEIVE_REVIEWS";
 export const RECEIVE_REVIEW_ERRORS = "RECEIVE_REVIEW_ERRORS";
+export const REMOVE_REVIEW = "REMOVE_REVIEW";
 
 import * as ReviewsUtil from '../util/reviews_api_util';
 import * as UsersUtil from '../util/users_api_util';
@@ -17,6 +18,11 @@ const receiveReviewErrors = (errors) => ({
 
 const receiveReview = (review) => ({
   type: RECEIVE_REVIEW,
+  review
+});
+
+const removeReview = (review) => ({
+  type: REMOVE_REVIEW,
   review
 });
 
@@ -42,6 +48,6 @@ export const createReview = review => dispatch => (
 
 export const destroyUserReview= (review) => dispatch => (
   UsersUtil.destroyUserReview(review).then(res => (
-    dispatch(receiveReviews(res))
+    dispatch(removeReview(res))
   ))
 );

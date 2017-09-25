@@ -47,7 +47,7 @@ class Api::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    render  "/api/reviews/index"
+    render json: @review
   end
 
   def review_params

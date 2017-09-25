@@ -5453,7 +5453,7 @@ var createDrink = exports.createDrink = function createDrink(drink) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.destroyUserReview = exports.createReview = exports.fetchReview = exports.fetchReviews = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
+exports.destroyUserReview = exports.createReview = exports.fetchReview = exports.fetchReviews = exports.REMOVE_REVIEW = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
 
 var _reviews_api_util = __webpack_require__(280);
 
@@ -5468,6 +5468,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var RECEIVE_REVIEW = exports.RECEIVE_REVIEW = "RECEIVE_REVIEW";
 var RECEIVE_REVIEWS = exports.RECEIVE_REVIEWS = "RECEIVE_REVIEWS";
 var RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEW_ERRORS = "RECEIVE_REVIEW_ERRORS";
+var REMOVE_REVIEW = exports.REMOVE_REVIEW = "REMOVE_REVIEW";
 
 var receiveReviews = function receiveReviews(reviews) {
   return {
@@ -5486,6 +5487,13 @@ var receiveReviewErrors = function receiveReviewErrors(errors) {
 var receiveReview = function receiveReview(review) {
   return {
     type: RECEIVE_REVIEW,
+    review: review
+  };
+};
+
+var removeReview = function removeReview(review) {
+  return {
+    type: REMOVE_REVIEW,
     review: review
   };
 };
@@ -5521,7 +5529,7 @@ var createReview = exports.createReview = function createReview(review) {
 var destroyUserReview = exports.destroyUserReview = function destroyUserReview(review) {
   return function (dispatch) {
     return UsersUtil.destroyUserReview(review).then(function (res) {
-      return dispatch(receiveReviews(res));
+      return dispatch(removeReview(res));
     });
   };
 };
@@ -14025,7 +14033,7 @@ var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectAllLocations = exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
+exports.selectUserReviews = exports.selectAllLocations = exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
 
 var _values = __webpack_require__(401);
 
@@ -14048,6 +14056,28 @@ var selectAllUsers = exports.selectAllUsers = function selectAllUsers(state) {
 var selectAllLocations = exports.selectAllLocations = function selectAllLocations(state) {
   return (0, _values2.default)(state.entities.locations);
 };
+
+var selectUserReviews = exports.selectUserReviews = function selectUserReviews(state) {
+  var val = (0, _values2.default)(state.entities.reviews);
+  var matched = val.filter(function (review) {
+    return review.user_id === state.session.currentUser.id;
+  });
+  return matched;
+};
+// 
+// export const selectUserReviews = (state) => {
+//     let userReviews = state.session.currentUser.review_ids;
+//     let reviews = [];
+//     if (state.entities.reviews[userReviews[0]] === undefined){
+//       return [];
+//     }
+//     userReviews.forEach((id) => {
+//
+//
+//       reviews.push(state.entities.reviews[id]);
+//     });
+//   return(reviews);
+// };
 
 /***/ }),
 /* 155 */
@@ -29346,6 +29376,10 @@ var ReviewsReducer = function ReviewsReducer() {
       return (0, _merge3.default)({}, state, action.reviews);
     case _review_actions.RECEIVE_REVIEW:
       return (0, _merge3.default)({}, state, _defineProperty({}, action.review.id, action.review));
+    case _review_actions.REMOVE_REVIEW:
+      newState = (0, _merge3.default)({}, state);
+      delete newState[action.review.id];
+      return newState;
     default:
       return state;
   }
@@ -35235,12 +35269,14 @@ var _location_actions = __webpack_require__(141);
 
 var _drink_actions = __webpack_require__(48);
 
+var _selectors = __webpack_require__(154);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.session.currentUser,
-    reviews: state.session.currentUser.reviews,
+    reviews: (0, _selectors.selectUserReviews)(state),
     users: state.entities.users,
     locations: state.entities.locations,
     drinks: state.entities.drinks

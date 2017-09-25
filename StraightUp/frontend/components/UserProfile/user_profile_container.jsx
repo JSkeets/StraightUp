@@ -4,11 +4,12 @@ import { fetchReviews, destroyUserReview } from '../../actions/review_actions';
 import { fetchUsers } from '../../actions/user_actions';
 import { fetchLocations } from '../../actions/location_actions';
 import { fetchDrinks } from '../../actions/drink_actions';
+import {selectUserReviews} from '../../reducers/selectors';
 
 
 const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
-  reviews: state.session.currentUser.reviews,
+  reviews: selectUserReviews(state),
   users: state.entities.users,
   locations: state.entities.locations,
   drinks: state.entities.drinks
