@@ -16,7 +16,7 @@ class Api::LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
     if @location.save
-      render json: @locations
+      render json: @location
     else
       render json: @location.errors.full_messages, status: 422
     end

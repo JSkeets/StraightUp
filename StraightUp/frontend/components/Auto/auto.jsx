@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+
 
 class AutoComplete extends React.Component {
   constructor(prop) {
@@ -52,7 +54,7 @@ class AutoComplete extends React.Component {
         <ul className="autoNames">
 
             <li> NO RESULTS</li>
-
+            <Link  to={`/new${this.prop.type}`}>Create a {this.prop.type}</Link>
       </ul>
     </div>;
     return content;

@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if @user
-      render json: "api/users/show"
+      render "api/users/show"
     else
       render json: ["INVALID"], status: 422
     end

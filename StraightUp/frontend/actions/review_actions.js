@@ -3,6 +3,7 @@ export const RECEIVE_REVIEWS = "RECEIVE_REVIEWS";
 export const RECEIVE_REVIEW_ERRORS = "RECEIVE_REVIEW_ERRORS";
 
 import * as ReviewsUtil from '../util/reviews_api_util';
+import * as UsersUtil from '../util/users_api_util';
 
 const receiveReviews = (reviews) => ({
   type: RECEIVE_REVIEWS,
@@ -36,5 +37,11 @@ export const createReview = review => dispatch => (
     dispatch(receiveReview(res))
   ), err => (
     dispatch(receiveReviewErrors(err.responseJSON))
+  ))
+);
+
+export const destroyUserReview= (review) => dispatch => (
+  UsersUtil.destroyUserReview(review).then(res => (
+    dispatch(receiveReviews(res))
   ))
 );

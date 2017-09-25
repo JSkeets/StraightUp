@@ -28,16 +28,19 @@ export const updateUserReview = (review) => (
   })
 );
 
-export const destroyUserReview = (review) => (
-  $.ajax({
+export const destroyUserReview = (review) => {
+  console.log(review);
+    return ($.ajax({
     method: "DELETE",
-    url: `/api/users/${review.user_id}/${review.id}`
+    url: `/api/users/${review.user_id}/reviews/${review.id}`
   })
 );
 
-export const fetchUserReviews = (review) => (
+};
+
+export const fetchUserReviews = (id) => (
   $.ajax({
     method: "GET",
-    url: `/api/users/${review.user_id}/reviews/${review.id}`
+    url: `/api/users/${id}/reviews/`
   })
 );

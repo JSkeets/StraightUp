@@ -14,27 +14,31 @@ const receiveLocationErrors = (errors) => ({
   errors
 });
 
-const receiveLocation = (review) => ({
+const receiveLocation = (location) => {
+  console.log("INSIDE RECEIVE LOCATION",location);
+  return {
   type: RECEIVE_LOCATION,
-  review
-});
+  location
+};
+};
 
 export const fetchLocations = () => dispatch => (
   LocationsUtil.fetchLocations().then(locations => dispatch(receiveLocations(locations)))
 );
 
-export const fetchLocation = (review) => dispatch => (
-  LocationsUtil.fetchLocation(review).then(res =>
+export const fetchLocation = (location) => dispatch => (
+  LocationsUtil.fetchLocation(location).then(res =>
     dispatch(receiveLocation(res))
   ), err => (
     dispatch(receiveLocationErrors(err.responseJSON))
   )
 );
 
-export const createLocation = review => dispatch => (
-  LocationsUtil.createLocation(review).then(res => (
+export const createLocation = location => dispatch => {
+  return (LocationsUtil.createLocation(location).then(res => (
     dispatch(receiveLocation(res))
   ), err => (
     dispatch(receiveLocationErrors(err.responseJSON))
   ))
 );
+};

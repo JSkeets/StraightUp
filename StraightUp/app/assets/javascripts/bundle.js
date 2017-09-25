@@ -5453,11 +5453,15 @@ var createDrink = exports.createDrink = function createDrink(drink) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createReview = exports.fetchReview = exports.fetchReviews = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
+exports.destroyUserReview = exports.createReview = exports.fetchReview = exports.fetchReviews = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
 
 var _reviews_api_util = __webpack_require__(280);
 
 var ReviewsUtil = _interopRequireWildcard(_reviews_api_util);
+
+var _users_api_util = __webpack_require__(276);
+
+var UsersUtil = _interopRequireWildcard(_users_api_util);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -5510,6 +5514,14 @@ var createReview = exports.createReview = function createReview(review) {
       return dispatch(receiveReview(res));
     }, function (err) {
       return dispatch(receiveReviewErrors(err.responseJSON));
+    });
+  };
+};
+
+var destroyUserReview = exports.destroyUserReview = function destroyUserReview(review) {
+  return function (dispatch) {
+    return UsersUtil.destroyUserReview(review).then(function (res) {
+      return dispatch(receiveReviews(res));
     });
   };
 };
@@ -12952,10 +12964,11 @@ var receiveLocationErrors = function receiveLocationErrors(errors) {
   };
 };
 
-var receiveLocation = function receiveLocation(review) {
+var receiveLocation = function receiveLocation(location) {
+  console.log("INSIDE RECEIVE LOCATION", location);
   return {
     type: RECEIVE_LOCATION,
-    review: review
+    location: location
   };
 };
 
@@ -12967,9 +12980,9 @@ var fetchLocations = exports.fetchLocations = function fetchLocations() {
   };
 };
 
-var fetchLocation = exports.fetchLocation = function fetchLocation(review) {
+var fetchLocation = exports.fetchLocation = function fetchLocation(location) {
   return function (dispatch) {
-    return LocationsUtil.fetchLocation(review).then(function (res) {
+    return LocationsUtil.fetchLocation(location).then(function (res) {
       return dispatch(receiveLocation(res));
     }), function (err) {
       return dispatch(receiveLocationErrors(err.responseJSON));
@@ -12977,9 +12990,9 @@ var fetchLocation = exports.fetchLocation = function fetchLocation(review) {
   };
 };
 
-var createLocation = exports.createLocation = function createLocation(review) {
+var createLocation = exports.createLocation = function createLocation(location) {
   return function (dispatch) {
-    return LocationsUtil.createLocation(review).then(function (res) {
+    return LocationsUtil.createLocation(location).then(function (res) {
       return dispatch(receiveLocation(res));
     }, function (err) {
       return dispatch(receiveLocationErrors(err.responseJSON));
@@ -26829,13 +26842,18 @@ var _reviews_errors_reducer = __webpack_require__(279);
 
 var _reviews_errors_reducer2 = _interopRequireDefault(_reviews_errors_reducer);
 
+var _locations_errors_reducer = __webpack_require__(417);
+
+var _locations_errors_reducer2 = _interopRequireDefault(_locations_errors_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ErrorsReducer = (0, _redux.combineReducers)({
   session: _session_errors_reducer2.default,
   users: _users_errors_reducer2.default,
   drinks: _drinks_errors_reducer2.default,
-  reviews: _reviews_errors_reducer2.default
+  reviews: _reviews_errors_reducer2.default,
+  locations: _locations_errors_reducer2.default
 
 });
 
@@ -26970,16 +26988,17 @@ var updateUserReview = exports.updateUserReview = function updateUserReview(revi
 };
 
 var destroyUserReview = exports.destroyUserReview = function destroyUserReview(review) {
+  console.log(review);
   return $.ajax({
     method: "DELETE",
-    url: "/api/users/" + review.user_id + "/" + review.id
+    url: "/api/users/" + review.user_id + "/reviews/" + review.id
   });
 };
 
-var fetchUserReviews = exports.fetchUserReviews = function fetchUserReviews(review) {
+var fetchUserReviews = exports.fetchUserReviews = function fetchUserReviews(id) {
   return $.ajax({
     method: "GET",
-    url: "/api/users/" + review.user_id + "/reviews/" + review.id
+    url: "/api/users/" + id + "/reviews/"
   });
 };
 
@@ -33178,6 +33197,18 @@ var _review_form_container = __webpack_require__(413);
 
 var _review_form_container2 = _interopRequireDefault(_review_form_container);
 
+var _location_form_container = __webpack_require__(418);
+
+var _location_form_container2 = _interopRequireDefault(_location_form_container);
+
+var _drink_form_container = __webpack_require__(420);
+
+var _drink_form_container2 = _interopRequireDefault(_drink_form_container);
+
+var _user_profile_container = __webpack_require__(422);
+
+var _user_profile_container2 = _interopRequireDefault(_user_profile_container);
+
 var _route_util = __webpack_require__(415);
 
 var _reactRouterDom = __webpack_require__(14);
@@ -33193,6 +33224,11 @@ var App = function App() {
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/', component: _dashboard2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/global', component: _review_index_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/checkin', component: _review_form_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _user_profile_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newdrink', component: _review_form_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newlocation', component: _review_form_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newlocation', component: _location_form_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newdrink', component: _drink_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
   );
@@ -34443,6 +34479,7 @@ var ReviewForm = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleDrink = _this.handleDrink.bind(_this);
     _this.handleLocation = _this.handleLocation.bind(_this);
+    _this.handleOptionChange = _this.handleOptionChange.bind(_this);
     return _this;
   }
 
@@ -34504,6 +34541,13 @@ var ReviewForm = function (_React$Component) {
       });
     }
   }, {
+    key: 'handleOptionChange',
+    value: function handleOptionChange(event) {
+      this.setState({
+        rating: event.target.value
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -34526,36 +34570,46 @@ var ReviewForm = function (_React$Component) {
                 'label',
                 { id: 'rating1' },
                 '1',
-                _react2.default.createElement('input', { id: 'rating1', type: 'radio', name: 'rating', value: this.state.rating = 1 })
+                _react2.default.createElement('input', { id: 'rating1', type: 'radio', name: 'rating', value: '1',
+                  checked: this.state.rating === "1",
+                  onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
                 'label',
                 { id: 'rating2' },
                 '2',
-                _react2.default.createElement('input', { id: 'rating2', type: 'radio', name: 'rating', value: this.state.rating = 2 })
+                _react2.default.createElement('input', { id: 'rating2', type: 'radio', name: 'rating', value: '2',
+                  checked: this.state.rating === "2",
+                  onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
                 'label',
                 { id: 'rating3' },
                 '3',
-                _react2.default.createElement('input', { id: 'rating3', type: 'radio', name: 'rating', value: this.state.rating = 3 })
+                _react2.default.createElement('input', { id: 'rating3', type: 'radio', name: 'rating', value: '3',
+                  checked: this.state.rating === "3",
+                  onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
                 'label',
                 { id: 'rating4' },
                 '4',
-                _react2.default.createElement('input', { id: 'rating4', type: 'radio', name: 'rating', value: this.state.rating = 4 })
+                _react2.default.createElement('input', { id: 'rating4', type: 'radio', name: 'rating', value: '4',
+                  checked: this.state.rating === "4",
+                  onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
                 'label',
                 { id: 'rating5' },
                 ' 5',
-                _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: this.state.rating = 5 })
+                _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: '5',
+                  checked: this.state.rating === "5",
+                  onChange: this.handleOptionChange })
               )
             ),
             _react2.default.createElement(_auto2.default, { action: this.handleDrink, names: this.props.drinks, type: "drink" }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(_auto2.default, { action: this.handleLocation, names: this.props.locations, type: "locations" }),
+            _react2.default.createElement(_auto2.default, { action: this.handleLocation, names: this.props.locations, type: "location" }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'label',
@@ -34665,6 +34719,8 @@ var _reactDom = __webpack_require__(170);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _reactRouterDom = __webpack_require__(14);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34744,6 +34800,12 @@ var AutoComplete = function (_React$Component) {
               'li',
               null,
               ' NO RESULTS'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/new' + this.prop.type },
+              'Create a ',
+              this.prop.type
             )
           )
         );
@@ -34776,6 +34838,579 @@ var AutoComplete = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = AutoComplete;
+
+/***/ }),
+/* 417 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _location_actions = __webpack_require__(141);
+
+var _nullErrors = [];
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  Object.freeze(state);
+  switch (action.type) {
+    case _location_actions.RECEIVE_LOCATION_ERRORS:
+      return action.errors;
+    default:
+      return state;
+
+  }
+};
+
+/***/ }),
+/* 418 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(19);
+
+var _location_actions = __webpack_require__(141);
+
+var _location_form = __webpack_require__(419);
+
+var _location_form2 = _interopRequireDefault(_location_form);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+
+    errors: state.errors.locations || []
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    processForm: function processForm(location) {
+      return dispatch((0, _location_actions.createLocation)(location));
+    },
+    fetchLocations: function fetchLocations() {
+      return dispatch((0, _location_actions.fetchLocations)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_location_form2.default);
+
+/***/ }),
+/* 419 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LocationForm = function (_React$Component) {
+  _inherits(LocationForm, _React$Component);
+
+  function LocationForm(props) {
+    _classCallCheck(this, LocationForm);
+
+    var _this = _possibleConstructorReturn(this, (LocationForm.__proto__ || Object.getPrototypeOf(LocationForm)).call(this, props));
+
+    _this.state = {
+      name: ""
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(LocationForm, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchLocations();
+    }
+  }, {
+    key: 'update',
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (e) {
+        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var location = this.state;
+      this.props.processForm(location).then(function () {
+        return _this3.props.history.push('/checkin');
+      });
+    }
+  }, {
+    key: 'renderErrors',
+    value: function renderErrors() {
+      return _react2.default.createElement(
+        'ul',
+        { className: 'location-errors' },
+        this.props.errors.map(function (error, i) {
+          return _react2.default.createElement(
+            'li',
+            { key: 'error-' + i },
+            error
+          );
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'location-form-container' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSubmit, className: 'location-form-box' },
+          'Leave a location',
+          _react2.default.createElement('br', null),
+          this.renderErrors(),
+          _react2.default.createElement(
+            'div',
+            { className: 'location-form' },
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'New Location',
+                value: this.state.name,
+                onChange: this.update('name'),
+                className: 'location-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'div',
+              { className: 'submit-button' },
+              _react2.default.createElement(
+                'button',
+                { className: 'submit-button', type: 'submit' },
+                'SUBMIT LOCATION'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return LocationForm;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(LocationForm);
+
+/***/ }),
+/* 420 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(19);
+
+var _drink_actions = __webpack_require__(48);
+
+var _drink_form = __webpack_require__(421);
+
+var _drink_form2 = _interopRequireDefault(_drink_form);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+
+    errors: state.errors.drinks || []
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    processForm: function processForm(location) {
+      return dispatch((0, _drink_actions.createDrink)(location));
+    },
+    fetchDrinks: function fetchDrinks() {
+      return dispatch((0, _drink_actions.fetchDrinks)());
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_drink_form2.default);
+
+/***/ }),
+/* 421 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DrinkForm = function (_React$Component) {
+  _inherits(DrinkForm, _React$Component);
+
+  function DrinkForm(props) {
+    _classCallCheck(this, DrinkForm);
+
+    var _this = _possibleConstructorReturn(this, (DrinkForm.__proto__ || Object.getPrototypeOf(DrinkForm)).call(this, props));
+
+    _this.state = {
+      name: ""
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(DrinkForm, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchDrinks();
+    }
+  }, {
+    key: 'update',
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (e) {
+        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var drink = this.state;
+      this.props.processForm(drink).then(function () {
+        return _this3.props.history.push('/checkin');
+      });
+    }
+  }, {
+    key: 'renderErrors',
+    value: function renderErrors() {
+      return _react2.default.createElement(
+        'ul',
+        { className: 'drink-errors' },
+        this.props.errors.map(function (error, i) {
+          return _react2.default.createElement(
+            'li',
+            { key: 'error-' + i },
+            error
+          );
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'drink-form-container' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSubmit, className: 'drink-form-box' },
+          'Leave a drink',
+          _react2.default.createElement('br', null),
+          this.renderErrors(),
+          _react2.default.createElement(
+            'div',
+            { className: 'drink-form' },
+            _react2.default.createElement(
+              'label',
+              null,
+              _react2.default.createElement('input', { type: 'text',
+                placeholder: 'New Drink',
+                value: this.state.name,
+                onChange: this.update('name'),
+                className: 'drink-input'
+              })
+            ),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'div',
+              { className: 'submit-button' },
+              _react2.default.createElement(
+                'button',
+                { className: 'submit-button', type: 'submit' },
+                'SUBMIT DRINK'
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return DrinkForm;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(DrinkForm);
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(19);
+
+var _user_profile = __webpack_require__(423);
+
+var _user_profile2 = _interopRequireDefault(_user_profile);
+
+var _review_actions = __webpack_require__(49);
+
+var _user_actions = __webpack_require__(47);
+
+var _location_actions = __webpack_require__(141);
+
+var _drink_actions = __webpack_require__(48);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.session.currentUser,
+    reviews: state.session.currentUser.reviews,
+    users: state.entities.users,
+    locations: state.entities.locations,
+    drinks: state.entities.drinks
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchReviews: function fetchReviews() {
+      return dispatch((0, _review_actions.fetchReviews)());
+    },
+    fetchUsers: function fetchUsers() {
+      return dispatch((0, _user_actions.fetchUsers)());
+    },
+    fetchLocations: function fetchLocations() {
+      return dispatch((0, _location_actions.fetchLocations)());
+    },
+    fetchDrinks: function fetchDrinks() {
+      return dispatch((0, _drink_actions.fetchDrinks)());
+    },
+    destroyUserReview: function destroyUserReview(review) {
+      return dispatch((0, _review_actions.destroyUserReview)(review));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_user_profile2.default);
+
+/***/ }),
+/* 423 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+var _user_review_index_item = __webpack_require__(424);
+
+var _user_review_index_item2 = _interopRequireDefault(_user_review_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserProfile = function (_React$Component) {
+  _inherits(UserProfile, _React$Component);
+
+  function UserProfile(props) {
+    _classCallCheck(this, UserProfile);
+
+    return _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
+  }
+
+  _createClass(UserProfile, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchReviews();
+      this.props.fetchUsers();
+      this.props.fetchLocations();
+      this.props.fetchDrinks();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      console.log(this.props.reviews);
+      return _react2.default.createElement(
+        'div',
+        { className: 'dashboard' },
+        _react2.default.createElement(
+          'ul',
+          { id: 'review-index' },
+          'Your Reviews',
+          this.props.reviews.map(function (review) {
+            return _react2.default.createElement(_user_review_index_item2.default, {
+              destroyReview: function destroyReview() {
+                return _this2.props.destroyUserReview(review);
+              },
+              key: review.id,
+              review: review,
+              drink: _this2.props.drinks[review.drink_id],
+              location: _this2.props.locations[review.location_id]
+            });
+          })
+        )
+      );
+    }
+  }]);
+
+  return UserProfile;
+}(_react2.default.Component);
+
+exports.default = UserProfile;
+
+/***/ }),
+/* 424 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
+  var review = _ref.review,
+      drink = _ref.drink,
+      user = _ref.user,
+      location = _ref.location,
+      destroyReview = _ref.destroyReview;
+
+
+  if (!drink) {
+    return null;
+  }
+  return _react2.default.createElement(
+    'li',
+    { className: 'review-index-item' },
+    _react2.default.createElement(
+      'p',
+      null,
+      'You had a ',
+      drink.name,
+      ' at ',
+      location.name,
+      ' and gave it ',
+      review.rating,
+      '\xA0 out of 5'
+    ),
+    _react2.default.createElement(
+      'button',
+      null,
+      'Edit Review'
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(
+      'button',
+      { onClick: destroyReview },
+      'Delete Review'
+    ),
+    _react2.default.createElement('br', null)
+  );
+};
+
+exports.default = UserReviewIndexItem;
 
 /***/ })
 /******/ ]);
