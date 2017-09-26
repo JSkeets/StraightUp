@@ -8,8 +8,7 @@ import SignUpFormContainer from '../components/SignUpForm/signup_form_container'
 import DashboardContainer from '../components/Dashboard/dashboard_container';
 import ReviewIndexContainer from '../components/Reviews/review_index_container';
 import ReviewFormContainer from '../components/ReviewForm/review_form_container';
-import LocationFormContainer from '../components/LocationForm/location_form_container';
-import DrinkFormContainer from '../components/DrinkForm/drink_form_container';
+
 import UserProfileContainer from '../components/UserProfile/user_profile_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Route, Redirect, Switch, Link, HashRouter} from 'react-router-dom';
@@ -24,10 +23,6 @@ const App = () => (
 
     <ProtectedRoute path="/dashboard" component={UserProfileContainer} />
 
-    <ProtectedRoute path="/newdrink" component={ReviewFormContainer} />
-    <ProtectedRoute path="/newlocation" component={ReviewFormContainer} />
-    <ProtectedRoute path="/newlocation" component={LocationFormContainer} />
-    <ProtectedRoute path="/newdrink" component={DrinkFormContainer} />
 
     <ProtectedRoute path="/reviews/:reviewId/edit" component={ReviewFormContainer} />
     <AuthRoute path="/login" component={LoginFormContainer} />

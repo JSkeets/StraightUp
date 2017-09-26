@@ -11,10 +11,13 @@ const receiveReviews = (reviews) => ({
   reviews
 });
 
-const receiveReviewErrors = (errors) => ({
+const receiveReviewErrors = (errors) => {
+  console.log("REVIEW ERRORS",errors);
+  return {
   type: RECEIVE_REVIEW_ERRORS,
   errors
-});
+};
+};
 
 const receiveReview = (review) => {
   return {

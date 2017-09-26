@@ -5478,6 +5478,7 @@ var receiveReviews = function receiveReviews(reviews) {
 };
 
 var receiveReviewErrors = function receiveReviewErrors(errors) {
+  console.log("REVIEW ERRORS", errors);
   return {
     type: RECEIVE_REVIEW_ERRORS,
     errors: errors
@@ -27129,6 +27130,8 @@ exports.default = function () {
   switch (action.type) {
     case _review_actions.RECEIVE_REVIEW_ERRORS:
       return action.errors;
+    case _review_actions.RECEIVE_REVIEW:
+      return _nullErrors;
     default:
       return state;
 
@@ -33237,14 +33240,6 @@ var _review_form_container = __webpack_require__(413);
 
 var _review_form_container2 = _interopRequireDefault(_review_form_container);
 
-var _location_form_container = __webpack_require__(418);
-
-var _location_form_container2 = _interopRequireDefault(_location_form_container);
-
-var _drink_form_container = __webpack_require__(420);
-
-var _drink_form_container2 = _interopRequireDefault(_drink_form_container);
-
 var _user_profile_container = __webpack_require__(422);
 
 var _user_profile_container2 = _interopRequireDefault(_user_profile_container);
@@ -33265,10 +33260,6 @@ var App = function App() {
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/global', component: _review_index_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/checkin', component: _review_form_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _user_profile_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newdrink', component: _review_form_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newlocation', component: _review_form_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newlocation', component: _location_form_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newdrink', component: _drink_form_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/reviews/:reviewId/edit', component: _review_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
@@ -34532,7 +34523,6 @@ var ReviewForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ReviewForm.__proto__ || Object.getPrototypeOf(ReviewForm)).call(this, props));
 
     _this.state = _this.props.review;
-
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleDrink = _this.handleDrink.bind(_this);
     _this.handleLocation = _this.handleLocation.bind(_this);
@@ -34594,6 +34584,9 @@ var ReviewForm = function (_React$Component) {
           return _this3.props.history.push('/global');
         });
       }
+      this.props.processForm(review).then(function () {
+        return _this3.props.history.push('/global');
+      });
     }
   }, {
     key: 'renderErrors',
@@ -34732,14 +34725,6 @@ var ReviewForm = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(ReviewForm);
-
-//   <input type="text"
-//     placeholder="rating"
-//     value={this.state.rating}
-//     onChange={this.update('rating')}
-//     className="review-input"
-//     />
-// </label>
 
 /***/ }),
 /* 415 */
@@ -34880,50 +34865,25 @@ var AutoComplete = function (_React$Component) {
       var _this3 = this;
 
       var names = this.filterNames();
-
-      if (names.length === 0) {
-        var content = _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
-          _react2.default.createElement(
-            'ul',
-            { className: 'autoNames' },
-            _react2.default.createElement(
+      var content = _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
+        _react2.default.createElement(
+          'ul',
+          { className: 'autoNames' },
+          names.map(function (name) {
+            return _react2.default.createElement(
               'li',
-              null,
-              ' NO RESULTS'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/new' + this.prop.type },
-              'Create a ',
-              this.prop.type
-            )
-          )
-        );
-        return content;
-      } else {
-        var _content = _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
-          _react2.default.createElement(
-            'ul',
-            { className: 'autoNames' },
-            names.map(function (name) {
-              return _react2.default.createElement(
-                'li',
-                { onClick: function onClick(event) {
-                    return _this3.click(event);
-                  }, value: name.id },
-                name.name
-              );
-            })
-          )
-        );
-        return _content;
-      }
+              { onClick: function onClick(event) {
+                  return _this3.click(event);
+                }, value: name.id },
+              name.name
+            );
+          })
+        )
+      );
+      return content;
     }
   }]);
 
@@ -34962,348 +34922,10 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 418 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(19);
-
-var _location_actions = __webpack_require__(141);
-
-var _location_form = __webpack_require__(419);
-
-var _location_form2 = _interopRequireDefault(_location_form);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-
-    errors: state.errors.locations || []
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    processForm: function processForm(location) {
-      return dispatch((0, _location_actions.createLocation)(location));
-    },
-    fetchLocations: function fetchLocations() {
-      return dispatch((0, _location_actions.fetchLocations)());
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_location_form2.default);
-
-/***/ }),
-/* 419 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(14);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LocationForm = function (_React$Component) {
-  _inherits(LocationForm, _React$Component);
-
-  function LocationForm(props) {
-    _classCallCheck(this, LocationForm);
-
-    var _this = _possibleConstructorReturn(this, (LocationForm.__proto__ || Object.getPrototypeOf(LocationForm)).call(this, props));
-
-    _this.state = {
-      name: ""
-    };
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    return _this;
-  }
-
-  _createClass(LocationForm, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchLocations();
-    }
-  }, {
-    key: 'update',
-    value: function update(field) {
-      var _this2 = this;
-
-      return function (e) {
-        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
-      };
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      var _this3 = this;
-
-      e.preventDefault();
-      var location = this.state;
-      this.props.processForm(location).then(function () {
-        return _this3.props.history.push('/checkin');
-      });
-    }
-  }, {
-    key: 'renderErrors',
-    value: function renderErrors() {
-      return _react2.default.createElement(
-        'ul',
-        { className: 'location-errors' },
-        this.props.errors.map(function (error, i) {
-          return _react2.default.createElement(
-            'li',
-            { key: 'error-' + i },
-            error
-          );
-        })
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'location-form-container' },
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit, className: 'location-form-box' },
-          'Leave a location',
-          _react2.default.createElement('br', null),
-          this.renderErrors(),
-          _react2.default.createElement(
-            'div',
-            { className: 'location-form' },
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text',
-                placeholder: 'New Location',
-                value: this.state.name,
-                onChange: this.update('name'),
-                className: 'location-input'
-              })
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'div',
-              { className: 'submit-button' },
-              _react2.default.createElement(
-                'button',
-                { className: 'submit-button', type: 'submit' },
-                'SUBMIT LOCATION'
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return LocationForm;
-}(_react2.default.Component);
-
-exports.default = (0, _reactRouterDom.withRouter)(LocationForm);
-
-/***/ }),
-/* 420 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _reactRedux = __webpack_require__(19);
-
-var _drink_actions = __webpack_require__(48);
-
-var _drink_form = __webpack_require__(421);
-
-var _drink_form2 = _interopRequireDefault(_drink_form);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-
-    errors: state.errors.drinks || []
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    processForm: function processForm(location) {
-      return dispatch((0, _drink_actions.createDrink)(location));
-    },
-    fetchDrinks: function fetchDrinks() {
-      return dispatch((0, _drink_actions.fetchDrinks)());
-    }
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_drink_form2.default);
-
-/***/ }),
-/* 421 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(14);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DrinkForm = function (_React$Component) {
-  _inherits(DrinkForm, _React$Component);
-
-  function DrinkForm(props) {
-    _classCallCheck(this, DrinkForm);
-
-    var _this = _possibleConstructorReturn(this, (DrinkForm.__proto__ || Object.getPrototypeOf(DrinkForm)).call(this, props));
-
-    _this.state = {
-      name: ""
-    };
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    return _this;
-  }
-
-  _createClass(DrinkForm, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchDrinks();
-    }
-  }, {
-    key: 'update',
-    value: function update(field) {
-      var _this2 = this;
-
-      return function (e) {
-        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
-      };
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      var _this3 = this;
-
-      e.preventDefault();
-      var drink = this.state;
-      this.props.processForm(drink).then(function () {
-        return _this3.props.history.push('/checkin');
-      });
-    }
-  }, {
-    key: 'renderErrors',
-    value: function renderErrors() {
-      return _react2.default.createElement(
-        'ul',
-        { className: 'drink-errors' },
-        this.props.errors.map(function (error, i) {
-          return _react2.default.createElement(
-            'li',
-            { key: 'error-' + i },
-            error
-          );
-        })
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'drink-form-container' },
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit, className: 'drink-form-box' },
-          'Leave a drink',
-          _react2.default.createElement('br', null),
-          this.renderErrors(),
-          _react2.default.createElement(
-            'div',
-            { className: 'drink-form' },
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text',
-                placeholder: 'New Drink',
-                value: this.state.name,
-                onChange: this.update('name'),
-                className: 'drink-input'
-              })
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'div',
-              { className: 'submit-button' },
-              _react2.default.createElement(
-                'button',
-                { className: 'submit-button', type: 'submit' },
-                'SUBMIT DRINK'
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return DrinkForm;
-}(_react2.default.Component);
-
-exports.default = (0, _reactRouterDom.withRouter)(DrinkForm);
-
-/***/ }),
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
 /* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35478,6 +35100,7 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
   return _react2.default.createElement(
     'li',
     { className: 'review-index-item' },
+    _react2.default.createElement('br', null),
     _react2.default.createElement(
       'p',
       null,

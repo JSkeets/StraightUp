@@ -47,38 +47,21 @@ class AutoComplete extends React.Component {
 
   render(){
     let names = this.filterNames();
-
-    if (names.length === 0 ) {
       let content = <div>
         <input type="text" onChange={this.setInputVal} value={this.state.inputVal} placeholder={this.prop.type}></input>
         <ul className="autoNames">
-
-            <li> NO RESULTS</li>
-            <Link  to={`/new${this.prop.type}`}>Create a {this.prop.type}</Link>
-      </ul>
-    </div>;
-    return content;
-
-    } else {
-      let content = <div>
-        <input type="text" onChange={this.setInputVal} value={this.state.inputVal} placeholder={this.prop.type}></input>
-        <ul className="autoNames">
-
           {names.map((name) => {
             return (
               <li onClick={ (event) => this.click(event)} value={name.id} >{name.name}</li>
-
-
               );
           })}
         </ul>
       </div>;
       return content;
     }
-
   }
 
-}
+
 
 
 export default AutoComplete;

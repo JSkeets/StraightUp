@@ -8,6 +8,7 @@ const UserReviewIndexItem = ({ review, drink, user, location, destroyReview}) =>
     return null;
   }
     return (<li className="review-index-item">
+    <br />
     <p>You had a {drink.name} at {location.name} and gave it {review.rating}&nbsp;
         out of 5
     </p>

@@ -6,7 +6,6 @@ class ReviewForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.review;
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDrink = this.handleDrink.bind(this);
     this.handleLocation = this.handleLocation.bind(this);
@@ -18,8 +17,8 @@ class ReviewForm extends React.Component {
     this.props.fetchUsers();
     this.props.fetchLocations();
     this.props.fetchDrinks();
-  }
 
+  }
 
   update(field) {
     return e => this.setState({
@@ -54,11 +53,9 @@ class ReviewForm extends React.Component {
     } else {
       this.props.processForm(review).then( () => this.props.history.push('/global'));
     }
-
+    this.props.processForm(review).then( () => this.props.history.push('/global'));
 
   }
-
-
 
   renderErrors(){
     return(
@@ -92,10 +89,6 @@ class ReviewForm extends React.Component {
       rating: parseInt(event.target.value)
     });
   }
-
-
-
-
 
   render(){
     console.log(this.state);
@@ -137,12 +130,9 @@ class ReviewForm extends React.Component {
                   onChange={this.handleOptionChange}/>
               </label>
             </div>
-
-
-            <AutoComplete action={this.handleDrink} names={this.props.drinks} type={"drink"} inputVal={drinkInputVal}/>
-
+              <AutoComplete action={this.handleDrink} names={this.props.drinks} type={"drink"} inputVal={drinkInputVal}/>
             <br />
-            <AutoComplete action={this.handleLocation} names={this.props.locations} type={"location"} inputVal={locationInputVal}/>
+              <AutoComplete action={this.handleLocation} names={this.props.locations} type={"location"} inputVal={locationInputVal}/>
             <br />
             <label>
               <input type="text"
@@ -164,14 +154,3 @@ class ReviewForm extends React.Component {
 }
 
 export default withRouter(ReviewForm);
-
-
-
-
-//   <input type="text"
-//     placeholder="rating"
-//     value={this.state.rating}
-//     onChange={this.update('rating')}
-//     className="review-input"
-//     />
-// </label>
