@@ -14,7 +14,6 @@ class UserProfile extends React.Component {
   }
 
   render(){
-    console.log(this.props.reviews);
     return (
       <div className="dashboard">
       <ul id="review-index">

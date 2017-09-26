@@ -40,13 +40,15 @@ export const fetchReview = (review) => dispatch => (
   )
 );
 
-export const createReview = review => dispatch => (
-  ReviewsUtil.createReview(review).then(res => (
+export const createReview = review => dispatch =>{
+  debugger;
+  return (ReviewsUtil.createReview(review).then(res => (
     dispatch(receiveReview(res))
   ), err => (
     dispatch(receiveReviewErrors(err.responseJSON))
   ))
 );
+};
 
 export const destroyUserReview= (review) => dispatch => (
   UsersUtil.destroyUserReview(review).then(res => (
@@ -54,7 +56,6 @@ export const destroyUserReview= (review) => dispatch => (
   ))
 );
 
-export const updateUserReview = (review) => dispatch => {
-  debugger;
-  return (UsersUtil.updateUserReview(review).then(res => dispatch(receiveReview(res))));
-};
+export const updateUserReview = (review) => dispatch => (
+  UsersUtil.updateUserReview(review).then(res => dispatch(receiveReview(res)))
+);

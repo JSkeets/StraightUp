@@ -11,6 +11,7 @@ class ReviewForm extends React.Component {
     this.handleDrink = this.handleDrink.bind(this);
     this.handleLocation = this.handleLocation.bind(this);
     this.handleOptionChange = this.handleOptionChange.bind(this);
+    this.handleChecked = this.handleChecked.bind(this);
   }
 
   componentDidMount(){
@@ -35,6 +36,7 @@ class ReviewForm extends React.Component {
   }
 
   renderErrors(){
+
 
     return(
       <ul className="review-errors">
@@ -65,12 +67,17 @@ class ReviewForm extends React.Component {
     });
   }
 
+  handleChecked() {
+    if (this.state.rating !== ""){
+
+    }
+  }
+
 
 
   render(){
+    console.log(this.state);
     const text = this.props.formType === "new" ? "Create post" : "Update Post";
-    console.log("AUTO DRINKS",this.props);
-    console.log("AUTO LOCATIONS",this.props);
     const drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
     const locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
     return(
@@ -84,12 +91,12 @@ class ReviewForm extends React.Component {
             <div className="starRating">
               <label id="rating1">1
                 <input id="rating1" type="radio" name="rating" value="1"
-                  checked={this.state.rating === "1"}
+                  checked={this.state.rating === "1" }
                   onChange={this.handleOptionChange}/>
               </label>
               <label id="rating2">2
                 <input id="rating2" type="radio" name="rating" value="2"
-                  checked={this.state.rating === "2"}
+                  checked={this.state.rating === "2" }
                   onChange={this.handleOptionChange}/>
               </label>
               <label id="rating3">3

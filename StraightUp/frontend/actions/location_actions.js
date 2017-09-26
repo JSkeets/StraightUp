@@ -15,7 +15,6 @@ const receiveLocationErrors = (errors) => ({
 });
 
 const receiveLocation = (location) => {
-  console.log("INSIDE RECEIVE LOCATION",location);
   return {
   type: RECEIVE_LOCATION,
   location

@@ -5518,6 +5518,7 @@ var fetchReview = exports.fetchReview = function fetchReview(review) {
 
 var createReview = exports.createReview = function createReview(review) {
   return function (dispatch) {
+    debugger;
     return ReviewsUtil.createReview(review).then(function (res) {
       return dispatch(receiveReview(res));
     }, function (err) {
@@ -5536,7 +5537,6 @@ var destroyUserReview = exports.destroyUserReview = function destroyUserReview(r
 
 var updateUserReview = exports.updateUserReview = function updateUserReview(review) {
   return function (dispatch) {
-    debugger;
     return UsersUtil.updateUserReview(review).then(function (res) {
       return dispatch(receiveReview(res));
     });
@@ -12982,7 +12982,6 @@ var receiveLocationErrors = function receiveLocationErrors(errors) {
 };
 
 var receiveLocation = function receiveLocation(location) {
-  console.log("INSIDE RECEIVE LOCATION", location);
   return {
     type: RECEIVE_LOCATION,
     location: location
@@ -27021,13 +27020,12 @@ var fetchUser = exports.fetchUser = function fetchUser(id) {
 var updateUserReview = exports.updateUserReview = function updateUserReview(review) {
   return $.ajax({
     method: "PATCH",
-    url: "/api/users/" + review.user_id + "/" + review.id,
+    url: "/api/users/" + review.user_id + "/reviews/" + review.id,
     data: { review: review }
   });
 };
 
 var destroyUserReview = exports.destroyUserReview = function destroyUserReview(review) {
-  console.log(review);
   return $.ajax({
     method: "DELETE",
     url: "/api/users/" + review.user_id + "/reviews/" + review.id
@@ -34135,7 +34133,6 @@ var SignUpForm = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         'div',
         { className: 'signup-form-container' },
@@ -34446,11 +34443,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     rating: "",
     body: "",
     user_id: state.session.currentUser.id
-
   };
   var formType = "new";
   if (ownProps.match.path == "/reviews/:reviewId/edit") {
-
     review = state.entities.reviews[ownProps.match.params.reviewId];
     formType = "edit";
   }
@@ -34468,7 +34463,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  var action = ownProps.match.path === "/reviews/:id/edit" ? _review_actions.updateUserReview : _review_actions.createReview;
+  var action = ownProps.match.path === "/reviews/:reviewId/edit" ? _review_actions.updateUserReview : _review_actions.createReview;
   return {
     processForm: function processForm(review) {
       return dispatch(action(review));
@@ -34484,9 +34479,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     fetchDrinks: function fetchDrinks() {
       return dispatch((0, _drink_actions.fetchDrinks)());
-    },
-    updateReview: function updateReview() {
-      return dispatch((0, _review_actions.updateUserReview)());
     }
   };
 };
@@ -34540,6 +34532,7 @@ var ReviewForm = function (_React$Component) {
     _this.handleDrink = _this.handleDrink.bind(_this);
     _this.handleLocation = _this.handleLocation.bind(_this);
     _this.handleOptionChange = _this.handleOptionChange.bind(_this);
+    _this.handleChecked = _this.handleChecked.bind(_this);
     return _this;
   }
 
@@ -34609,11 +34602,15 @@ var ReviewForm = function (_React$Component) {
       });
     }
   }, {
+    key: 'handleChecked',
+    value: function handleChecked() {
+      if (this.state.rating !== "") {}
+    }
+  }, {
     key: 'render',
     value: function render() {
+      console.log(this.state);
       var text = this.props.formType === "new" ? "Create post" : "Update Post";
-      console.log("AUTO DRINKS", this.props);
-      console.log("AUTO LOCATIONS", this.props);
       var drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
       var locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
       return _react2.default.createElement(
@@ -34823,7 +34820,6 @@ var AutoComplete = function (_React$Component) {
     key: 'click',
     value: function click(event) {
       this.fillInput(event);
-      console.log(event.target.value);
       this.prop.action(event.target.value);
     }
   }, {
@@ -34852,7 +34848,6 @@ var AutoComplete = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.prop);
       var names = this.filterNames();
 
       if (names.length === 0) {
@@ -35391,7 +35386,6 @@ var UserProfile = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.props.reviews);
       return _react2.default.createElement(
         'div',
         { className: 'dashboard' },

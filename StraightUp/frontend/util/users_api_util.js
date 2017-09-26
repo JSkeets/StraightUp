@@ -23,13 +23,12 @@ export const fetchUser = (id) => (
 export const updateUserReview = (review) => (
   $.ajax({
     method: "PATCH",
-    url: `/api/users/${review.user_id}/${review.id}`,
+    url: `/api/users/${review.user_id}/reviews/${review.id}`,
     data: {review}
   })
 );
 
 export const destroyUserReview = (review) => {
-  console.log(review);
     return ($.ajax({
     method: "DELETE",
     url: `/api/users/${review.user_id}/reviews/${review.id}`

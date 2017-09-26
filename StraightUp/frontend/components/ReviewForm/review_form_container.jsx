@@ -14,11 +14,9 @@ const mapStateToProps = (state,ownProps) => {
       rating: "",
       body:"",
       user_id:state.session.currentUser.id
-
     };
     let formType = "new";
     if (ownProps.match.path == "/reviews/:reviewId/edit") {
-
       review = state.entities.reviews[ownProps.match.params.reviewId];
       formType = "edit";
     }
@@ -36,14 +34,13 @@ const mapStateToProps = (state,ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch,ownProps) => {
-    const action = ownProps.match.path === "/reviews/:id/edit" ? updateUserReview : createReview;
+    const action = ownProps.match.path === "/reviews/:reviewId/edit" ?  updateUserReview : createReview;
     return {
     processForm: review => dispatch(action(review)),
     fetchReviews: () => dispatch(fetchReviews()),
     fetchUsers: () => dispatch(fetchUsers()),
     fetchLocations: () => dispatch(fetchLocations()),
     fetchDrinks: () => dispatch(fetchDrinks()),
-    updateReview: () => dispatch(updateUserReview())
   };
 };
 

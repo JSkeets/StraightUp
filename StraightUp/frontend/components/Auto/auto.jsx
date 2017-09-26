@@ -22,7 +22,6 @@ class AutoComplete extends React.Component {
 
   click(event){
     this.fillInput(event);
-    console.log(event.target.value);
     this.prop.action(event.target.value);
   }
 
@@ -46,7 +45,6 @@ class AutoComplete extends React.Component {
   }
 
   render(){
-    console.log(this.prop);
     let names = this.filterNames();
 
     if (names.length === 0 ) {
