@@ -42,6 +42,20 @@ class ReviewForm extends React.Component {
     } else {
       this.props.processForm(review).then( () => this.props.history.push('/global'));
     }
+    if (!this.state.location_id) {
+      this.props.createLocation({name:this.state.locationName})
+        .then( (action) => {
+            review.location_id = action.location.id;
+            delete review.locationName;
+          this.setState({location_id: action.location.id}, () => (this.props.processForm(review)
+            .then( () => this.props.history.push('/global'))
+        ));
+      });
+    } else {
+      this.props.processForm(review).then( () => this.props.history.push('/global'));
+    }
+
+
   }
 
 
@@ -66,9 +80,10 @@ class ReviewForm extends React.Component {
        });
    }
 
-   handleLocation (input) {
+   handleLocation (input,locationName) {
         this.setState({
-            location_id: input
+            location_id: input,
+            locationName: locationName
         });
     }
 

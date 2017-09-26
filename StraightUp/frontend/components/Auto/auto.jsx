@@ -28,7 +28,6 @@ class AutoComplete extends React.Component {
   }
 
   filterNames(){
-
     let that = this;
     let results = [];
     let names = this.prop.names;

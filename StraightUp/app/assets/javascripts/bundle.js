@@ -34579,6 +34579,21 @@ var ReviewForm = function (_React$Component) {
           return _this3.props.history.push('/global');
         });
       }
+      if (!this.state.location_id) {
+        this.props.createLocation({ name: this.state.locationName }).then(function (action) {
+          review.location_id = action.location.id;
+          delete review.locationName;
+          _this3.setState({ location_id: action.location.id }, function () {
+            return _this3.props.processForm(review).then(function () {
+              return _this3.props.history.push('/global');
+            });
+          });
+        });
+      } else {
+        this.props.processForm(review).then(function () {
+          return _this3.props.history.push('/global');
+        });
+      }
     }
   }, {
     key: 'renderErrors',
@@ -34606,9 +34621,10 @@ var ReviewForm = function (_React$Component) {
     }
   }, {
     key: 'handleLocation',
-    value: function handleLocation(input) {
+    value: function handleLocation(input, locationName) {
       this.setState({
-        location_id: input
+        location_id: input,
+        locationName: locationName
       });
     }
   }, {
@@ -34841,7 +34857,6 @@ var AutoComplete = function (_React$Component) {
   }, {
     key: 'filterNames',
     value: function filterNames() {
-
       var that = this;
       var results = [];
       var names = this.prop.names;
