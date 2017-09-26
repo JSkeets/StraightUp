@@ -53,4 +53,8 @@ class Api::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:rating,:body,:drink_id,:location_id,:user_id)
   end
+
+  # def review_params
+  #   params.require(:drink).permit(:name,:image_url)
+  # end
 end

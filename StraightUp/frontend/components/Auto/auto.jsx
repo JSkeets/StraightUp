@@ -17,7 +17,9 @@ class AutoComplete extends React.Component {
   setInputVal(event){
     event.preventDefault();
     let val = event.currentTarget.value;
-    this.setState({inputVal: val});
+    this.setState({inputVal: val}, () => {
+      this.prop.action(undefined,val);
+    });
   }
 
   click(event){

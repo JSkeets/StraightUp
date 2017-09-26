@@ -41,7 +41,6 @@ export const fetchReview = (review) => dispatch => (
 );
 
 export const createReview = review => dispatch =>{
-  debugger;
   return (ReviewsUtil.createReview(review).then(res => (
     dispatch(receiveReview(res))
   ), err => (

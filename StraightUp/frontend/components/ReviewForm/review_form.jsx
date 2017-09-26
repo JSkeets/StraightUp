@@ -11,7 +11,6 @@ class ReviewForm extends React.Component {
     this.handleDrink = this.handleDrink.bind(this);
     this.handleLocation = this.handleLocation.bind(this);
     this.handleOptionChange = this.handleOptionChange.bind(this);
-    this.handleChecked = this.handleChecked.bind(this);
   }
 
   componentDidMount(){
@@ -30,14 +29,24 @@ class ReviewForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const review = this.state;
-    this.props.processForm(review).then( () => this.props.history.push('/global'));
-
+    const review = Object.assign({},this.state);
+    if (!this.state.drink_id) {
+      this.props.createDrink({name:this.state.drinkName})
+        .then( (action) => {
+            review.drink_id = action.drink.id;
+            delete review.drinkName;
+          this.setState({drink_id: action.drink.id}, () => (this.props.processForm(review)
+            .then( () => this.props.history.push('/global'))
+        ));
+      });
+    } else {
+      this.props.processForm(review).then( () => this.props.history.push('/global'));
+    }
   }
 
+
+
   renderErrors(){
-
-
     return(
       <ul className="review-errors">
         {this.props.errors.map((error,i) => (
@@ -49,9 +58,11 @@ class ReviewForm extends React.Component {
     );
   }
 
-  handleDrink (input) {
+  handleDrink (input, drinkName) {
+    console.log(drinkName);
        this.setState({
-           drink_id: input
+           drink_id: input,
+           drinkName: drinkName
        });
    }
 
@@ -63,15 +74,11 @@ class ReviewForm extends React.Component {
 
   handleOptionChange(event) {
     this.setState({
-      rating: event.target.value
+      rating: parseInt(event.target.value)
     });
   }
 
-  handleChecked() {
-    if (this.state.rating !== ""){
 
-    }
-  }
 
 
 
@@ -91,27 +98,27 @@ class ReviewForm extends React.Component {
             <div className="starRating">
               <label id="rating1">1
                 <input id="rating1" type="radio" name="rating" value="1"
-                  checked={this.state.rating === "1" }
+                  checked={this.state.rating === 1 ? "checked" : false }
                   onChange={this.handleOptionChange}/>
               </label>
               <label id="rating2">2
                 <input id="rating2" type="radio" name="rating" value="2"
-                  checked={this.state.rating === "2" }
+                  checked={this.state.rating === 2? "checked" : false}
                   onChange={this.handleOptionChange}/>
               </label>
               <label id="rating3">3
                 <input id="rating3" type="radio" name="rating" value="3"
-                  checked={this.state.rating === "3"}
+                  checked={this.state.rating === 3 ? "checked" : false}
                   onChange={this.handleOptionChange}/>
               </label>
               <label id="rating4">4
                 <input id="rating4" type="radio" name="rating" value="4"
-                  checked={this.state.rating === "4"}
+                  checked={this.state.rating ===  4 ? "checked" : false}
                   onChange={this.handleOptionChange}/>
               </label>
               <label id="rating5"> 5
                 <input id="rating5" type="radio" name="rating" value="5"
-                  checked={this.state.rating === "5"}
+                  checked={this.state.rating ===  5? "checked" : false}
                   onChange={this.handleOptionChange}/>
               </label>
             </div>

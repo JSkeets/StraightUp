@@ -5518,7 +5518,6 @@ var fetchReview = exports.fetchReview = function fetchReview(review) {
 
 var createReview = exports.createReview = function createReview(review) {
   return function (dispatch) {
-    debugger;
     return ReviewsUtil.createReview(review).then(function (res) {
       return dispatch(receiveReview(res));
     }, function (err) {
@@ -34479,6 +34478,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     fetchDrinks: function fetchDrinks() {
       return dispatch((0, _drink_actions.fetchDrinks)());
+    },
+    createDrink: function createDrink(drink) {
+      return dispatch((0, _drink_actions.createDrink)(drink));
+    },
+    createLocation: function createLocation(location) {
+      return dispatch((0, _location_actions.createLocation)(location));
     }
   };
 };
@@ -34532,7 +34537,6 @@ var ReviewForm = function (_React$Component) {
     _this.handleDrink = _this.handleDrink.bind(_this);
     _this.handleLocation = _this.handleLocation.bind(_this);
     _this.handleOptionChange = _this.handleOptionChange.bind(_this);
-    _this.handleChecked = _this.handleChecked.bind(_this);
     return _this;
   }
 
@@ -34559,15 +34563,26 @@ var ReviewForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      var review = this.state;
-      this.props.processForm(review).then(function () {
-        return _this3.props.history.push('/global');
-      });
+      var review = Object.assign({}, this.state);
+      if (!this.state.drink_id) {
+        this.props.createDrink({ name: this.state.drinkName }).then(function (action) {
+          review.drink_id = action.drink.id;
+          delete review.drinkName;
+          _this3.setState({ drink_id: action.drink.id }, function () {
+            return _this3.props.processForm(review).then(function () {
+              return _this3.props.history.push('/global');
+            });
+          });
+        });
+      } else {
+        this.props.processForm(review).then(function () {
+          return _this3.props.history.push('/global');
+        });
+      }
     }
   }, {
     key: 'renderErrors',
     value: function renderErrors() {
-
       return _react2.default.createElement(
         'ul',
         { className: 'review-errors' },
@@ -34582,9 +34597,11 @@ var ReviewForm = function (_React$Component) {
     }
   }, {
     key: 'handleDrink',
-    value: function handleDrink(input) {
+    value: function handleDrink(input, drinkName) {
+      console.log(drinkName);
       this.setState({
-        drink_id: input
+        drink_id: input,
+        drinkName: drinkName
       });
     }
   }, {
@@ -34598,13 +34615,8 @@ var ReviewForm = function (_React$Component) {
     key: 'handleOptionChange',
     value: function handleOptionChange(event) {
       this.setState({
-        rating: event.target.value
+        rating: parseInt(event.target.value)
       });
-    }
-  }, {
-    key: 'handleChecked',
-    value: function handleChecked() {
-      if (this.state.rating !== "") {}
     }
   }, {
     key: 'render',
@@ -34634,7 +34646,7 @@ var ReviewForm = function (_React$Component) {
                 { id: 'rating1' },
                 '1',
                 _react2.default.createElement('input', { id: 'rating1', type: 'radio', name: 'rating', value: '1',
-                  checked: this.state.rating === "1",
+                  checked: this.state.rating === 1 ? "checked" : false,
                   onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
@@ -34642,7 +34654,7 @@ var ReviewForm = function (_React$Component) {
                 { id: 'rating2' },
                 '2',
                 _react2.default.createElement('input', { id: 'rating2', type: 'radio', name: 'rating', value: '2',
-                  checked: this.state.rating === "2",
+                  checked: this.state.rating === 2 ? "checked" : false,
                   onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
@@ -34650,7 +34662,7 @@ var ReviewForm = function (_React$Component) {
                 { id: 'rating3' },
                 '3',
                 _react2.default.createElement('input', { id: 'rating3', type: 'radio', name: 'rating', value: '3',
-                  checked: this.state.rating === "3",
+                  checked: this.state.rating === 3 ? "checked" : false,
                   onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
@@ -34658,7 +34670,7 @@ var ReviewForm = function (_React$Component) {
                 { id: 'rating4' },
                 '4',
                 _react2.default.createElement('input', { id: 'rating4', type: 'radio', name: 'rating', value: '4',
-                  checked: this.state.rating === "4",
+                  checked: this.state.rating === 4 ? "checked" : false,
                   onChange: this.handleOptionChange })
               ),
               _react2.default.createElement(
@@ -34666,7 +34678,7 @@ var ReviewForm = function (_React$Component) {
                 { id: 'rating5' },
                 ' 5',
                 _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: '5',
-                  checked: this.state.rating === "5",
+                  checked: this.state.rating === 5 ? "checked" : false,
                   onChange: this.handleOptionChange })
               )
             ),
@@ -34812,9 +34824,13 @@ var AutoComplete = function (_React$Component) {
   _createClass(AutoComplete, [{
     key: 'setInputVal',
     value: function setInputVal(event) {
+      var _this2 = this;
+
       event.preventDefault();
       var val = event.currentTarget.value;
-      this.setState({ inputVal: val });
+      this.setState({ inputVal: val }, function () {
+        _this2.prop.action(undefined, val);
+      });
     }
   }, {
     key: 'click',
@@ -34846,7 +34862,7 @@ var AutoComplete = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var names = this.filterNames();
 
@@ -34884,7 +34900,7 @@ var AutoComplete = function (_React$Component) {
               return _react2.default.createElement(
                 'li',
                 { onClick: function onClick(event) {
-                    return _this2.click(event);
+                    return _this3.click(event);
                   }, value: name.id },
                 name.name
               );

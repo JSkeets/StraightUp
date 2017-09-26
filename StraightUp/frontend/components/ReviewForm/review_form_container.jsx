@@ -4,8 +4,8 @@ import { createReview, updateUserReview} from '../../actions/review_actions';
 import ReviewForm from './review_form';
 import { fetchReviews } from '../../actions/review_actions';
 import { fetchUsers } from '../../actions/user_actions';
-import { fetchLocations } from '../../actions/location_actions';
-import { fetchDrinks } from '../../actions/drink_actions';
+import { fetchLocations,createLocation } from '../../actions/location_actions';
+import { fetchDrinks,createDrink } from '../../actions/drink_actions';
 import { selectAllDrinks, selectAllLocations } from '../../reducers/selectors';
 
 const mapStateToProps = (state,ownProps) => {
@@ -41,6 +41,8 @@ const mapDispatchToProps = (dispatch,ownProps) => {
     fetchUsers: () => dispatch(fetchUsers()),
     fetchLocations: () => dispatch(fetchLocations()),
     fetchDrinks: () => dispatch(fetchDrinks()),
+    createDrink: (drink) =>dispatch(createDrink(drink)),
+    createLocation: (location) => dispatch(createLocation(location))
   };
 };
 
