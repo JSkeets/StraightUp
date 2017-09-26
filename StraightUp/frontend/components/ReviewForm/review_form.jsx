@@ -92,7 +92,6 @@ class ReviewForm extends React.Component {
 	}
 
 	handleDrink(input, drinkName) {
-		console.log(drinkName);
 		this.setState({
 			drink_id: input,
 			drinkName: drinkName
@@ -113,16 +112,23 @@ class ReviewForm extends React.Component {
 	}
 
 	render() {
-		console.log(this.state);
+		let preDrink;
+		let preLocation;
+		if (this.props.formType === "edit") {
+			preDrink =
+				this.state.drink_id === undefined
+					? ""
+					: this.props.autoDrinks[this.state.drink_id].name;
+			preLocation =
+				this.state.location_id === undefined
+					? ""
+					: this.props.autoLocations[this.state.location_id].name;
+		}
+
 		const text = this.props.formType === "new" ? "Create post" : "Update Post";
-		const drinkInputVal =
-			this.props.formType === "new"
-				? ""
-				: this.props.autoDrinks[this.state.drink_id].name;
-		const locationInputVal =
-			this.props.formType === "new"
-				? ""
-				: this.props.autoLocations[this.state.location_id].name;
+		const drinkInputVal = this.props.formType === "new" ? "" : preDrink;
+		const locationInputVal = this.props.formType === "new" ? "" : preLocation;
+
 		return (
 			<div className="review-form-container">
 				<form onSubmit={this.handleSubmit} className="review-form-box">

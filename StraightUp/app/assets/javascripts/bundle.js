@@ -5451,7 +5451,7 @@ var createDrink = exports.createDrink = function createDrink(drink) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 exports.updateUserReview = exports.destroyUserReview = exports.createReview = exports.fetchReview = exports.fetchReviews = exports.REMOVE_REVIEW = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
 
@@ -5471,76 +5471,75 @@ var RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEW_ERRORS = "RECEIVE_REVIEW_ERRO
 var REMOVE_REVIEW = exports.REMOVE_REVIEW = "REMOVE_REVIEW";
 
 var receiveReviews = function receiveReviews(reviews) {
-  return {
-    type: RECEIVE_REVIEWS,
-    reviews: reviews
-  };
+	return {
+		type: RECEIVE_REVIEWS,
+		reviews: reviews
+	};
 };
 
 var receiveReviewErrors = function receiveReviewErrors(errors) {
-  console.log("REVIEW ERRORS", errors);
-  return {
-    type: RECEIVE_REVIEW_ERRORS,
-    errors: errors
-  };
+	return {
+		type: RECEIVE_REVIEW_ERRORS,
+		errors: errors
+	};
 };
 
 var receiveReview = function receiveReview(review) {
-  return {
-    type: RECEIVE_REVIEW,
-    review: review
-  };
+	return {
+		type: RECEIVE_REVIEW,
+		review: review
+	};
 };
 
 var removeReview = function removeReview(review) {
-  return {
-    type: REMOVE_REVIEW,
-    review: review
-  };
+	return {
+		type: REMOVE_REVIEW,
+		review: review
+	};
 };
 
 var fetchReviews = exports.fetchReviews = function fetchReviews() {
-  return function (dispatch) {
-    return ReviewsUtil.fetchReviews().then(function (reviews) {
-      return dispatch(receiveReviews(reviews));
-    });
-  };
+	return function (dispatch) {
+		return ReviewsUtil.fetchReviews().then(function (reviews) {
+			return dispatch(receiveReviews(reviews));
+		});
+	};
 };
 
 var fetchReview = exports.fetchReview = function fetchReview(review) {
-  return function (dispatch) {
-    return ReviewsUtil.fetchReview(review).then(function (res) {
-      return dispatch(receiveReview(res));
-    }), function (err) {
-      return dispatch(receiveReviewErrors(err.responseJSON));
-    };
-  };
+	return function (dispatch) {
+		return ReviewsUtil.fetchReview(review).then(function (res) {
+			return dispatch(receiveReview(res));
+		}), function (err) {
+			return dispatch(receiveReviewErrors(err.responseJSON));
+		};
+	};
 };
 
 var createReview = exports.createReview = function createReview(review) {
-  return function (dispatch) {
-    return ReviewsUtil.createReview(review).then(function (res) {
-      return dispatch(receiveReview(res));
-    }, function (err) {
-      return dispatch(receiveReviewErrors(err.responseJSON));
-    });
-  };
+	return function (dispatch) {
+		return ReviewsUtil.createReview(review).then(function (res) {
+			return dispatch(receiveReview(res));
+		}, function (err) {
+			return dispatch(receiveReviewErrors(err.responseJSON));
+		});
+	};
 };
 
 var destroyUserReview = exports.destroyUserReview = function destroyUserReview(review) {
-  return function (dispatch) {
-    return UsersUtil.destroyUserReview(review).then(function (res) {
-      return dispatch(removeReview(res));
-    });
-  };
+	return function (dispatch) {
+		return UsersUtil.destroyUserReview(review).then(function (res) {
+			return dispatch(removeReview(res));
+		});
+	};
 };
 
 var updateUserReview = exports.updateUserReview = function updateUserReview(review) {
-  return function (dispatch) {
-    return UsersUtil.updateUserReview(review).then(function (res) {
-      return dispatch(receiveReview(res));
-    });
-  };
+	return function (dispatch) {
+		return UsersUtil.updateUserReview(review).then(function (res) {
+			return dispatch(receiveReview(res));
+		});
+	};
 };
 
 /***/ }),
@@ -34615,7 +34614,6 @@ var ReviewForm = function (_React$Component) {
 	}, {
 		key: "handleDrink",
 		value: function handleDrink(input, drinkName) {
-			console.log(drinkName);
 			this.setState({
 				drink_id: input,
 				drinkName: drinkName
@@ -34639,10 +34637,17 @@ var ReviewForm = function (_React$Component) {
 	}, {
 		key: "render",
 		value: function render() {
-			console.log(this.state);
+			var preDrink = void 0;
+			var preLocation = void 0;
+			if (this.props.formType === "edit") {
+				preDrink = this.state.drink_id === undefined ? "" : this.props.autoDrinks[this.state.drink_id].name;
+				preLocation = this.state.location_id === undefined ? "" : this.props.autoLocations[this.state.location_id].name;
+			}
+
 			var text = this.props.formType === "new" ? "Create post" : "Update Post";
-			var drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
-			var locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
+			var drinkInputVal = this.props.formType === "new" ? "" : preDrink;
+			var locationInputVal = this.props.formType === "new" ? "" : preLocation;
+
 			return _react2.default.createElement(
 				"div",
 				{ className: "review-form-container" },
