@@ -5,13 +5,8 @@ import AutoComplete from '../Auto/auto';
 class ReviewForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      drink_id: "",
-      location_id: "",
-      rating: "",
-      body:"",
-      user_id:this.props.currentUser
-    };
+    this.state = this.props.review;
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDrink = this.handleDrink.bind(this);
     this.handleLocation = this.handleLocation.bind(this);
@@ -37,10 +32,10 @@ class ReviewForm extends React.Component {
     const review = this.state;
     this.props.processForm(review).then( () => this.props.history.push('/global'));
 
-
   }
 
   renderErrors(){
+
     return(
       <ul className="review-errors">
         {this.props.errors.map((error,i) => (
@@ -70,7 +65,14 @@ class ReviewForm extends React.Component {
     });
   }
 
+
+
   render(){
+    const text = this.props.formType === "new" ? "Create post" : "Update Post";
+    console.log("AUTO DRINKS",this.props);
+    console.log("AUTO LOCATIONS",this.props);
+    const drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
+    const locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
     return(
       <div className="review-form-container">
         <form onSubmit={this.handleSubmit} className="review-form-box">
@@ -108,10 +110,10 @@ class ReviewForm extends React.Component {
             </div>
 
 
-            <AutoComplete action={this.handleDrink} names={this.props.drinks} type={"drink"}/>
+            <AutoComplete action={this.handleDrink} names={this.props.drinks} type={"drink"} inputVal={drinkInputVal}/>
 
             <br />
-            <AutoComplete action={this.handleLocation} names={this.props.locations} type={"location"}/>
+            <AutoComplete action={this.handleLocation} names={this.props.locations} type={"location"} inputVal={locationInputVal}/>
             <br />
             <label>
               <input type="text"

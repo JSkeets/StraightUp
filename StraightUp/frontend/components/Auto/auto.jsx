@@ -8,7 +8,7 @@ class AutoComplete extends React.Component {
     super(prop);
     this.prop = prop;
     this.state = {
-      inputVal: ""
+      inputVal: this.prop.inputVal
     };
     this.setInputVal = this.setInputVal.bind(this);
     this.fillInput = this.fillInput.bind(this);
@@ -46,6 +46,7 @@ class AutoComplete extends React.Component {
   }
 
   render(){
+    console.log(this.prop);
     let names = this.filterNames();
 
     if (names.length === 0 ) {

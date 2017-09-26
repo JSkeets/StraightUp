@@ -16,10 +16,12 @@ const receiveReviewErrors = (errors) => ({
   errors
 });
 
-const receiveReview = (review) => ({
+const receiveReview = (review) => {
+  return {
   type: RECEIVE_REVIEW,
   review
-});
+};
+};
 
 const removeReview = (review) => ({
   type: REMOVE_REVIEW,
@@ -51,3 +53,8 @@ export const destroyUserReview= (review) => dispatch => (
     dispatch(removeReview(res))
   ))
 );
+
+export const updateUserReview = (review) => dispatch => {
+  debugger;
+  return (UsersUtil.updateUserReview(review).then(res => dispatch(receiveReview(res))));
+};

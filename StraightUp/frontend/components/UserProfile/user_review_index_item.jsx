@@ -11,7 +11,7 @@ const UserReviewIndexItem = ({ review, drink, user, location, destroyReview}) =>
     <p>You had a {drink.name} at {location.name} and gave it {review.rating}&nbsp;
         out of 5
     </p>
-    <button>Edit Review</button>
+    <Link to={`reviews/${review.id}/edit`}>Edit Review</Link>
       <br />
     <button onClick={destroyReview}>Delete Review</button>
     <br />

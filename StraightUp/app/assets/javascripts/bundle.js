@@ -5453,7 +5453,7 @@ var createDrink = exports.createDrink = function createDrink(drink) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.destroyUserReview = exports.createReview = exports.fetchReview = exports.fetchReviews = exports.REMOVE_REVIEW = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
+exports.updateUserReview = exports.destroyUserReview = exports.createReview = exports.fetchReview = exports.fetchReviews = exports.REMOVE_REVIEW = exports.RECEIVE_REVIEW_ERRORS = exports.RECEIVE_REVIEWS = exports.RECEIVE_REVIEW = undefined;
 
 var _reviews_api_util = __webpack_require__(280);
 
@@ -5530,6 +5530,15 @@ var destroyUserReview = exports.destroyUserReview = function destroyUserReview(r
   return function (dispatch) {
     return UsersUtil.destroyUserReview(review).then(function (res) {
       return dispatch(removeReview(res));
+    });
+  };
+};
+
+var updateUserReview = exports.updateUserReview = function updateUserReview(review) {
+  return function (dispatch) {
+    debugger;
+    return UsersUtil.updateUserReview(review).then(function (res) {
+      return dispatch(receiveReview(res));
     });
   };
 };
@@ -33263,6 +33272,7 @@ var App = function App() {
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newlocation', component: _review_form_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newlocation', component: _location_form_container2.default }),
     _react2.default.createElement(_route_util.ProtectedRoute, { path: '/newdrink', component: _drink_form_container2.default }),
+    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/reviews/:reviewId/edit', component: _review_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
   );
@@ -34430,20 +34440,38 @@ var _selectors = __webpack_require__(154);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  var review = { drink_id: "",
+    location_id: "",
+    rating: "",
+    body: "",
+    user_id: state.session.currentUser.id
+
+  };
+  var formType = "new";
+  if (ownProps.match.path == "/reviews/:reviewId/edit") {
+
+    review = state.entities.reviews[ownProps.match.params.reviewId];
+    formType = "edit";
+  }
   return {
+    review: review,
+    formType: formType,
     errors: state.errors.reviews || [],
     currentUser: state.session.currentUser.id,
     users: state.entities.users,
     locations: (0, _selectors.selectAllLocations)(state),
-    drinks: (0, _selectors.selectAllDrinks)(state)
+    drinks: (0, _selectors.selectAllDrinks)(state),
+    autoDrinks: state.entities.drinks,
+    autoLocations: state.entities.locations
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+  var action = ownProps.match.path === "/reviews/:id/edit" ? _review_actions.updateUserReview : _review_actions.createReview;
   return {
     processForm: function processForm(review) {
-      return dispatch((0, _review_actions.createReview)(review));
+      return dispatch(action(review));
     },
     fetchReviews: function fetchReviews() {
       return dispatch((0, _review_actions.fetchReviews)());
@@ -34456,6 +34484,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchDrinks: function fetchDrinks() {
       return dispatch((0, _drink_actions.fetchDrinks)());
+    },
+    updateReview: function updateReview() {
+      return dispatch((0, _review_actions.updateUserReview)());
     }
   };
 };
@@ -34503,13 +34534,8 @@ var ReviewForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ReviewForm.__proto__ || Object.getPrototypeOf(ReviewForm)).call(this, props));
 
-    _this.state = {
-      drink_id: "",
-      location_id: "",
-      rating: "",
-      body: "",
-      user_id: _this.props.currentUser
-    };
+    _this.state = _this.props.review;
+
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleDrink = _this.handleDrink.bind(_this);
     _this.handleLocation = _this.handleLocation.bind(_this);
@@ -34548,6 +34574,7 @@ var ReviewForm = function (_React$Component) {
   }, {
     key: 'renderErrors',
     value: function renderErrors() {
+
       return _react2.default.createElement(
         'ul',
         { className: 'review-errors' },
@@ -34584,6 +34611,11 @@ var ReviewForm = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var text = this.props.formType === "new" ? "Create post" : "Update Post";
+      console.log("AUTO DRINKS", this.props);
+      console.log("AUTO LOCATIONS", this.props);
+      var drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
+      var locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
       return _react2.default.createElement(
         'div',
         { className: 'review-form-container' },
@@ -34641,9 +34673,9 @@ var ReviewForm = function (_React$Component) {
                   onChange: this.handleOptionChange })
               )
             ),
-            _react2.default.createElement(_auto2.default, { action: this.handleDrink, names: this.props.drinks, type: "drink" }),
+            _react2.default.createElement(_auto2.default, { action: this.handleDrink, names: this.props.drinks, type: "drink", inputVal: drinkInputVal }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(_auto2.default, { action: this.handleLocation, names: this.props.locations, type: "location" }),
+            _react2.default.createElement(_auto2.default, { action: this.handleLocation, names: this.props.locations, type: "location", inputVal: locationInputVal }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'label',
@@ -34773,7 +34805,7 @@ var AutoComplete = function (_React$Component) {
 
     _this.prop = prop;
     _this.state = {
-      inputVal: ""
+      inputVal: _this.prop.inputVal
     };
     _this.setInputVal = _this.setInputVal.bind(_this);
     _this.fillInput = _this.fillInput.bind(_this);
@@ -34820,6 +34852,7 @@ var AutoComplete = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(this.prop);
       var names = this.filterNames();
 
       if (names.length === 0) {
@@ -35432,8 +35465,8 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
       '\xA0 out of 5'
     ),
     _react2.default.createElement(
-      'button',
-      null,
+      _reactRouterDom.Link,
+      { to: 'reviews/' + review.id + '/edit' },
       'Edit Review'
     ),
     _react2.default.createElement('br', null),
