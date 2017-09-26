@@ -34489,7 +34489,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -34515,213 +34515,259 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ReviewForm = function (_React$Component) {
-  _inherits(ReviewForm, _React$Component);
+	_inherits(ReviewForm, _React$Component);
 
-  function ReviewForm(props) {
-    _classCallCheck(this, ReviewForm);
+	function ReviewForm(props) {
+		_classCallCheck(this, ReviewForm);
 
-    var _this = _possibleConstructorReturn(this, (ReviewForm.__proto__ || Object.getPrototypeOf(ReviewForm)).call(this, props));
+		var _this = _possibleConstructorReturn(this, (ReviewForm.__proto__ || Object.getPrototypeOf(ReviewForm)).call(this, props));
 
-    _this.state = _this.props.review;
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.handleDrink = _this.handleDrink.bind(_this);
-    _this.handleLocation = _this.handleLocation.bind(_this);
-    _this.handleOptionChange = _this.handleOptionChange.bind(_this);
-    return _this;
-  }
+		_this.state = _this.props.review;
+		_this.handleSubmit = _this.handleSubmit.bind(_this);
+		_this.handleDrink = _this.handleDrink.bind(_this);
+		_this.handleLocation = _this.handleLocation.bind(_this);
+		_this.handleOptionChange = _this.handleOptionChange.bind(_this);
+		return _this;
+	}
 
-  _createClass(ReviewForm, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchReviews();
-      this.props.fetchUsers();
-      this.props.fetchLocations();
-      this.props.fetchDrinks();
-    }
-  }, {
-    key: 'update',
-    value: function update(field) {
-      var _this2 = this;
+	_createClass(ReviewForm, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			this.props.fetchReviews();
+			this.props.fetchUsers();
+			this.props.fetchLocations();
+			this.props.fetchDrinks();
+		}
+	}, {
+		key: "update",
+		value: function update(field) {
+			var _this2 = this;
 
-      return function (e) {
-        return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
-      };
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      var _this3 = this;
+			return function (e) {
+				return _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+			};
+		}
+	}, {
+		key: "handleSubmit",
+		value: function handleSubmit(e) {
+			var _this3 = this;
 
-      e.preventDefault();
-      var review = Object.assign({}, this.state);
-      if (!this.state.drink_id) {
-        this.props.createDrink({ name: this.state.drinkName }).then(function (action) {
-          review.drink_id = action.drink.id;
-          delete review.drinkName;
-          _this3.setState({ drink_id: action.drink.id }, function () {
-            return _this3.props.processForm(review).then(function () {
-              return _this3.props.history.push('/global');
-            });
-          });
-        });
-      } else {
-        this.props.processForm(review).then(function () {
-          return _this3.props.history.push('/global');
-        });
-      }
-      if (!this.state.location_id) {
-        this.props.createLocation({ name: this.state.locationName }).then(function (action) {
-          review.location_id = action.location.id;
-          delete review.locationName;
-          _this3.setState({ location_id: action.location.id }, function () {
-            return _this3.props.processForm(review).then(function () {
-              return _this3.props.history.push('/global');
-            });
-          });
-        });
-      } else {
-        this.props.processForm(review).then(function () {
-          return _this3.props.history.push('/global');
-        });
-      }
-      this.props.processForm(review).then(function () {
-        return _this3.props.history.push('/global');
-      });
-    }
-  }, {
-    key: 'renderErrors',
-    value: function renderErrors() {
-      return _react2.default.createElement(
-        'ul',
-        { className: 'review-errors' },
-        this.props.errors.map(function (error, i) {
-          return _react2.default.createElement(
-            'li',
-            { key: 'error-' + i },
-            error
-          );
-        })
-      );
-    }
-  }, {
-    key: 'handleDrink',
-    value: function handleDrink(input, drinkName) {
-      console.log(drinkName);
-      this.setState({
-        drink_id: input,
-        drinkName: drinkName
-      });
-    }
-  }, {
-    key: 'handleLocation',
-    value: function handleLocation(input, locationName) {
-      this.setState({
-        location_id: input,
-        locationName: locationName
-      });
-    }
-  }, {
-    key: 'handleOptionChange',
-    value: function handleOptionChange(event) {
-      this.setState({
-        rating: parseInt(event.target.value)
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      console.log(this.state);
-      var text = this.props.formType === "new" ? "Create post" : "Update Post";
-      var drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
-      var locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
-      return _react2.default.createElement(
-        'div',
-        { className: 'review-form-container' },
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit, className: 'review-form-box' },
-          'Leave a review',
-          _react2.default.createElement('br', null),
-          this.renderErrors(),
-          _react2.default.createElement(
-            'div',
-            { className: 'review-form' },
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'div',
-              { className: 'starRating' },
-              _react2.default.createElement(
-                'label',
-                { id: 'rating1' },
-                '1',
-                _react2.default.createElement('input', { id: 'rating1', type: 'radio', name: 'rating', value: '1',
-                  checked: this.state.rating === 1 ? "checked" : false,
-                  onChange: this.handleOptionChange })
-              ),
-              _react2.default.createElement(
-                'label',
-                { id: 'rating2' },
-                '2',
-                _react2.default.createElement('input', { id: 'rating2', type: 'radio', name: 'rating', value: '2',
-                  checked: this.state.rating === 2 ? "checked" : false,
-                  onChange: this.handleOptionChange })
-              ),
-              _react2.default.createElement(
-                'label',
-                { id: 'rating3' },
-                '3',
-                _react2.default.createElement('input', { id: 'rating3', type: 'radio', name: 'rating', value: '3',
-                  checked: this.state.rating === 3 ? "checked" : false,
-                  onChange: this.handleOptionChange })
-              ),
-              _react2.default.createElement(
-                'label',
-                { id: 'rating4' },
-                '4',
-                _react2.default.createElement('input', { id: 'rating4', type: 'radio', name: 'rating', value: '4',
-                  checked: this.state.rating === 4 ? "checked" : false,
-                  onChange: this.handleOptionChange })
-              ),
-              _react2.default.createElement(
-                'label',
-                { id: 'rating5' },
-                ' 5',
-                _react2.default.createElement('input', { id: 'rating5', type: 'radio', name: 'rating', value: '5',
-                  checked: this.state.rating === 5 ? "checked" : false,
-                  onChange: this.handleOptionChange })
-              )
-            ),
-            _react2.default.createElement(_auto2.default, { action: this.handleDrink, names: this.props.drinks, type: "drink", inputVal: drinkInputVal }),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(_auto2.default, { action: this.handleLocation, names: this.props.locations, type: "location", inputVal: locationInputVal }),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text',
-                placeholder: 'comment',
-                value: this.state.body,
-                onChange: this.update('body'),
-                className: 'review-input'
-              })
-            ),
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'div',
-              { className: 'submit-button' },
-              _react2.default.createElement(
-                'button',
-                { className: 'submit-button', type: 'submit' },
-                'SUBMIT REVIEW'
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
+			e.preventDefault();
+			var review = Object.assign({}, this.state);
 
-  return ReviewForm;
+			if (!this.state.drink_id && this.state.location_id) {
+				this.props.createDrink({ name: this.state.drinkName }).then(function (action) {
+					review.drink_id = action.drink.id;
+					delete review.drinkName;
+					_this3.setState({ drink_id: action.drink.id }, function () {
+						return _this3.props.processForm(review).then(function () {
+							return _this3.props.history.push("/global");
+						});
+					});
+				});
+			} else if (!this.state.location_id && this.state.drink_id) {
+				this.props.createLocation({ name: this.state.locationName }).then(function (action) {
+					review.location_id = action.location.id;
+					delete review.locationName;
+					_this3.setState({ location_id: action.location.id }, function () {
+						return _this3.props.processForm(review).then(function () {
+							return _this3.props.history.push("/global");
+						});
+					});
+				});
+			} else if (!this.state.location_id && !this.state.drink_id) {
+				this.props.createDrink({ name: this.state.drinkName }).then(function (action) {
+					review.drink_id = action.drink.id;
+					delete review.drinkName;
+					_this3.setState({ drink_id: action.drink.id });
+				}).then(function () {
+					_this3.props.createLocation({ name: _this3.state.locationName }).then(function (action) {
+						review.location_id = action.location.id;
+						delete review.locationName;
+						_this3.setState({ location_id: action.location.id });
+					}).then(function () {
+						_this3.props.processForm(review).then(function () {
+							return _this3.props.history.push("/global");
+						});
+					});
+				});
+			} else {
+				this.props.processForm(review).then(function () {
+					return _this3.props.history.push("/global");
+				});
+			}
+		}
+	}, {
+		key: "renderErrors",
+		value: function renderErrors() {
+			return _react2.default.createElement(
+				"ul",
+				{ className: "review-errors" },
+				this.props.errors.map(function (error, i) {
+					return _react2.default.createElement(
+						"li",
+						{ key: "error-" + i },
+						error
+					);
+				})
+			);
+		}
+	}, {
+		key: "handleDrink",
+		value: function handleDrink(input, drinkName) {
+			console.log(drinkName);
+			this.setState({
+				drink_id: input,
+				drinkName: drinkName
+			});
+		}
+	}, {
+		key: "handleLocation",
+		value: function handleLocation(input, locationName) {
+			this.setState({
+				location_id: input,
+				locationName: locationName
+			});
+		}
+	}, {
+		key: "handleOptionChange",
+		value: function handleOptionChange(event) {
+			this.setState({
+				rating: parseInt(event.target.value)
+			});
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			console.log(this.state);
+			var text = this.props.formType === "new" ? "Create post" : "Update Post";
+			var drinkInputVal = this.props.formType === "new" ? "" : this.props.autoDrinks[this.state.drink_id].name;
+			var locationInputVal = this.props.formType === "new" ? "" : this.props.autoLocations[this.state.location_id].name;
+			return _react2.default.createElement(
+				"div",
+				{ className: "review-form-container" },
+				_react2.default.createElement(
+					"form",
+					{ onSubmit: this.handleSubmit, className: "review-form-box" },
+					"Leave a review",
+					_react2.default.createElement("br", null),
+					this.renderErrors(),
+					_react2.default.createElement(
+						"div",
+						{ className: "review-form" },
+						_react2.default.createElement("br", null),
+						_react2.default.createElement(
+							"div",
+							{ className: "starRating" },
+							_react2.default.createElement(
+								"label",
+								{ id: "rating1" },
+								"1",
+								_react2.default.createElement("input", {
+									id: "rating1",
+									type: "radio",
+									name: "rating",
+									value: "1",
+									checked: this.state.rating === 1 ? "checked" : false,
+									onChange: this.handleOptionChange
+								})
+							),
+							_react2.default.createElement(
+								"label",
+								{ id: "rating2" },
+								"2",
+								_react2.default.createElement("input", {
+									id: "rating2",
+									type: "radio",
+									name: "rating",
+									value: "2",
+									checked: this.state.rating === 2 ? "checked" : false,
+									onChange: this.handleOptionChange
+								})
+							),
+							_react2.default.createElement(
+								"label",
+								{ id: "rating3" },
+								"3",
+								_react2.default.createElement("input", {
+									id: "rating3",
+									type: "radio",
+									name: "rating",
+									value: "3",
+									checked: this.state.rating === 3 ? "checked" : false,
+									onChange: this.handleOptionChange
+								})
+							),
+							_react2.default.createElement(
+								"label",
+								{ id: "rating4" },
+								"4",
+								_react2.default.createElement("input", {
+									id: "rating4",
+									type: "radio",
+									name: "rating",
+									value: "4",
+									checked: this.state.rating === 4 ? "checked" : false,
+									onChange: this.handleOptionChange
+								})
+							),
+							_react2.default.createElement(
+								"label",
+								{ id: "rating5" },
+								" ",
+								"5",
+								_react2.default.createElement("input", {
+									id: "rating5",
+									type: "radio",
+									name: "rating",
+									value: "5",
+									checked: this.state.rating === 5 ? "checked" : false,
+									onChange: this.handleOptionChange
+								})
+							)
+						),
+						_react2.default.createElement(_auto2.default, {
+							action: this.handleDrink,
+							names: this.props.drinks,
+							type: "drink",
+							inputVal: drinkInputVal
+						}),
+						_react2.default.createElement("br", null),
+						_react2.default.createElement(_auto2.default, {
+							action: this.handleLocation,
+							names: this.props.locations,
+							type: "location",
+							inputVal: locationInputVal
+						}),
+						_react2.default.createElement("br", null),
+						_react2.default.createElement(
+							"label",
+							null,
+							_react2.default.createElement("input", {
+								type: "text",
+								placeholder: "comment",
+								value: this.state.body,
+								onChange: this.update("body"),
+								className: "review-input"
+							})
+						),
+						_react2.default.createElement("br", null),
+						_react2.default.createElement(
+							"div",
+							{ className: "submit-button" },
+							_react2.default.createElement(
+								"button",
+								{ className: "submit-button", type: "submit" },
+								"SUBMIT REVIEW"
+							)
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return ReviewForm;
 }(_react2.default.Component);
 
 exports.default = (0, _reactRouterDom.withRouter)(ReviewForm);
@@ -34994,7 +35040,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -35018,51 +35064,51 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var UserProfile = function (_React$Component) {
-  _inherits(UserProfile, _React$Component);
+	_inherits(UserProfile, _React$Component);
 
-  function UserProfile(props) {
-    _classCallCheck(this, UserProfile);
+	function UserProfile(props) {
+		_classCallCheck(this, UserProfile);
 
-    return _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
-  }
+		return _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
+	}
 
-  _createClass(UserProfile, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.fetchReviews();
-      this.props.fetchUsers();
-      this.props.fetchLocations();
-      this.props.fetchDrinks();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
+	_createClass(UserProfile, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			this.props.fetchReviews();
+			this.props.fetchUsers();
+			this.props.fetchLocations();
+			this.props.fetchDrinks();
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var _this2 = this;
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'dashboard' },
-        _react2.default.createElement(
-          'ul',
-          { id: 'review-index' },
-          'Your Reviews',
-          this.props.reviews.map(function (review) {
-            return _react2.default.createElement(_user_review_index_item2.default, {
-              destroyReview: function destroyReview() {
-                return _this2.props.destroyUserReview(review);
-              },
-              key: review.id,
-              review: review,
-              drink: _this2.props.drinks[review.drink_id],
-              location: _this2.props.locations[review.location_id]
-            });
-          })
-        )
-      );
-    }
-  }]);
+			return _react2.default.createElement(
+				"div",
+				{ className: "dashboard" },
+				_react2.default.createElement(
+					"ul",
+					{ id: "review-index" },
+					"Your Reviews",
+					this.props.reviews.map(function (review) {
+						return _react2.default.createElement(_user_review_index_item2.default, {
+							destroyReview: function destroyReview() {
+								return _this2.props.destroyUserReview(review);
+							},
+							key: review.id,
+							review: review,
+							drink: _this2.props.drinks[review.drink_id],
+							location: _this2.props.locations[review.location_id]
+						});
+					})
+				)
+			);
+		}
+	}]);
 
-  return UserProfile;
+	return UserProfile;
 }(_react2.default.Component);
 
 exports.default = UserProfile;
