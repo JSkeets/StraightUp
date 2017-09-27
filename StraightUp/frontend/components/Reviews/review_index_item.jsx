@@ -21,7 +21,8 @@ const ReviewIndexItem = ({ review, user, location, drink }) => {
 			<div className="review-sentence">
 				<i id="username">{user.username}</i> had a &nbsp;
 				<i id="drink-name">{drink.name}</i> at &nbsp;
-				<i id="location">{location.name}</i>
+				<i id="location">{location.name}</i>&nbsp;
+				{review.created_at} ago
 			</div>
 			<div className="body-container">
 				<i id="body">{review.body}</i>

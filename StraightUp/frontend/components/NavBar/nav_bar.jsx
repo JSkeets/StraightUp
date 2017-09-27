@@ -34,7 +34,7 @@ const loggedInLinks = (currentUser, logout, guest) => (
 			TOP RATED
 		</Link>
 		<Link className="global" to="/global">
-			WORLDLY
+			THE BAR
 		</Link>
 		<Link className="header-name" to="/dashboard">
 			Welcome {currentUser.username}

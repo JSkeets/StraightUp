@@ -3282,7 +3282,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 exports.guest = exports.logout = exports.login = exports.receiveErrors = exports.receiveCurrentUser = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_CURRENT_USER = undefined;
 
@@ -3296,44 +3296,46 @@ var RECEIVE_CURRENT_USER = exports.RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER"
 var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = "RECEIVE_ERRORS";
 
 var receiveCurrentUser = exports.receiveCurrentUser = function receiveCurrentUser(currentUser) {
-  return {
-    type: RECEIVE_CURRENT_USER,
-    currentUser: currentUser
-  };
+	return {
+		type: RECEIVE_CURRENT_USER,
+		currentUser: currentUser
+	};
 };
 
 var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
-  return { type: RECEIVE_SESSION_ERRORS,
-    errors: errors };
+	return {
+		type: RECEIVE_SESSION_ERRORS,
+		errors: errors
+	};
 };
 
 var login = exports.login = function login(user) {
-  return function (dispatch) {
-    return SessionUtil.login(user).then(function (currentUser) {
-      return dispatch(receiveCurrentUser(currentUser));
-    }, function (err) {
-      return dispatch(receiveErrors(err.responseJSON));
-    });
-  };
+	return function (dispatch) {
+		return SessionUtil.login(user).then(function (currentUser) {
+			return dispatch(receiveCurrentUser(currentUser));
+		}, function (err) {
+			return dispatch(receiveErrors(err.responseJSON));
+		});
+	};
 };
 
 var logout = exports.logout = function logout() {
-  return function (dispatch) {
-    return SessionUtil.logout().then(function (user) {
-      return dispatch(receiveCurrentUser(null));
-    });
-  };
+	return function (dispatch) {
+		return SessionUtil.logout().then(function (user) {
+			return dispatch(receiveCurrentUser(null));
+		});
+	};
 };
 
 var guest = exports.guest = function guest() {
-  var guestUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { username: "Test1", password: "123456" };
-  return function (dispatch) {
-    return SessionUtil.login(guestUser).then(function (currentUser) {
-      return dispatch(receiveCurrentUser(currentUser));
-    }, function (err) {
-      return dispatch(receiveErrors(err.responseJSON));
-    });
-  };
+	var guestUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { username: "guest", password: "123456" };
+	return function (dispatch) {
+		return SessionUtil.login(guestUser).then(function (currentUser) {
+			return dispatch(receiveCurrentUser(currentUser));
+		}, function (err) {
+			return dispatch(receiveErrors(err.responseJSON));
+		});
+	};
 };
 
 /***/ }),
@@ -33386,7 +33388,7 @@ var loggedInLinks = function loggedInLinks(currentUser, logout, guest) {
 		_react2.default.createElement(
 			_reactRouterDom.Link,
 			{ className: "global", to: "/global" },
-			"WORLDLY"
+			"THE BAR"
 		),
 		_react2.default.createElement(
 			_reactRouterDom.Link,
@@ -34400,7 +34402,10 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
 				"i",
 				{ id: "location" },
 				location.name
-			)
+			),
+			"\xA0",
+			review.created_at,
+			" ago"
 		),
 		_react2.default.createElement(
 			"div",
@@ -35141,30 +35146,52 @@ var UserProfile = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
-			return _react2.default.createElement(
-				"div",
-				{ className: "dashboard" },
-				_react2.default.createElement(
-					"ul",
-					{ id: "review-index" },
-					this.props.reviews.map(function (review) {
-						return _react2.default.createElement(_user_review_index_item2.default, {
-							destroyReview: function destroyReview() {
-								return _this2.props.destroyUserReview(review);
-							},
-							key: review.id,
-							review: review,
-							drink: _this2.props.drinks[review.drink_id],
-							location: _this2.props.locations[review.location_id]
-						});
-					}),
+			console.log(this.props.reviews);
+			if (this.props.reviews.length === 0) {
+				return _react2.default.createElement(
+					"div",
+					{ className: "dashboard" },
 					_react2.default.createElement(
-						"div",
-						{ className: "user-title" },
-						"Your Reviews"
+						"ul",
+						{ id: "review-index" },
+						_react2.default.createElement(
+							"li",
+							null,
+							" You haven't reviewed anything yet!"
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "user-title" },
+							"Your Reviews"
+						)
 					)
-				)
-			);
+				);
+			} else {
+				return _react2.default.createElement(
+					"div",
+					{ className: "dashboard" },
+					_react2.default.createElement(
+						"ul",
+						{ id: "review-index" },
+						this.props.reviews.map(function (review) {
+							return _react2.default.createElement(_user_review_index_item2.default, {
+								destroyReview: function destroyReview() {
+									return _this2.props.destroyUserReview(review);
+								},
+								key: review.id,
+								review: review,
+								drink: _this2.props.drinks[review.drink_id],
+								location: _this2.props.locations[review.location_id]
+							});
+						}),
+						_react2.default.createElement(
+							"div",
+							{ className: "user-title" },
+							"Your Reviews"
+						)
+					)
+				);
+			}
 		}
 	}]);
 
@@ -35225,7 +35252,10 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
 				"i",
 				{ id: "location" },
 				location.name
-			)
+			),
+			"\xA0",
+			review.created_at,
+			" ago"
 		),
 		_react2.default.createElement(
 			"div",
@@ -35238,16 +35268,16 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
 		),
 		_react2.default.createElement(
 			"div",
-			{ className: "review-buttons" },
+			{ className: "user-buttons" },
 			_react2.default.createElement(
 				_reactRouterDom.Link,
-				{ to: "reviews/" + review.id + "/edit" },
+				{ className: "user-edit-button", to: "reviews/" + review.id + "/edit" },
 				"Edit Review"
 			),
 			_react2.default.createElement("br", null),
 			_react2.default.createElement(
 				"button",
-				{ onClick: destroyReview },
+				{ className: "user-delete-button", onClick: destroyReview },
 				"Delete Review"
 			)
 		),

@@ -27,6 +27,7 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 }
 
 #review-index {
+	font-family: $questrial;
 	top: 100px;
 	left: 100px;
 	background: white;
@@ -89,11 +90,36 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	border-radius: 5px;
 }
 
-#review-index-item {
+.review-index-item {
 	font-family: $questrial;
+	align-items: center;
 }
 
 .user-title {
 	font-size: 30px;
 	align-self: center;
+}
+.user-buttons {
+	display: flex;
+}
+.user-delete-button,
+.user-edit-button {
+	min-height: 30px;
+	display: flex;
+	align-items: center;
+	border-color: white;
+	background-color: blue;
+	border-width: thick;
+	border-width: 2px;
+	border-style: solid;
+	text-decoration: none;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 5px;
+	margin-right: 10px;
+	font-weight: bold;
+	color: #b8bfb4;
+
+	font-family: $questrial;
 }

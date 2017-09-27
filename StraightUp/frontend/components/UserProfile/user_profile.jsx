@@ -14,22 +14,34 @@ class UserProfile extends React.Component {
 	}
 
 	render() {
-		return (
-			<div className="dashboard">
-				<ul id="review-index">
-					{this.props.reviews.map(review => (
-						<UserReviewIndexItem
-							destroyReview={() => this.props.destroyUserReview(review)}
-							key={review.id}
-							review={review}
-							drink={this.props.drinks[review.drink_id]}
-							location={this.props.locations[review.location_id]}
-						/>
-					))}
-					<div className="user-title">Your Reviews</div>
-				</ul>
-			</div>
-		);
+		console.log(this.props.reviews);
+		if (this.props.reviews.length === 0) {
+			return (
+				<div className="dashboard">
+					<ul id="review-index">
+						<li> You haven't reviewed anything yet!</li>
+						<div className="user-title">Your Reviews</div>
+					</ul>
+				</div>
+			);
+		} else {
+			return (
+				<div className="dashboard">
+					<ul id="review-index">
+						{this.props.reviews.map(review => (
+							<UserReviewIndexItem
+								destroyReview={() => this.props.destroyUserReview(review)}
+								key={review.id}
+								review={review}
+								drink={this.props.drinks[review.drink_id]}
+								location={this.props.locations[review.location_id]}
+							/>
+						))}
+						<div className="user-title">Your Reviews</div>
+					</ul>
+				</div>
+			);
+		}
 	}
 }
 
