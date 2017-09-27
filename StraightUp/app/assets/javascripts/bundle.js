@@ -34342,7 +34342,7 @@ exports.default = ReviewIndex;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(4);
@@ -34354,47 +34354,62 @@ var _reactRouterDom = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ReviewIndexItem = function ReviewIndexItem(_ref) {
-  var review = _ref.review,
-      user = _ref.user,
-      location = _ref.location,
-      drink = _ref.drink;
+	var review = _ref.review,
+	    user = _ref.user,
+	    location = _ref.location,
+	    drink = _ref.drink;
 
-  if (!user) {
-    return null;
-  }
-  if (!review) {
-    return null;
-  }
-  if (!location) {
-    return null;
-  }
+	if (!user) {
+		return null;
+	}
+	if (!review) {
+		return null;
+	}
+	if (!location) {
+		return null;
+	}
 
-  if (!drink) {
-    return null;
-  }
-  return _react2.default.createElement(
-    'li',
-    { className: 'review-index-item' },
-    _react2.default.createElement(
-      'p',
-      null,
-      ' ',
-      user.username,
-      ' is drinking a ',
-      drink.name,
-      ' at ',
-      location.name,
-      ' and rates it a ',
-      review.rating,
-      ' '
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      review.body
-    ),
-    _react2.default.createElement('br', null)
-  );
+	if (!drink) {
+		return null;
+	}
+	return _react2.default.createElement(
+		"li",
+		{ className: "review-index-item" },
+		_react2.default.createElement(
+			"p",
+			null,
+			_react2.default.createElement(
+				"i",
+				{ id: "username" },
+				user.username
+			),
+			" had a",
+			_react2.default.createElement(
+				"i",
+				{ id: "drink-name" },
+				drink.name
+			),
+			" at",
+			_react2.default.createElement(
+				"i",
+				{ id: "location" },
+				location.name
+			),
+			" and rates it a",
+			_react2.default.createElement(
+				"i",
+				{ id: "review-rating" },
+				review.rating,
+				"/5"
+			),
+			_react2.default.createElement(
+				"i",
+				{ id: "body" },
+				review.body
+			)
+		),
+		_react2.default.createElement("br", null)
+	);
 };
 
 exports.default = ReviewIndexItem;
