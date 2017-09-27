@@ -17,13 +17,15 @@ const ReviewIndexItem = ({ review, user, location, drink }) => {
 	}
 	return (
 		<li className="review-index-item">
-			<p>
-				<i id="username">{user.username}</i> had a
-				<i id="drink-name">{drink.name}</i> at
-				<i id="location">{location.name}</i> and rates it a
-				<i id="review-rating">{review.rating}/5</i>
+			<i id="review-rating">{review.rating}/5</i>
+			<div className="review-sentence">
+				<i id="username">{user.username}</i> had a &nbsp;
+				<i id="drink-name">{drink.name}</i> at &nbsp;
+				<i id="location">{location.name}</i>
+			</div>
+			<div className="body-container">
 				<i id="body">{review.body}</i>
-			</p>
+			</div>
 			<br />
 		</li>
 	);

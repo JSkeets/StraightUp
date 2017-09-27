@@ -26,7 +26,7 @@ class UserProfile extends React.Component {
 							location={this.props.locations[review.location_id]}
 						/>
 					))}
-					Your Reviews
+					<div className="user-title">Your Reviews</div>
 				</ul>
 			</div>
 		);

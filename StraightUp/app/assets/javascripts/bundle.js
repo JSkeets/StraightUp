@@ -34376,32 +34376,35 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
 		"li",
 		{ className: "review-index-item" },
 		_react2.default.createElement(
-			"p",
-			null,
+			"i",
+			{ id: "review-rating" },
+			review.rating,
+			"/5"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "review-sentence" },
 			_react2.default.createElement(
 				"i",
 				{ id: "username" },
 				user.username
 			),
-			" had a",
+			" had a \xA0",
 			_react2.default.createElement(
 				"i",
 				{ id: "drink-name" },
 				drink.name
 			),
-			" at",
+			" at \xA0",
 			_react2.default.createElement(
 				"i",
 				{ id: "location" },
 				location.name
-			),
-			" and rates it a",
-			_react2.default.createElement(
-				"i",
-				{ id: "review-rating" },
-				review.rating,
-				"/5"
-			),
+			)
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "body-container" },
 			_react2.default.createElement(
 				"i",
 				{ id: "body" },
@@ -34773,10 +34776,16 @@ var ReviewForm = function (_React$Component) {
 								_react2.default.createElement("input", {
 									type: "text",
 									placeholder: "comment",
+									maxLength: "46",
 									value: this.state.body,
 									onChange: this.update("body"),
 									className: "review-input"
 								})
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "review-body-head" },
+								"Say something brief about your drink!"
 							),
 							_react2.default.createElement("br", null),
 							_react2.default.createElement(
@@ -34808,7 +34817,7 @@ exports.default = (0, _reactRouterDom.withRouter)(ReviewForm);
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 exports.ProtectedRoute = exports.AuthRoute = undefined;
 
@@ -34823,25 +34832,33 @@ var _reactRouterDom = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Auth = function Auth(_ref) {
-  var Component = _ref.component,
-      path = _ref.path,
-      loggedIn = _ref.loggedIn;
-  return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
-      return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
-    } });
+	var Component = _ref.component,
+	    path = _ref.path,
+	    loggedIn = _ref.loggedIn;
+	return _react2.default.createElement(_reactRouterDom.Route, {
+		path: path,
+		render: function render(props) {
+			return !loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: "/dashboard" });
+		}
+	});
 };
 
 var Protected = function Protected(_ref2) {
-  var Component = _ref2.component,
-      path = _ref2.path,
-      loggedIn = _ref2.loggedIn;
-  return _react2.default.createElement(_reactRouterDom.Route, { path: path, render: function render(props) {
-      return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
-    } });
+	var Component = _ref2.component,
+	    path = _ref2.path,
+	    loggedIn = _ref2.loggedIn;
+	return _react2.default.createElement(_reactRouterDom.Route, {
+		path: path,
+		render: function render(props) {
+			return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: "/" });
+		}
+	});
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  return { loggedIn: Boolean(state.session.currentUser) };
+	return {
+		loggedIn: Boolean(state.session.currentUser)
+	};
 };
 
 var AuthRoute = exports.AuthRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
@@ -35141,7 +35158,11 @@ var UserProfile = function (_React$Component) {
 							location: _this2.props.locations[review.location_id]
 						});
 					}),
-					"Your Reviews"
+					_react2.default.createElement(
+						"div",
+						{ className: "user-title" },
+						"Your Reviews"
+					)
 				)
 			);
 		}
@@ -35184,17 +35205,36 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
 	return _react2.default.createElement(
 		"li",
 		{ className: "review-index-item" },
-		_react2.default.createElement("br", null),
 		_react2.default.createElement(
-			"p",
-			null,
-			"You had a ",
-			drink.name,
-			" at ",
-			location.name,
-			" and gave it ",
+			"i",
+			{ id: "review-rating" },
 			review.rating,
-			"\xA0 out of 5"
+			"/5"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "review-sentence" },
+			"You had a \xA0",
+			_react2.default.createElement(
+				"i",
+				{ id: "drink-name" },
+				drink.name
+			),
+			" at \xA0",
+			_react2.default.createElement(
+				"i",
+				{ id: "location" },
+				location.name
+			)
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "body-container" },
+			_react2.default.createElement(
+				"i",
+				{ id: "body" },
+				review.body
+			)
 		),
 		_react2.default.createElement(
 			"div",

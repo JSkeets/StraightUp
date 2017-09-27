@@ -14,14 +14,11 @@ ul#review-index {
 
 ul#review-index > li {
 	display: flex;
-	border-top: green;
-	border-bottom: black;
 	border-style: solid;
 	border-width: 1px;
 	border-left: none;
 	border-right: none;
 	padding: 20px;
-	justify-content: left;
 	height: 40px;
 }
 
@@ -42,16 +39,11 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	font-weight: bold;
 }
 
-#body {
-	position: relative;
-	top: 23px;
-	left: 30px;
-	padding: 2px;
-	border-style: solid;
-	border-width: 1px;
+.review-sentence {
+	font-size: 20px;
 }
-
 #review-rating {
+	margin-right: 20px;
 	position: relative;
 	float: left;
 	padding: 5px;
@@ -59,4 +51,49 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	height: -webkit-fill-available;
 	font-size: xx-large;
 	font-color: white;
+}
+.review-body-head {
+	font-size: 20px;
+}
+
+.body-container {
+	width: 450px;
+
+	margin-left: auto;
+}
+
+#body:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 1.406em solid transparent;
+	border-right-color: #7fbbb5;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -0.703em;
+	margin-left: -1.406em;
+}
+
+#body {
+	position: relative;
+	background: #7fbbb5;
+	border-radius: 0.4em;
+	align-self: center;
+	left: 30px;
+	padding: 10px;
+	border-width: 1px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 5px;
+}
+
+#review-index-item {
+	font-family: $questrial;
+}
+
+.user-title {
+	font-size: 30px;
+	align-self: center;
 }
