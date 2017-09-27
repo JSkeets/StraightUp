@@ -130,102 +130,106 @@ class ReviewForm extends React.Component {
 		const locationInputVal = this.props.formType === "new" ? "" : preLocation;
 
 		return (
-			<div className="review-form-container">
-				<form onSubmit={this.handleSubmit} className="review-form-box">
-					Leave a review
-					<br />
-					{this.renderErrors()}
-					<div className="review-form">
+			<div className="dashboard">
+				<div className="review-form-container">
+					<form onSubmit={this.handleSubmit} className="review-form-box">
+						Leave a review
 						<br />
-						<div className="starRating">
-							<label id="rating1">
-								1
-								<input
-									id="rating1"
-									type="radio"
-									name="rating"
-									value="1"
-									checked={this.state.rating === 1 ? "checked" : false}
-									onChange={this.handleOptionChange}
-								/>
-							</label>
-							<label id="rating2">
-								2
-								<input
-									id="rating2"
-									type="radio"
-									name="rating"
-									value="2"
-									checked={this.state.rating === 2 ? "checked" : false}
-									onChange={this.handleOptionChange}
-								/>
-							</label>
-							<label id="rating3">
-								3
-								<input
-									id="rating3"
-									type="radio"
-									name="rating"
-									value="3"
-									checked={this.state.rating === 3 ? "checked" : false}
-									onChange={this.handleOptionChange}
-								/>
-							</label>
-							<label id="rating4">
-								4
-								<input
-									id="rating4"
-									type="radio"
-									name="rating"
-									value="4"
-									checked={this.state.rating === 4 ? "checked" : false}
-									onChange={this.handleOptionChange}
-								/>
-							</label>
-							<label id="rating5">
-								{" "}
-								5
-								<input
-									id="rating5"
-									type="radio"
-									name="rating"
-									value="5"
-									checked={this.state.rating === 5 ? "checked" : false}
-									onChange={this.handleOptionChange}
-								/>
-							</label>
-						</div>
-						<AutoComplete
-							action={this.handleDrink}
-							names={this.props.drinks}
-							type={"drink"}
-							inputVal={drinkInputVal}
-						/>
-						<br />
-						<AutoComplete
-							action={this.handleLocation}
-							names={this.props.locations}
-							type={"location"}
-							inputVal={locationInputVal}
-						/>
-						<br />
-						<label>
-							<input
-								type="text"
-								placeholder="comment"
-								value={this.state.body}
-								onChange={this.update("body")}
+						{this.renderErrors()}
+						<div className="review-form">
+							<br />
+							<div className="starRating">
+								<label id="rating1">
+									1
+									<input
+										id="rating1"
+										type="radio"
+										name="rating"
+										value="1"
+										checked={this.state.rating === 1 ? "checked" : false}
+										onChange={this.handleOptionChange}
+									/>
+								</label>
+								<label id="rating2">
+									2
+									<input
+										id="rating2"
+										type="radio"
+										name="rating"
+										value="2"
+										checked={this.state.rating === 2 ? "checked" : false}
+										onChange={this.handleOptionChange}
+									/>
+								</label>
+								<label id="rating3">
+									3
+									<input
+										id="rating3"
+										type="radio"
+										name="rating"
+										value="3"
+										checked={this.state.rating === 3 ? "checked" : false}
+										onChange={this.handleOptionChange}
+									/>
+								</label>
+								<label id="rating4">
+									4
+									<input
+										id="rating4"
+										type="radio"
+										name="rating"
+										value="4"
+										checked={this.state.rating === 4 ? "checked" : false}
+										onChange={this.handleOptionChange}
+									/>
+								</label>
+								<label id="rating5">
+									{" "}
+									5
+									<input
+										id="rating5"
+										type="radio"
+										name="rating"
+										value="5"
+										checked={this.state.rating === 5 ? "checked" : false}
+										onChange={this.handleOptionChange}
+									/>
+								</label>
+							</div>
+							<AutoComplete
+								action={this.handleDrink}
+								names={this.props.drinks}
+								type={"drink"}
+								inputVal={drinkInputVal}
 								className="review-input"
 							/>
-						</label>
-						<br />
-						<div className="submit-button">
-							<button className="submit-button" type="submit">
-								SUBMIT REVIEW
-							</button>
+							<br />
+							<AutoComplete
+								action={this.handleLocation}
+								names={this.props.locations}
+								type={"location"}
+								inputVal={locationInputVal}
+								className="review-input"
+							/>
+							<br />
+							<label>
+								<input
+									type="text"
+									placeholder="comment"
+									value={this.state.body}
+									onChange={this.update("body")}
+									className="review-input"
+								/>
+							</label>
+							<br />
+							<div className="submit-button">
+								<button className="submit-button" type="submit">
+									SUBMIT REVIEW
+								</button>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		);
 	}

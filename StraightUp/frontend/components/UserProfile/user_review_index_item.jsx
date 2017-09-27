@@ -1,23 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const UserReviewIndexItem = ({ review, drink, user, location, destroyReview}) => {
-
-
-  if(!drink){
-    return null;
-  }
-    return (<li className="review-index-item">
-    <br />
-    <p>You had a {drink.name} at {location.name} and gave it {review.rating}&nbsp;
-        out of 5
-    </p>
-    <Link to={`reviews/${review.id}/edit`}>Edit Review</Link>
-      <br />
-    <button onClick={destroyReview}>Delete Review</button>
-    <br />
-  </li>
-);
+const UserReviewIndexItem = ({
+	review,
+	drink,
+	user,
+	location,
+	destroyReview
+}) => {
+	if (!drink) {
+		return null;
+	}
+	return (
+		<li className="review-index-item">
+			<br />
+			<p>
+				You had a {drink.name} at {location.name} and gave it {review.rating}&nbsp;
+				out of 5
+			</p>
+			<div className="review-buttons">
+				<Link to={`reviews/${review.id}/edit`}>Edit Review</Link>
+				<br />
+				<button onClick={destroyReview}>Delete Review</button>
+			</div>
+			<br />
+		</li>
+	);
 };
 
 export default UserReviewIndexItem;

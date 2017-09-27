@@ -33196,7 +33196,7 @@ var withRouter = function withRouter(Component) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(4);
@@ -33250,22 +33250,25 @@ var _reactRouterDom = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(_navbar_container2.default, null),
-    _react2.default.createElement(_route_util.AuthRoute, { exact: true, path: '/', component: _home2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/', component: _dashboard2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/global', component: _review_index_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/checkin', component: _review_form_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/dashboard', component: _user_profile_container2.default }),
-    _react2.default.createElement(_route_util.ProtectedRoute, { path: '/reviews/:reviewId/edit', component: _review_form_container2.default }),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _login_form_container2.default }),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _signup_form_container2.default })
-  );
+	return _react2.default.createElement(
+		"div",
+		null,
+		_react2.default.createElement(_navbar_container2.default, null),
+		_react2.default.createElement(_route_util.AuthRoute, { exact: true, path: "/", component: _home2.default }),
+		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/global", component: _review_index_container2.default }),
+		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/checkin", component: _review_form_container2.default }),
+		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/dashboard", component: _user_profile_container2.default }),
+		_react2.default.createElement(_route_util.ProtectedRoute, {
+			path: "/reviews/:reviewId/edit",
+			component: _review_form_container2.default
+		}),
+		_react2.default.createElement(_route_util.AuthRoute, { path: "/login", component: _login_form_container2.default }),
+		_react2.default.createElement(_route_util.AuthRoute, { path: "/signup", component: _signup_form_container2.default })
+	);
 };
 
 exports.default = App;
+// <ProtectedRoute path="/" component={Dashboard} />
 
 /***/ }),
 /* 392 */
@@ -33316,7 +33319,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(4);
@@ -33328,77 +33331,77 @@ var _reactRouterDom = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var sessionLinks = function sessionLinks(guest) {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'div',
-      { className: 'login-signup' },
-      _react2.default.createElement(
-        'div',
-        { className: 'login-signup-right' },
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { className: 'login', to: '/login' },
-          'LOG IN'
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { className: 'sign-up', to: '/signup' },
-          'SIGN UP'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'guest-button-container' },
-        _react2.default.createElement(
-          'button',
-          { className: 'guest-button', onClick: guest },
-          'GUEST LOGIN'
-        )
-      )
-    )
-  );
+	return _react2.default.createElement(
+		"div",
+		null,
+		_react2.default.createElement(
+			"div",
+			{ className: "login-signup" },
+			_react2.default.createElement(
+				"div",
+				{ className: "login-signup-right" },
+				_react2.default.createElement(
+					_reactRouterDom.Link,
+					{ className: "login", to: "/login" },
+					"LOG IN"
+				),
+				_react2.default.createElement(
+					_reactRouterDom.Link,
+					{ className: "sign-up", to: "/signup" },
+					"SIGN UP"
+				)
+			),
+			_react2.default.createElement(
+				"div",
+				{ className: "guest-button-container" },
+				_react2.default.createElement(
+					"button",
+					{ className: "guest-button", onClick: guest },
+					"GUEST LOGIN"
+				)
+			)
+		)
+	);
 };
 
 var loggedInLinks = function loggedInLinks(currentUser, logout, guest) {
-  return _react2.default.createElement(
-    'hgroup',
-    { className: 'header-group' },
-    _react2.default.createElement(
-      'button',
-      { className: 'logout-button', onClick: logout },
-      'LOG OUT'
-    ),
-    _react2.default.createElement(
-      _reactRouterDom.Link,
-      { className: 'check-in', to: '/checkin' },
-      'CHECK IN'
-    ),
-    _react2.default.createElement(
-      _reactRouterDom.Link,
-      { className: 'top-rated', to: '/toprated' },
-      'TOP RATED'
-    ),
-    _react2.default.createElement(
-      _reactRouterDom.Link,
-      { className: 'global', to: '/global' },
-      'WORLDLY'
-    ),
-    _react2.default.createElement(
-      'h2',
-      { className: 'header-name' },
-      'Welcome ',
-      currentUser.username
-    )
-  );
+	return _react2.default.createElement(
+		"hgroup",
+		{ className: "header-group" },
+		_react2.default.createElement(
+			"button",
+			{ className: "logout-button", onClick: logout },
+			"LOG OUT"
+		),
+		_react2.default.createElement(
+			_reactRouterDom.Link,
+			{ className: "check-in", to: "/checkin" },
+			"CHECK IN"
+		),
+		_react2.default.createElement(
+			_reactRouterDom.Link,
+			{ className: "top-rated", to: "/toprated" },
+			"TOP RATED"
+		),
+		_react2.default.createElement(
+			_reactRouterDom.Link,
+			{ className: "global", to: "/global" },
+			"WORLDLY"
+		),
+		_react2.default.createElement(
+			_reactRouterDom.Link,
+			{ className: "header-name", to: "/dashboard" },
+			"Welcome ",
+			currentUser.username
+		)
+	);
 };
 
 var NavBar = function NavBar(_ref) {
-  var currentUser = _ref.currentUser,
-      logout = _ref.logout,
-      guest = _ref.guest;
-  return currentUser ? loggedInLinks(currentUser, logout) : sessionLinks(guest);
+	var currentUser = _ref.currentUser,
+	    logout = _ref.logout,
+	    guest = _ref.guest;
+	return currentUser ? loggedInLinks(currentUser, logout) : sessionLinks(guest);
 };
 
 exports.default = NavBar;
@@ -33448,7 +33451,7 @@ exports.default = Home;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(4);
@@ -33458,8 +33461,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Dashboard = function Dashboard() {
-
-  return _react2.default.createElement("div", { className: "dashboard" });
+	return _react2.default.createElement("div", { className: "dashboard" });
 };
 
 exports.default = Dashboard;
@@ -33778,7 +33780,7 @@ exports.default = DrinkIndex;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(4);
@@ -33790,17 +33792,17 @@ var _reactRouterDom = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DrinkIndexItem = function DrinkIndexItem(_ref) {
-  var drink = _ref.drink;
-  return _react2.default.createElement(
-    'li',
-    { className: 'drink-index-item' },
-    _react2.default.createElement(
-      'h1',
-      null,
-      drink.name
-    ),
-    _react2.default.createElement('img', { src: drink.image_url })
-  );
+	var drink = _ref.drink;
+	return _react2.default.createElement(
+		"li",
+		{ className: "drink-index-item" },
+		_react2.default.createElement(
+			"h1",
+			null,
+			drink.name
+		),
+		_react2.default.createElement("img", { src: drink.image_url })
+	);
 };
 
 exports.default = DrinkIndexItem;
@@ -34650,120 +34652,126 @@ var ReviewForm = function (_React$Component) {
 
 			return _react2.default.createElement(
 				"div",
-				{ className: "review-form-container" },
+				{ className: "dashboard" },
 				_react2.default.createElement(
-					"form",
-					{ onSubmit: this.handleSubmit, className: "review-form-box" },
-					"Leave a review",
-					_react2.default.createElement("br", null),
-					this.renderErrors(),
+					"div",
+					{ className: "review-form-container" },
 					_react2.default.createElement(
-						"div",
-						{ className: "review-form" },
+						"form",
+						{ onSubmit: this.handleSubmit, className: "review-form-box" },
+						"Leave a review",
 						_react2.default.createElement("br", null),
+						this.renderErrors(),
 						_react2.default.createElement(
 							"div",
-							{ className: "starRating" },
+							{ className: "review-form" },
+							_react2.default.createElement("br", null),
 							_react2.default.createElement(
-								"label",
-								{ id: "rating1" },
-								"1",
-								_react2.default.createElement("input", {
-									id: "rating1",
-									type: "radio",
-									name: "rating",
-									value: "1",
-									checked: this.state.rating === 1 ? "checked" : false,
-									onChange: this.handleOptionChange
-								})
+								"div",
+								{ className: "starRating" },
+								_react2.default.createElement(
+									"label",
+									{ id: "rating1" },
+									"1",
+									_react2.default.createElement("input", {
+										id: "rating1",
+										type: "radio",
+										name: "rating",
+										value: "1",
+										checked: this.state.rating === 1 ? "checked" : false,
+										onChange: this.handleOptionChange
+									})
+								),
+								_react2.default.createElement(
+									"label",
+									{ id: "rating2" },
+									"2",
+									_react2.default.createElement("input", {
+										id: "rating2",
+										type: "radio",
+										name: "rating",
+										value: "2",
+										checked: this.state.rating === 2 ? "checked" : false,
+										onChange: this.handleOptionChange
+									})
+								),
+								_react2.default.createElement(
+									"label",
+									{ id: "rating3" },
+									"3",
+									_react2.default.createElement("input", {
+										id: "rating3",
+										type: "radio",
+										name: "rating",
+										value: "3",
+										checked: this.state.rating === 3 ? "checked" : false,
+										onChange: this.handleOptionChange
+									})
+								),
+								_react2.default.createElement(
+									"label",
+									{ id: "rating4" },
+									"4",
+									_react2.default.createElement("input", {
+										id: "rating4",
+										type: "radio",
+										name: "rating",
+										value: "4",
+										checked: this.state.rating === 4 ? "checked" : false,
+										onChange: this.handleOptionChange
+									})
+								),
+								_react2.default.createElement(
+									"label",
+									{ id: "rating5" },
+									" ",
+									"5",
+									_react2.default.createElement("input", {
+										id: "rating5",
+										type: "radio",
+										name: "rating",
+										value: "5",
+										checked: this.state.rating === 5 ? "checked" : false,
+										onChange: this.handleOptionChange
+									})
+								)
 							),
-							_react2.default.createElement(
-								"label",
-								{ id: "rating2" },
-								"2",
-								_react2.default.createElement("input", {
-									id: "rating2",
-									type: "radio",
-									name: "rating",
-									value: "2",
-									checked: this.state.rating === 2 ? "checked" : false,
-									onChange: this.handleOptionChange
-								})
-							),
-							_react2.default.createElement(
-								"label",
-								{ id: "rating3" },
-								"3",
-								_react2.default.createElement("input", {
-									id: "rating3",
-									type: "radio",
-									name: "rating",
-									value: "3",
-									checked: this.state.rating === 3 ? "checked" : false,
-									onChange: this.handleOptionChange
-								})
-							),
-							_react2.default.createElement(
-								"label",
-								{ id: "rating4" },
-								"4",
-								_react2.default.createElement("input", {
-									id: "rating4",
-									type: "radio",
-									name: "rating",
-									value: "4",
-									checked: this.state.rating === 4 ? "checked" : false,
-									onChange: this.handleOptionChange
-								})
-							),
-							_react2.default.createElement(
-								"label",
-								{ id: "rating5" },
-								" ",
-								"5",
-								_react2.default.createElement("input", {
-									id: "rating5",
-									type: "radio",
-									name: "rating",
-									value: "5",
-									checked: this.state.rating === 5 ? "checked" : false,
-									onChange: this.handleOptionChange
-								})
-							)
-						),
-						_react2.default.createElement(_auto2.default, {
-							action: this.handleDrink,
-							names: this.props.drinks,
-							type: "drink",
-							inputVal: drinkInputVal
-						}),
-						_react2.default.createElement("br", null),
-						_react2.default.createElement(_auto2.default, {
-							action: this.handleLocation,
-							names: this.props.locations,
-							type: "location",
-							inputVal: locationInputVal
-						}),
-						_react2.default.createElement("br", null),
-						_react2.default.createElement(
-							"label",
-							null,
-							_react2.default.createElement("input", {
-								type: "text",
-								placeholder: "comment",
-								value: this.state.body,
-								onChange: this.update("body"),
+							_react2.default.createElement(_auto2.default, {
+								action: this.handleDrink,
+								names: this.props.drinks,
+								type: "drink",
+								inputVal: drinkInputVal,
 								className: "review-input"
-							})
-						),
-						_react2.default.createElement("br", null),
-						_react2.default.createElement(
-							"div",
-							{ className: "submit-button" },
+							}),
+							_react2.default.createElement("br", null),
+							_react2.default.createElement(_auto2.default, {
+								action: this.handleLocation,
+								names: this.props.locations,
+								type: "location",
+								inputVal: locationInputVal,
+								className: "review-input"
+							}),
+							_react2.default.createElement("br", null),
 							_react2.default.createElement(
-								"button",
-								{ className: "submit-button", type: "submit" },
-								"SUBMIT REVIEW"
+								"label",
+								null,
+								_react2.default.createElement("input", {
+									type: "text",
+									placeholder: "comment",
+									value: this.state.body,
+									onChange: this.update("body"),
+									className: "review-input"
+								})
+							),
+							_react2.default.createElement("br", null),
+							_react2.default.createElement(
+								"div",
+								{ className: "submit-button" },
+								_react2.default.createElement(
+									"button",
+									{ className: "submit-button", type: "submit" },
+									"SUBMIT REVIEW"
+								)
 							)
 						)
 					)
@@ -34833,7 +34841,7 @@ var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouterDom.withRouter)((0
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -34857,88 +34865,99 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var AutoComplete = function (_React$Component) {
-  _inherits(AutoComplete, _React$Component);
+	_inherits(AutoComplete, _React$Component);
 
-  function AutoComplete(prop) {
-    _classCallCheck(this, AutoComplete);
+	function AutoComplete(prop) {
+		_classCallCheck(this, AutoComplete);
 
-    var _this = _possibleConstructorReturn(this, (AutoComplete.__proto__ || Object.getPrototypeOf(AutoComplete)).call(this, prop));
+		var _this = _possibleConstructorReturn(this, (AutoComplete.__proto__ || Object.getPrototypeOf(AutoComplete)).call(this, prop));
 
-    _this.prop = prop;
-    _this.state = {
-      inputVal: _this.prop.inputVal
-    };
-    _this.setInputVal = _this.setInputVal.bind(_this);
-    _this.fillInput = _this.fillInput.bind(_this);
-    return _this;
-  }
+		_this.prop = prop;
+		_this.state = {
+			inputVal: _this.prop.inputVal
+		};
+		_this.setInputVal = _this.setInputVal.bind(_this);
+		_this.fillInput = _this.fillInput.bind(_this);
+		return _this;
+	}
 
-  _createClass(AutoComplete, [{
-    key: 'setInputVal',
-    value: function setInputVal(event) {
-      var _this2 = this;
+	_createClass(AutoComplete, [{
+		key: "setInputVal",
+		value: function setInputVal(event) {
+			var _this2 = this;
 
-      event.preventDefault();
-      var val = event.currentTarget.value;
-      this.setState({ inputVal: val }, function () {
-        _this2.prop.action(undefined, val);
-      });
-    }
-  }, {
-    key: 'click',
-    value: function click(event) {
-      this.fillInput(event);
-      this.prop.action(event.target.value);
-    }
-  }, {
-    key: 'filterNames',
-    value: function filterNames() {
-      var that = this;
-      var results = [];
-      var names = this.prop.names;
-      for (var i = 0; i < names.length; i++) {
-        if (names[i].name.startsWith(this.state.inputVal)) {
-          results.push(names[i]);
-        }
-      }
-      return results;
-    }
-  }, {
-    key: 'fillInput',
-    value: function fillInput(event) {
-      event.preventDefault();
-      var val = event.currentTarget.innerHTML;
-      this.setState({ inputVal: val });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
+			event.preventDefault();
+			var val = event.currentTarget.value;
+			this.setState({ inputVal: val }, function () {
+				_this2.prop.action(undefined, val);
+			});
+		}
+	}, {
+		key: "click",
+		value: function click(event) {
+			this.fillInput(event);
+			this.prop.action(event.target.value);
+		}
+	}, {
+		key: "filterNames",
+		value: function filterNames() {
+			var that = this;
+			var results = [];
+			var names = this.prop.names;
+			for (var i = 0; i < names.length; i++) {
+				if (names[i].name.startsWith(this.state.inputVal)) {
+					results.push(names[i]);
+				}
+			}
+			return results;
+		}
+	}, {
+		key: "fillInput",
+		value: function fillInput(event) {
+			event.preventDefault();
+			var val = event.currentTarget.innerHTML;
+			this.setState({ inputVal: val });
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var _this3 = this;
 
-      var names = this.filterNames();
-      var content = _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement('input', { type: 'text', onChange: this.setInputVal, value: this.state.inputVal, placeholder: this.prop.type }),
-        _react2.default.createElement(
-          'ul',
-          { className: 'autoNames' },
-          names.map(function (name) {
-            return _react2.default.createElement(
-              'li',
-              { onClick: function onClick(event) {
-                  return _this3.click(event);
-                }, value: name.id },
-              name.name
-            );
-          })
-        )
-      );
-      return content;
-    }
-  }]);
+			var names = this.filterNames();
+			var content = _react2.default.createElement(
+				"div",
+				null,
+				_react2.default.createElement("input", {
+					type: "text",
+					onChange: this.setInputVal,
+					value: this.state.inputVal,
+					placeholder: this.prop.type,
+					id: "review-input"
+				}),
+				_react2.default.createElement(
+					"ul",
+					{ className: "autoNames" },
+					names.map(function (name) {
+						return _react2.default.createElement(
+							"li",
+							{
+								className: "autoName",
+								onClick: function onClick(event) {
+									return _this3.click(event);
+								},
+								value: name.id,
+								id: "review-input"
+							},
+							name.name
+						);
+					})
+				)
+			);
+			return content;
+		}
+	}]);
 
-  return AutoComplete;
+	return AutoComplete;
 }(_react2.default.Component);
 
 exports.default = AutoComplete;
@@ -35096,7 +35115,6 @@ var UserProfile = function (_React$Component) {
 				_react2.default.createElement(
 					"ul",
 					{ id: "review-index" },
-					"Your Reviews",
 					this.props.reviews.map(function (review) {
 						return _react2.default.createElement(_user_review_index_item2.default, {
 							destroyReview: function destroyReview() {
@@ -35107,7 +35125,8 @@ var UserProfile = function (_React$Component) {
 							drink: _this2.props.drinks[review.drink_id],
 							location: _this2.props.locations[review.location_id]
 						});
-					})
+					}),
+					"Your Reviews"
 				)
 			);
 		}
@@ -35126,7 +35145,7 @@ exports.default = UserProfile;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _react = __webpack_require__(4);
@@ -35138,44 +35157,47 @@ var _reactRouterDom = __webpack_require__(14);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
-  var review = _ref.review,
-      drink = _ref.drink,
-      user = _ref.user,
-      location = _ref.location,
-      destroyReview = _ref.destroyReview;
+	var review = _ref.review,
+	    drink = _ref.drink,
+	    user = _ref.user,
+	    location = _ref.location,
+	    destroyReview = _ref.destroyReview;
 
-
-  if (!drink) {
-    return null;
-  }
-  return _react2.default.createElement(
-    'li',
-    { className: 'review-index-item' },
-    _react2.default.createElement('br', null),
-    _react2.default.createElement(
-      'p',
-      null,
-      'You had a ',
-      drink.name,
-      ' at ',
-      location.name,
-      ' and gave it ',
-      review.rating,
-      '\xA0 out of 5'
-    ),
-    _react2.default.createElement(
-      _reactRouterDom.Link,
-      { to: 'reviews/' + review.id + '/edit' },
-      'Edit Review'
-    ),
-    _react2.default.createElement('br', null),
-    _react2.default.createElement(
-      'button',
-      { onClick: destroyReview },
-      'Delete Review'
-    ),
-    _react2.default.createElement('br', null)
-  );
+	if (!drink) {
+		return null;
+	}
+	return _react2.default.createElement(
+		"li",
+		{ className: "review-index-item" },
+		_react2.default.createElement("br", null),
+		_react2.default.createElement(
+			"p",
+			null,
+			"You had a ",
+			drink.name,
+			" at ",
+			location.name,
+			" and gave it ",
+			review.rating,
+			"\xA0 out of 5"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "review-buttons" },
+			_react2.default.createElement(
+				_reactRouterDom.Link,
+				{ to: "reviews/" + review.id + "/edit" },
+				"Edit Review"
+			),
+			_react2.default.createElement("br", null),
+			_react2.default.createElement(
+				"button",
+				{ onClick: destroyReview },
+				"Delete Review"
+			)
+		),
+		_react2.default.createElement("br", null)
+	);
 };
 
 exports.default = UserReviewIndexItem;

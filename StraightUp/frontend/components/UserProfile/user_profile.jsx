@@ -17,7 +17,6 @@ class UserProfile extends React.Component {
 		return (
 			<div className="dashboard">
 				<ul id="review-index">
-					Your Reviews
 					{this.props.reviews.map(review => (
 						<UserReviewIndexItem
 							destroyReview={() => this.props.destroyUserReview(review)}
@@ -27,6 +26,7 @@ class UserProfile extends React.Component {
 							location={this.props.locations[review.location_id]}
 						/>
 					))}
+					Your Reviews
 				</ul>
 			</div>
 		);
