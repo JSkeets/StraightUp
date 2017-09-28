@@ -54,7 +54,7 @@ class AutoComplete extends React.Component {
 					type="text"
 					onChange={this.setInputVal}
 					value={this.state.inputVal}
-					placeholder={this.prop.type}
+					placeholder={`Create a new ${this.prop.type}`}
 					id="review-input"
 					maxLength="20"
 				/>

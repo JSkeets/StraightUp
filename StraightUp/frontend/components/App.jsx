@@ -17,7 +17,7 @@ const App = () => (
 	<div>
 		<NavBar />
 		<AuthRoute exact path="/" component={Home} />
-		<ProtectedRoute path="/global" component={ReviewIndexContainer} />
+		<ProtectedRoute path="/the-bar" component={ReviewIndexContainer} />
 		<ProtectedRoute path="/checkin" component={ReviewFormContainer} />
 
 		<ProtectedRoute path="/dashboard" component={UserProfileContainer} />

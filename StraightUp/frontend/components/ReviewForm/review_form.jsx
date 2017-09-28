@@ -215,7 +215,7 @@ class ReviewForm extends React.Component {
 							<label>
 								<input
 									type="text"
-									placeholder="comment"
+									placeholder="Leave a comment"
 									maxLength="35"
 									value={this.state.body}
 									onChange={this.update("body")}

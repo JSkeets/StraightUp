@@ -31,7 +31,7 @@ const loggedInLinks = (currentUser, logout, guest) => (
 		<NavLink className="check-in" to="/checkin" activeClassName="is-active">
 			CHECK IN
 		</NavLink>
-		<NavLink className="global" to="/global" activeClassName="is-active">
+		<NavLink className="global" to="/the-bar" activeClassName="is-active">
 			THE BAR
 		</NavLink>
 		<NavLink

@@ -33257,7 +33257,7 @@ var App = function App() {
 		null,
 		_react2.default.createElement(_navbar_container2.default, null),
 		_react2.default.createElement(_route_util.AuthRoute, { exact: true, path: "/", component: _home2.default }),
-		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/global", component: _review_index_container2.default }),
+		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/the-bar", component: _review_index_container2.default }),
 		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/checkin", component: _review_form_container2.default }),
 		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/dashboard", component: _user_profile_container2.default }),
 		_react2.default.createElement(_route_util.ProtectedRoute, {
@@ -33384,7 +33384,7 @@ var loggedInLinks = function loggedInLinks(currentUser, logout, guest) {
 		),
 		_react2.default.createElement(
 			_reactRouterDom.NavLink,
-			{ className: "global", to: "/global", activeClassName: "is-active" },
+			{ className: "global", to: "/the-bar", activeClassName: "is-active" },
 			"THE BAR"
 		),
 		_react2.default.createElement(
@@ -34781,7 +34781,7 @@ var ReviewForm = function (_React$Component) {
 								null,
 								_react2.default.createElement("input", {
 									type: "text",
-									placeholder: "comment",
+									placeholder: "Leave a comment",
 									maxLength: "35",
 									value: this.state.body,
 									onChange: this.update("body"),
@@ -34971,7 +34971,7 @@ var AutoComplete = function (_React$Component) {
 					type: "text",
 					onChange: this.setInputVal,
 					value: this.state.inputVal,
-					placeholder: this.prop.type,
+					placeholder: "Create a new " + this.prop.type,
 					id: "review-input",
 					maxLength: "20"
 				}),
