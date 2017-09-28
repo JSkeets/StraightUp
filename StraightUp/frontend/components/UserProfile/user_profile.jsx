@@ -17,11 +17,13 @@ class UserProfile extends React.Component {
 		console.log(this.props.reviews);
 		if (this.props.reviews.length === 0) {
 			return (
-				<div className="dashboard">
-					<ul id="review-index">
-						<li> You haven't reviewed anything yet!</li>
-						<div className="user-title">Your Reviews</div>
-					</ul>
+				<div className="user--empty-dashboard">
+					<div className="dashboard">
+						<ul id="review-index">
+							<li> You haven't reviewed anything yet!</li>
+							<div className="user-title">Your Reviews</div>
+						</ul>
+					</div>
 				</div>
 			);
 		} else {

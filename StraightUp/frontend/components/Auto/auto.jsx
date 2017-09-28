@@ -54,6 +54,7 @@ class AutoComplete extends React.Component {
 					value={this.state.inputVal}
 					placeholder={this.prop.type}
 					id="review-input"
+					maxLength="20"
 				/>
 				<ul className="autoNames">
 					{names.map(name => {

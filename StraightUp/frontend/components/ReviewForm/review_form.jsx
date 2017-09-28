@@ -216,7 +216,7 @@ class ReviewForm extends React.Component {
 								<input
 									type="text"
 									placeholder="comment"
-									maxLength="46"
+									maxLength="35"
 									value={this.state.body}
 									onChange={this.update("body")}
 									className="review-input"

@@ -34781,7 +34781,7 @@ var ReviewForm = function (_React$Component) {
 								_react2.default.createElement("input", {
 									type: "text",
 									placeholder: "comment",
-									maxLength: "46",
+									maxLength: "35",
 									value: this.state.body,
 									onChange: this.update("body"),
 									className: "review-input"
@@ -34969,7 +34969,8 @@ var AutoComplete = function (_React$Component) {
 					onChange: this.setInputVal,
 					value: this.state.inputVal,
 					placeholder: this.prop.type,
-					id: "review-input"
+					id: "review-input",
+					maxLength: "20"
 				}),
 				_react2.default.createElement(
 					"ul",
@@ -35150,19 +35151,23 @@ var UserProfile = function (_React$Component) {
 			if (this.props.reviews.length === 0) {
 				return _react2.default.createElement(
 					"div",
-					{ className: "dashboard" },
+					{ className: "user--empty-dashboard" },
 					_react2.default.createElement(
-						"ul",
-						{ id: "review-index" },
+						"div",
+						{ className: "dashboard" },
 						_react2.default.createElement(
-							"li",
-							null,
-							" You haven't reviewed anything yet!"
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "user-title" },
-							"Your Reviews"
+							"ul",
+							{ id: "review-index" },
+							_react2.default.createElement(
+								"li",
+								null,
+								" You haven't reviewed anything yet!"
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "user-title" },
+								"Your Reviews"
+							)
 						)
 					)
 				);
