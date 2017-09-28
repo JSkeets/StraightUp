@@ -1,6 +1,11 @@
 .header-name {
-  color: white;
-  font-family: $questrial;
-  font-size: 30px;
-  font-weight: bold;
+	color: white;
+	font-family: $questrial;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.header-name:hover {
+	border-color: white;
+	color: #e5aa44;
 }
