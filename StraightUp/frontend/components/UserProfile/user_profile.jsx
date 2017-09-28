@@ -26,7 +26,7 @@ class UserProfile extends React.Component {
 			);
 		} else {
 			return (
-				<div className="dashboard">
+				<div className="user-dashboard">
 					<ul id="review-index">
 						{this.props.reviews.map(review => (
 							<UserReviewIndexItem

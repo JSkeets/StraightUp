@@ -35169,7 +35169,7 @@ var UserProfile = function (_React$Component) {
 			} else {
 				return _react2.default.createElement(
 					"div",
-					{ className: "dashboard" },
+					{ className: "user-dashboard" },
 					_react2.default.createElement(
 						"ul",
 						{ id: "review-index" },

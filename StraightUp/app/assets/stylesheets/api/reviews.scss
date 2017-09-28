@@ -48,10 +48,11 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	position: relative;
 	float: left;
 	padding: 5px;
-	background-color: #8b6445;
+	background-color: #e5aa44;
 	height: -webkit-fill-available;
 	font-size: xx-large;
 	font-color: white;
+	color: white;
 }
 .review-body-head {
 	font-size: 20px;
@@ -108,7 +109,7 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	display: flex;
 	align-items: center;
 	border-color: white;
-	background-color: blue;
+	background-color: #6f6e63;
 	border-width: thick;
 	border-width: 2px;
 	border-style: solid;
@@ -119,7 +120,11 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	margin-left: 5px;
 	margin-right: 10px;
 	font-weight: bold;
-	color: #b8bfb4;
+	color: white;
 
 	font-family: $questrial;
+}
+.user-delete-button:hover,
+.user-edit-button:hover {
+	background-color: #e5aa44;
 }

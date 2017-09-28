@@ -4,6 +4,9 @@ body {
 	background-image: url(https://static.pexels.com/photos/260922/pexels-photo-260922.jpeg);
 }
 
+body {
+	overflow-x: hidden;
+}
 .login-signup {
 	display: flex;
 	flex-direction: row-reverse;
@@ -16,8 +19,6 @@ body {
 	height: 45px;
 }
 .header-group {
-	position: fixed;
-	width: 100%;
 	display: flex;
 	flex-direction: row-reverse;
 	background-color: transparent;
@@ -92,7 +93,8 @@ a.sign-up {
 .check-in,
 .top-rated {
 	border-color: white;
-	background-color: #6f6e63;
+	// background-color: #6f6e63;
+	background-color: transparent;
 	border-width: thick;
 	border-width: 2px;
 	border-style: solid;
