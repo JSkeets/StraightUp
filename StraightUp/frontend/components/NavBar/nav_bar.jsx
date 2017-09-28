@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const sessionLinks = guest => (
 	<div>
@@ -27,18 +28,19 @@ const loggedInLinks = (currentUser, logout, guest) => (
 		<button className="logout-button" onClick={logout}>
 			LOG OUT
 		</button>
-		<Link className="check-in" to="/checkin">
+		<NavLink className="check-in" to="/checkin" activeClassName="is-active">
 			CHECK IN
-		</Link>
-		<Link className="top-rated" to="/toprated">
-			TOP RATED
-		</Link>
-		<Link className="global" to="/global">
+		</NavLink>
+		<NavLink className="global" to="/global" activeClassName="is-active">
 			THE BAR
-		</Link>
-		<Link className="header-name" to="/dashboard">
+		</NavLink>
+		<NavLink
+			className="header-name"
+			to="/dashboard"
+			activeClassName="user-is-active"
+		>
 			Welcome {currentUser.username}
-		</Link>
+		</NavLink>
 	</hgroup>
 );
 

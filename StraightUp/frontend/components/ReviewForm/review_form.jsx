@@ -133,7 +133,7 @@ class ReviewForm extends React.Component {
 			<div className="dashboard">
 				<div className="review-form-container">
 					<form onSubmit={this.handleSubmit} className="review-form-box">
-						Leave a review
+						How is your drink?
 						<br />
 						{this.renderErrors()}
 						<div className="review-form">

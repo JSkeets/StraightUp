@@ -103,6 +103,19 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 .user-buttons {
 	display: flex;
 }
+
+.is-active {
+	border-width: thick;
+}
+
+.user-is-active {
+	border-width: thick;
+	border-width: 2px;
+	border-style: solid;
+	border-color: white;
+	border-width: thick;
+	padding: 2px;
+}
 .user-delete-button,
 .user-edit-button {
 	min-height: 30px;

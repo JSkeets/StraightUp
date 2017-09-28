@@ -33280,12 +33280,14 @@ exports.default = App;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _reactRedux = __webpack_require__(19);
 
 var _session_actions = __webpack_require__(28);
+
+var _reactRouterDom = __webpack_require__(14);
 
 var _nav_bar = __webpack_require__(393);
 
@@ -33294,24 +33296,24 @@ var _nav_bar2 = _interopRequireDefault(_nav_bar);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(_ref) {
-  var session = _ref.session;
-  return {
-    currentUser: session.currentUser
-  };
+	var session = _ref.session;
+	return {
+		currentUser: session.currentUser
+	};
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    logout: function logout() {
-      return dispatch((0, _session_actions.logout)());
-    },
-    guest: function guest() {
-      return dispatch((0, _session_actions.guest)());
-    }
-  };
+	return {
+		logout: function logout() {
+			return dispatch((0, _session_actions.logout)());
+		},
+		guest: function guest() {
+			return dispatch((0, _session_actions.guest)());
+		}
+	};
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_nav_bar2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_nav_bar2.default));
 
 /***/ }),
 /* 393 */
@@ -33376,23 +33378,22 @@ var loggedInLinks = function loggedInLinks(currentUser, logout, guest) {
 			"LOG OUT"
 		),
 		_react2.default.createElement(
-			_reactRouterDom.Link,
-			{ className: "check-in", to: "/checkin" },
+			_reactRouterDom.NavLink,
+			{ className: "check-in", to: "/checkin", activeClassName: "is-active" },
 			"CHECK IN"
 		),
 		_react2.default.createElement(
-			_reactRouterDom.Link,
-			{ className: "top-rated", to: "/toprated" },
-			"TOP RATED"
-		),
-		_react2.default.createElement(
-			_reactRouterDom.Link,
-			{ className: "global", to: "/global" },
+			_reactRouterDom.NavLink,
+			{ className: "global", to: "/global", activeClassName: "is-active" },
 			"THE BAR"
 		),
 		_react2.default.createElement(
-			_reactRouterDom.Link,
-			{ className: "header-name", to: "/dashboard" },
+			_reactRouterDom.NavLink,
+			{
+				className: "header-name",
+				to: "/dashboard",
+				activeClassName: "user-is-active"
+			},
 			"Welcome ",
 			currentUser.username
 		)
@@ -34682,7 +34683,7 @@ var ReviewForm = function (_React$Component) {
 					_react2.default.createElement(
 						"form",
 						{ onSubmit: this.handleSubmit, className: "review-form-box" },
-						"Leave a review",
+						"How is your drink?",
 						_react2.default.createElement("br", null),
 						this.renderErrors(),
 						_react2.default.createElement(
