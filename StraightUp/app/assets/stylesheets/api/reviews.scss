@@ -116,6 +116,10 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 	border-width: thick;
 	padding: 2px;
 }
+
+.autocomplete-header {
+	text-decoration: underline;
+}
 .user-delete-button,
 .user-edit-button {
 	min-height: 30px;

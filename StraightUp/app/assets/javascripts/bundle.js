@@ -34942,8 +34942,10 @@ var AutoComplete = function (_React$Component) {
 			var that = this;
 			var results = [];
 			var names = this.prop.names;
+			var inputLow = this.state.inputVal.toLowerCase();
+			console.log(inputLow);
 			for (var i = 0; i < names.length; i++) {
-				if (names[i].name.startsWith(this.state.inputVal)) {
+				if (names[i].name.toLowerCase().startsWith(inputLow)) {
 					results.push(names[i]);
 				}
 			}
@@ -34976,6 +34978,11 @@ var AutoComplete = function (_React$Component) {
 				_react2.default.createElement(
 					"ul",
 					{ className: "autoNames" },
+					_react2.default.createElement(
+						"i",
+						{ className: "autocomplete-header" },
+						"Choose from the following"
+					),
 					names.map(function (name) {
 						return _react2.default.createElement(
 							"li",

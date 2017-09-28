@@ -30,8 +30,10 @@ class AutoComplete extends React.Component {
 		let that = this;
 		let results = [];
 		let names = this.prop.names;
+		let inputLow = this.state.inputVal.toLowerCase();
+		console.log(inputLow);
 		for (let i = 0; i < names.length; i++) {
-			if (names[i].name.startsWith(this.state.inputVal)) {
+			if (names[i].name.toLowerCase().startsWith(inputLow)) {
 				results.push(names[i]);
 			}
 		}
@@ -57,6 +59,7 @@ class AutoComplete extends React.Component {
 					maxLength="20"
 				/>
 				<ul className="autoNames">
+					<i className="autocomplete-header">Choose from the following</i>
 					{names.map(name => {
 						return (
 							<li
