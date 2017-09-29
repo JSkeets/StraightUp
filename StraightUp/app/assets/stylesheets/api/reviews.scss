@@ -39,6 +39,16 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 #location {
 	font-weight: bold;
 }
+#username,
+#location {
+	text-decoration: underline;
+	color: #7fbbb5;
+	font-weight: 900;
+}
+#username:hover,
+#location:hover {
+	color: #8b6445;
+}
 
 .review-sentence {
 	font-size: 20px;

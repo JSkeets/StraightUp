@@ -37,7 +37,7 @@ class ReviewForm extends React.Component {
 				this.setState({ drink_id: action.drink.id }, () =>
 					this.props
 						.processForm(review)
-						.then(() => this.props.history.push("/global"))
+						.then(() => this.props.history.push("/the-bar"))
 				);
 			});
 		} else if (!this.state.location_id && this.state.drink_id) {
@@ -49,7 +49,7 @@ class ReviewForm extends React.Component {
 					this.setState({ location_id: action.location.id }, () =>
 						this.props
 							.processForm(review)
-							.then(() => this.props.history.push("/global"))
+							.then(() => this.props.history.push("/the-bar"))
 					);
 				});
 		} else if (!this.state.location_id && !this.state.drink_id) {
@@ -71,13 +71,13 @@ class ReviewForm extends React.Component {
 						.then(() => {
 							this.props
 								.processForm(review)
-								.then(() => this.props.history.push("/global"));
+								.then(() => this.props.history.push("/the-bar"));
 						});
 				});
 		} else {
 			this.props
 				.processForm(review)
-				.then(() => this.props.history.push("/global"));
+				.then(() => this.props.history.push("/the-bar"));
 		}
 	}
 

@@ -14040,9 +14040,9 @@ var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
-exports.selectUserReviews = exports.selectAllLocations = exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
+exports.selectLocationShowReviews = exports.selectUserShowReviews = exports.selectUserReviews = exports.selectAllLocations = exports.selectAllUsers = exports.selectAllReviews = exports.selectAllDrinks = undefined;
 
 var _values = __webpack_require__(401);
 
@@ -14051,29 +14051,50 @@ var _values2 = _interopRequireDefault(_values);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var selectAllDrinks = exports.selectAllDrinks = function selectAllDrinks(state) {
-  return (0, _values2.default)(state.entities.drinks);
+	return (0, _values2.default)(state.entities.drinks);
 };
 
 var selectAllReviews = exports.selectAllReviews = function selectAllReviews(state) {
-  return (0, _values2.default)(state.entities.reviews);
+	return (0, _values2.default)(state.entities.reviews);
 };
 
 var selectAllUsers = exports.selectAllUsers = function selectAllUsers(state) {
-  return (0, _values2.default)(state.entities.users);
+	return (0, _values2.default)(state.entities.users);
 };
 
 var selectAllLocations = exports.selectAllLocations = function selectAllLocations(state) {
-  return (0, _values2.default)(state.entities.locations);
+	return (0, _values2.default)(state.entities.locations);
 };
 
 var selectUserReviews = exports.selectUserReviews = function selectUserReviews(state) {
-  var val = (0, _values2.default)(state.entities.reviews);
-  var matched = val.filter(function (review) {
-    return review.user_id === state.session.currentUser.id;
-  });
-  return matched;
+	var val = (0, _values2.default)(state.entities.reviews);
+	var matched = val.filter(function (review) {
+		return review.user_id === state.session.currentUser.id;
+	});
+	return matched;
 };
-// 
+
+var selectUserShowReviews = exports.selectUserShowReviews = function selectUserShowReviews(state, ownProps) {
+	var val = (0, _values2.default)(state.entities.reviews);
+	var matched = val.filter(function (review) {
+		return review.user_id === parseInt(ownProps.match.params.userId);
+	});
+	return matched;
+};
+
+var selectLocationShowReviews = exports.selectLocationShowReviews = function selectLocationShowReviews(state, ownProps) {
+	var val = (0, _values2.default)(state.entities.reviews);
+	var matched = val.filter(function (review) {
+		return review.location_id === parseInt(ownProps.match.params.locationId);
+	});
+	return matched;
+};
+
+//
+// if (ownProps.match.path == "/reviews/:reviewId/edit") {
+//   review = state.entities.reviews[ownProps.match.params.reviewId];
+//   formType = "edit";
+//
 // export const selectUserReviews = (state) => {
 //     let userReviews = state.session.currentUser.review_ids;
 //     let reviews = [];
@@ -33241,6 +33262,14 @@ var _review_form_container = __webpack_require__(413);
 
 var _review_form_container2 = _interopRequireDefault(_review_form_container);
 
+var _user_show_container = __webpack_require__(425);
+
+var _user_show_container2 = _interopRequireDefault(_user_show_container);
+
+var _location_show_container = __webpack_require__(428);
+
+var _location_show_container2 = _interopRequireDefault(_location_show_container);
+
 var _user_profile_container = __webpack_require__(422);
 
 var _user_profile_container2 = _interopRequireDefault(_user_profile_container);
@@ -33260,6 +33289,14 @@ var App = function App() {
 		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/the-bar", component: _review_index_container2.default }),
 		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/checkin", component: _review_form_container2.default }),
 		_react2.default.createElement(_route_util.ProtectedRoute, { path: "/dashboard", component: _user_profile_container2.default }),
+		_react2.default.createElement(_route_util.ProtectedRoute, {
+			path: "/users/:userId/reviews",
+			component: _user_show_container2.default
+		}),
+		_react2.default.createElement(_route_util.ProtectedRoute, {
+			path: "/locations/:locationId/reviews",
+			component: _location_show_container2.default
+		}),
 		_react2.default.createElement(_route_util.ProtectedRoute, {
 			path: "/reviews/:reviewId/edit",
 			component: _review_form_container2.default
@@ -34388,11 +34425,11 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
 			"div",
 			{ className: "review-sentence" },
 			_react2.default.createElement(
-				"i",
-				{ id: "username" },
+				_reactRouterDom.Link,
+				{ id: "username", to: "users/" + user.id + "/reviews" },
 				user.username
 			),
-			" had a \xA0",
+			"\xA0had a \xA0",
 			_react2.default.createElement(
 				"i",
 				{ id: "drink-name" },
@@ -34400,8 +34437,8 @@ var ReviewIndexItem = function ReviewIndexItem(_ref) {
 			),
 			" at \xA0",
 			_react2.default.createElement(
-				"i",
-				{ id: "location" },
+				_reactRouterDom.Link,
+				{ id: "location", to: "locations/" + location.id + "/reviews" },
 				location.name
 			),
 			"\xA0",
@@ -34586,7 +34623,7 @@ var ReviewForm = function (_React$Component) {
 					delete review.drinkName;
 					_this3.setState({ drink_id: action.drink.id }, function () {
 						return _this3.props.processForm(review).then(function () {
-							return _this3.props.history.push("/global");
+							return _this3.props.history.push("/the-bar");
 						});
 					});
 				});
@@ -34596,7 +34633,7 @@ var ReviewForm = function (_React$Component) {
 					delete review.locationName;
 					_this3.setState({ location_id: action.location.id }, function () {
 						return _this3.props.processForm(review).then(function () {
-							return _this3.props.history.push("/global");
+							return _this3.props.history.push("/the-bar");
 						});
 					});
 				});
@@ -34612,13 +34649,13 @@ var ReviewForm = function (_React$Component) {
 						_this3.setState({ location_id: action.location.id });
 					}).then(function () {
 						_this3.props.processForm(review).then(function () {
-							return _this3.props.history.push("/global");
+							return _this3.props.history.push("/the-bar");
 						});
 					});
 				});
 			} else {
 				this.props.processForm(review).then(function () {
-					return _this3.props.history.push("/global");
+					return _this3.props.history.push("/the-bar");
 				});
 			}
 		}
@@ -35155,7 +35192,6 @@ var UserProfile = function (_React$Component) {
 		value: function render() {
 			var _this2 = this;
 
-			console.log(this.props.reviews);
 			if (this.props.reviews.length === 0) {
 				return _react2.default.createElement(
 					"div",
@@ -35262,8 +35298,8 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
 			),
 			" at \xA0",
 			_react2.default.createElement(
-				"i",
-				{ id: "location" },
+				_reactRouterDom.Link,
+				{ id: "location", to: "/locations/" + location.id + "/reviews" },
 				location.name
 			),
 			"\xA0",
@@ -35284,7 +35320,7 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
 			{ className: "user-buttons" },
 			_react2.default.createElement(
 				_reactRouterDom.Link,
-				{ className: "user-edit-button", to: "reviews/" + review.id + "/edit" },
+				{ className: "user-edit-button", to: "/reviews/" + review.id + "/edit" },
 				"Edit Review"
 			),
 			_react2.default.createElement("br", null),
@@ -35299,6 +35335,495 @@ var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
 };
 
 exports.default = UserReviewIndexItem;
+
+/***/ }),
+/* 425 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _reactRedux = __webpack_require__(19);
+
+var _user_show = __webpack_require__(426);
+
+var _user_show2 = _interopRequireDefault(_user_show);
+
+var _user_actions = __webpack_require__(47);
+
+var _location_actions = __webpack_require__(141);
+
+var _drink_actions = __webpack_require__(48);
+
+var _selectors = __webpack_require__(154);
+
+var _review_actions = __webpack_require__(49);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+	return {
+		currentUser: state.session.currentUser,
+		reviews: (0, _selectors.selectUserShowReviews)(state, ownProps),
+		users: state.entities.users,
+		locations: state.entities.locations,
+		drinks: state.entities.drinks
+	};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {
+		fetchReviews: function fetchReviews() {
+			return dispatch((0, _review_actions.fetchReviews)());
+		},
+		fetchUsers: function fetchUsers() {
+			return dispatch((0, _user_actions.fetchUsers)());
+		},
+		fetchLocations: function fetchLocations() {
+			return dispatch((0, _location_actions.fetchLocations)());
+		},
+		fetchDrinks: function fetchDrinks() {
+			return dispatch((0, _drink_actions.fetchDrinks)());
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_user_show2.default);
+
+/***/ }),
+/* 426 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+var _user_review_index_item = __webpack_require__(427);
+
+var _user_review_index_item2 = _interopRequireDefault(_user_review_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserProfile = function (_React$Component) {
+	_inherits(UserProfile, _React$Component);
+
+	function UserProfile(props) {
+		_classCallCheck(this, UserProfile);
+
+		return _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
+	}
+
+	_createClass(UserProfile, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			this.props.fetchReviews();
+			this.props.fetchUsers();
+			this.props.fetchLocations();
+			this.props.fetchDrinks();
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var _this2 = this;
+
+			console.log("SHOW PROPS", this.props);
+			var user = this.props.users[parseInt(this.props.match.params.userId)];
+			if (this.props.reviews.length === 0) {
+				return _react2.default.createElement(
+					"div",
+					{ className: "user-empty-dashboard" },
+					_react2.default.createElement(
+						"div",
+						{ className: "dashboard" },
+						_react2.default.createElement(
+							"ul",
+							{ id: "review-index" },
+							_react2.default.createElement(
+								"li",
+								null,
+								" You haven't reviewed anything yet!"
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "user-title" },
+								"Your Reviews"
+							)
+						)
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					"div",
+					{ className: "user-dashboard" },
+					_react2.default.createElement(
+						"ul",
+						{ id: "review-index" },
+						this.props.reviews.map(function (review) {
+							return _react2.default.createElement(_user_review_index_item2.default, {
+								destroyReview: function destroyReview() {
+									return _this2.props.destroyUserReview(review);
+								},
+								key: review.id,
+								user: _this2.props.users[parseInt(_this2.props.match.params.userId)],
+								review: review,
+								drink: _this2.props.drinks[review.drink_id],
+								location: _this2.props.locations[review.location_id]
+							});
+						}),
+						_react2.default.createElement(
+							"div",
+							{ className: "user-title" },
+							"Reviews by",
+							" ",
+							this.props.users[parseInt(this.props.match.params.userId)].username
+						)
+					)
+				);
+			}
+		}
+	}]);
+
+	return UserProfile;
+}(_react2.default.Component);
+
+exports.default = UserProfile;
+
+/***/ }),
+/* 427 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserReviewIndexItem = function UserReviewIndexItem(_ref) {
+	var review = _ref.review,
+	    drink = _ref.drink,
+	    user = _ref.user,
+	    location = _ref.location,
+	    destroyReview = _ref.destroyReview;
+
+	if (!drink) {
+		return null;
+	}
+	return _react2.default.createElement(
+		"li",
+		{ className: "review-index-item" },
+		_react2.default.createElement(
+			"i",
+			{ id: "review-rating" },
+			review.rating,
+			"/5"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "review-sentence" },
+			user.username,
+			"\xA0 had a \xA0",
+			_react2.default.createElement(
+				"i",
+				{ id: "drink-name" },
+				drink.name
+			),
+			" at \xA0",
+			_react2.default.createElement(
+				_reactRouterDom.Link,
+				{ id: "location", to: "/locations/" + location.id + "/reviews" },
+				location.name
+			),
+			"\xA0",
+			review.created_at,
+			" ago"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "body-container" },
+			_react2.default.createElement(
+				"i",
+				{ id: "body" },
+				review.body
+			)
+		),
+		_react2.default.createElement("br", null)
+	);
+};
+
+exports.default = UserReviewIndexItem;
+
+/***/ }),
+/* 428 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _reactRedux = __webpack_require__(19);
+
+var _location_show = __webpack_require__(429);
+
+var _location_show2 = _interopRequireDefault(_location_show);
+
+var _user_actions = __webpack_require__(47);
+
+var _location_actions = __webpack_require__(141);
+
+var _drink_actions = __webpack_require__(48);
+
+var _selectors = __webpack_require__(154);
+
+var _review_actions = __webpack_require__(49);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+	return {
+		currentUser: state.session.currentUser,
+		reviews: (0, _selectors.selectLocationShowReviews)(state, ownProps),
+		users: state.entities.users,
+		locations: state.entities.locations,
+		drinks: state.entities.drinks
+	};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {
+		fetchReviews: function fetchReviews() {
+			return dispatch((0, _review_actions.fetchReviews)());
+		},
+		fetchUsers: function fetchUsers() {
+			return dispatch((0, _user_actions.fetchUsers)());
+		},
+		fetchLocations: function fetchLocations() {
+			return dispatch((0, _location_actions.fetchLocations)());
+		},
+		fetchDrinks: function fetchDrinks() {
+			return dispatch((0, _drink_actions.fetchDrinks)());
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_location_show2.default);
+
+/***/ }),
+/* 429 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+var _location_review_index_item = __webpack_require__(430);
+
+var _location_review_index_item2 = _interopRequireDefault(_location_review_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LocationProfile = function (_React$Component) {
+	_inherits(LocationProfile, _React$Component);
+
+	function LocationProfile(props) {
+		_classCallCheck(this, LocationProfile);
+
+		return _possibleConstructorReturn(this, (LocationProfile.__proto__ || Object.getPrototypeOf(LocationProfile)).call(this, props));
+	}
+
+	_createClass(LocationProfile, [{
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			this.props.fetchReviews();
+			this.props.fetchUsers();
+			this.props.fetchLocations();
+			this.props.fetchDrinks();
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var _this2 = this;
+
+			console.log("SHOW PROPS", this.props);
+			if (this.props.reviews.length === 0) {
+				return _react2.default.createElement(
+					"div",
+					{ className: "user-empty-dashboard" },
+					_react2.default.createElement(
+						"div",
+						{ className: "dashboard" },
+						_react2.default.createElement(
+							"ul",
+							{ id: "review-index" },
+							_react2.default.createElement(
+								"li",
+								null,
+								" You haven't reviewed anything yet!"
+							),
+							_react2.default.createElement(
+								"div",
+								{ className: "user-title" },
+								"Your Reviews"
+							)
+						)
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					"div",
+					{ className: "user-dashboard" },
+					_react2.default.createElement(
+						"ul",
+						{ id: "review-index" },
+						this.props.reviews.map(function (review) {
+							return _react2.default.createElement(_location_review_index_item2.default, {
+								destroyReview: function destroyReview() {
+									return _this2.props.destroyUserReview(review);
+								},
+								key: review.user_id,
+								review: review,
+								user: _this2.props.users[review.user_id],
+								drink: _this2.props.drinks[review.drink_id],
+								location: _this2.props.locations[review.location_id]
+							});
+						}),
+						_react2.default.createElement("div", { className: "user-title" })
+					)
+				);
+			}
+		}
+	}]);
+
+	return LocationProfile;
+}(_react2.default.Component);
+
+exports.default = LocationProfile;
+
+/***/ }),
+/* 430 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LocationReviewIndexItem = function LocationReviewIndexItem(_ref) {
+	var review = _ref.review,
+	    drink = _ref.drink,
+	    user = _ref.user,
+	    location = _ref.location,
+	    destroyReview = _ref.destroyReview;
+
+	if (!drink) {
+		return null;
+	}
+	return _react2.default.createElement(
+		"li",
+		{ className: "review-index-item" },
+		_react2.default.createElement(
+			"i",
+			{ id: "review-rating" },
+			review.rating,
+			"/5"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "review-sentence" },
+			_react2.default.createElement(
+				_reactRouterDom.Link,
+				{ id: "username", to: "/users/" + user.id + "/reviews" },
+				user.username
+			),
+			"\xA0had a \xA0",
+			_react2.default.createElement(
+				"i",
+				{ id: "drink-name" },
+				drink.name
+			),
+			" at \xA0",
+			_react2.default.createElement(
+				"i",
+				{ id: "location" },
+				location.name
+			),
+			"\xA0",
+			review.created_at,
+			" ago"
+		),
+		_react2.default.createElement(
+			"div",
+			{ className: "body-container" },
+			_react2.default.createElement(
+				"i",
+				{ id: "body" },
+				review.body
+			)
+		),
+		_react2.default.createElement("br", null)
+	);
+};
+
+exports.default = LocationReviewIndexItem;
 
 /***/ })
 /******/ ]);

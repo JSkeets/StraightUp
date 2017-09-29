@@ -15,7 +15,7 @@ const UserReviewIndexItem = ({
 		<li className="review-index-item">
 			<i id="review-rating">{review.rating}/5</i>
 			<div className="review-sentence">
-				You had a &nbsp;
+				{user.username}&nbsp; had a &nbsp;
 				<i id="drink-name">{drink.name}</i> at &nbsp;
 				<Link id="location" to={`/locations/${location.id}/reviews`}>
 					{location.name}
@@ -26,15 +26,6 @@ const UserReviewIndexItem = ({
 				<i id="body">{review.body}</i>
 			</div>
 
-			<div className="user-buttons">
-				<Link className="user-edit-button" to={`/reviews/${review.id}/edit`}>
-					Edit Review
-				</Link>
-				<br />
-				<button className="user-delete-button" onClick={destroyReview}>
-					Delete Review
-				</button>
-			</div>
 			<br />
 		</li>
 	);

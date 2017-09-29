@@ -19,9 +19,13 @@ const ReviewIndexItem = ({ review, user, location, drink }) => {
 		<li className="review-index-item">
 			<i id="review-rating">{review.rating}/5</i>
 			<div className="review-sentence">
-				<i id="username">{user.username}</i> had a &nbsp;
+				<Link id="username" to={`users/${user.id}/reviews`}>
+					{user.username}
+				</Link>&nbsp;had a &nbsp;
 				<i id="drink-name">{drink.name}</i> at &nbsp;
-				<i id="location">{location.name}</i>&nbsp;
+				<Link id="location" to={`locations/${location.id}/reviews`}>
+					{location.name}
+				</Link>&nbsp;
 				{review.created_at} ago
 			</div>
 			<div className="body-container">

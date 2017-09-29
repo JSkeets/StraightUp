@@ -8,6 +8,8 @@ import SignUpFormContainer from "../components/SignUpForm/signup_form_container"
 import DashboardContainer from "../components/Dashboard/dashboard_container";
 import ReviewIndexContainer from "../components/Reviews/review_index_container";
 import ReviewFormContainer from "../components/ReviewForm/review_form_container";
+import UserShowContainer from "../components/UserShow/user_show_container";
+import LocationShowContainer from "../components/LocationShow/location_show_container";
 
 import UserProfileContainer from "../components/UserProfile/user_profile_container";
 import { AuthRoute, ProtectedRoute } from "../util/route_util";
@@ -21,6 +23,14 @@ const App = () => (
 		<ProtectedRoute path="/checkin" component={ReviewFormContainer} />
 
 		<ProtectedRoute path="/dashboard" component={UserProfileContainer} />
+		<ProtectedRoute
+			path="/users/:userId/reviews"
+			component={UserShowContainer}
+		/>
+		<ProtectedRoute
+			path="/locations/:locationId/reviews"
+			component={LocationShowContainer}
+		/>
 
 		<ProtectedRoute
 			path="/reviews/:reviewId/edit"

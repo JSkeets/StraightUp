@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import UserReviewIndexItem from "./user_review_index_item";
-class UserProfile extends React.Component {
+import LocationReviewIndexItem from "./location_review_index_item";
+class LocationProfile extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -14,9 +14,10 @@ class UserProfile extends React.Component {
 	}
 
 	render() {
+		console.log("SHOW PROPS", this.props);
 		if (this.props.reviews.length === 0) {
 			return (
-				<div className="user--empty-dashboard">
+				<div className="user-empty-dashboard">
 					<div className="dashboard">
 						<ul id="review-index">
 							<li> You haven't reviewed anything yet!</li>
@@ -30,15 +31,16 @@ class UserProfile extends React.Component {
 				<div className="user-dashboard">
 					<ul id="review-index">
 						{this.props.reviews.map(review => (
-							<UserReviewIndexItem
+							<LocationReviewIndexItem
 								destroyReview={() => this.props.destroyUserReview(review)}
-								key={review.id}
+								key={review.user_id}
 								review={review}
+								user={this.props.users[review.user_id]}
 								drink={this.props.drinks[review.drink_id]}
 								location={this.props.locations[review.location_id]}
 							/>
 						))}
-						<div className="user-title">Your Reviews</div>
+						<div className="user-title" />
 					</ul>
 				</div>
 			);
@@ -46,4 +48,4 @@ class UserProfile extends React.Component {
 	}
 }
 
-export default UserProfile;
+export default LocationProfile;
