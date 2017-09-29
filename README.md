@@ -52,7 +52,7 @@ Straight Up is a full stack web application where individuals can come and rate 
         });
 
   The feature was accomplished by checking to see if the location or drink id did not exist and if so the drink was created, and by the use of promise objects the location was then created and followed by the entire review itself. A review of course can not be created if the drink and location do not exist.
-  [!check-in](https://github.com/JSkeets/StraightUp/blob/master/Screen%20Shot%202017-09-29%20at%202.53.35%20PM.png)
+  [!alt](https://github.com/JSkeets/StraightUp/blob/master/Screen%20Shot%202017-09-29%20at%202.53.35%20PM.png)
 
   Another unique feature of the review form is the autocompletion. As a user types in a drink or location. If the item has already been created the field below will begin to autocomplete, and show drinks or locations matching the users input.
 
