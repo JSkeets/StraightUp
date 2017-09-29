@@ -75,7 +75,7 @@ Straight Up is a full stack web application where individuals can come and rate 
 		this.setState({ inputVal: val });
 
   An important aspect of the autocomplete is that it is reusable. The same code is used for the location, and drink autocomplete feature. The only variable between the two is the different props passed down to the component. This made great use of the reusability of a react component.
- ![alt](https://github.com/JSkeets/StraightUp/blob/master/Screen%20Shot%202017-09-29%20at%202.53.48%20PM.png)
+ [!alt](https://github.com/JSkeets/StraightUp/blob/master/Screen%20Shot%202017-09-29%20at%202.53.48%20PM.png)
 
 ## Viewing of associated reviews
   A user has the ability to click on a user's username or a location which is listed in a review on the feed known as "The Bar", which is a global feed, and view all the reviews by location. Although I had originally intended to do this via a backend association, the information was already present on the front-end. The application runs much faster and smoother by sorting through the information on the front end and providing the user with the information they requested in a fast and efficient manner.
