@@ -14,7 +14,6 @@ class UserProfile extends React.Component {
 	}
 
 	render() {
-		console.log("SHOW PROPS", this.props);
 		let user = this.props.users[parseInt(this.props.match.params.userId)];
 		if (this.props.reviews.length === 0) {
 			return (

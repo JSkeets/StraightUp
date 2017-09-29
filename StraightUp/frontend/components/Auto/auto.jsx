@@ -31,7 +31,6 @@ class AutoComplete extends React.Component {
 		let results = [];
 		let names = this.prop.names;
 		let inputLow = this.state.inputVal.toLowerCase();
-		console.log(inputLow);
 		for (let i = 0; i < names.length; i++) {
 			if (names[i].name.toLowerCase().startsWith(inputLow)) {
 				results.push(names[i]);

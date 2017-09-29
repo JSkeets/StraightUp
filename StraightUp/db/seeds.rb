@@ -1,4 +1,3 @@
-
 Drink.create!([
   {name: "Margarita", image_url: nil},
   {name: "Long Island Iced Tea", image_url: nil},
@@ -14,7 +13,12 @@ Drink.create!([
   {name: "Vodka", image_url: nil},
   {name: "Cider", image_url: nil},
   {name: "The Godett", image_url: nil},
-  {name: "Water", image_url: nil}
+  {name: "Water", image_url: nil},
+  {name: "Oaxaca", image_url: nil},
+  {name: "Moscow Mule", image_url: nil},
+  {name: "Lemon Drop", image_url: nil},
+  {name: "Dark and stormy", image_url: nil},
+  {name: "Screw Driver", image_url: nil}
 ])
 Location.create!([
   {name: "431 Tehama"},
@@ -31,21 +35,36 @@ Location.create!([
   {name: "Taco Truck"},
   {name: "Nick's Wedding"},
   {name: "The Bar"},
-  {name: "The Pacific Crest Trail"}
+  {name: "The Pacific Crest Trail"},
+  {name: "The Miranda"},
+  {name: "Chevy's"},
+  {name: "Captain's Chest "},
+  {name: "tr"}
 ])
 
 User.create!([
-  {username: "Test1", email: "Test1", password_digest: "$2a$10$18ne8BpMbZAMFUAxhz0GwOwy4ii3K1F7pnxWGEuOBd4HM5rVwnMQm", session_token: "1KMEUGuS5Xzf4A5ToWtoMg"},
+  {username: "Daisy", email: "Da@jp.com", password_digest: "$2a$10$6IjlXEXKqPFDgBc.6rZ5K.45S5tr5chp55884MvFbCCYjUQAAL6Ie", session_token: "DoZJolS2fg4CCHRlfV8KiQ"},
   {username: "John", email: "John", password_digest: "$2a$10$AhHmMm3mWhisUDmgKREvjuQFmY91p52kgIotG125YsxqhizElHA1G", session_token: "CNWbvZE_lCk5lwXR1_dcIA"},
-  {username: "Atticus", email: "Ave", password_digest: "$2a$10$fl3HFHdSq.N5ibqIugaUheTZoumg3s3SSHDPnR5jgPR6VJr9WuFiW", session_token: "FUjhm31lTs9Juhuw7EH-mA"},
-  {username: "guest", email: "guest", password_digest: "$2a$10$R/IxaCMoqCF/R4zohPV30O97qaVQuNd.ZNhNOG4uk.YCtlX6XF8m.", session_token: "qSB2Mlbd8m6NS5tLw_aX1Q"},
   {username: "Russ", email: "Russ", password_digest: "$2a$10$ncEK3thZI1v2M.fyc3SAheUAMeZwfwzURqm/d9b9EuwyUZC7voGYa", session_token: "SXq1W_5ujZCxAxLAo1JmTA"},
-  {username: "Lexi", email: "lexi", password_digest: "$2a$10$fXSNGU7c.ey449Vpnh7uIemR4HCn1bVFGGQbSwlSGYVnVhC5mqIca", session_token: "4YEsFM4La1OHOBVLWDddbg"},
+  {username: "Sam", email: "sa@jp.com", password_digest: "$2a$10$Th1yJ3PhbCiga22XCuISyuBT9rW6lk/vRj40Z5WepITSsWEIMZJZq", session_token: "oaPZ83-YT1lvVu1uzcVLUw"},
   {username: "Jonny", email: "jon", password_digest: "$2a$10$vcAMeo0jNOx0TknfTxrZ1O52ohVcLb8mdUmRo/oqAWIJpl7zsySTS", session_token: "jryOw0eBTjhLbJ2ZCygK-g"},
   {username: "Jesse", email: "Jesse@hotmail.com", password_digest: "$2a$10$lEfJgzLu9CVNG5MLf/iU2OimaTyGNZ93sp72Iw3SH0Dev0t9vwT.a", session_token: "6epLVwYjRGWfYI6y487qGA"},
   {username: "Ryan", email: "ryan", password_digest: "$2a$10$0CmnEgEYvFZbJWXYpkFe6e0iWlf9S../4AHAP6io9vxQU7QM7nNTS", session_token: "48Ckv0z6t1CuBBqTe1YyNg"},
   {username: "Brian", email: "brian", password_digest: "$2a$10$5lRI/tnk2JNtCsaQ919io.OpH5UhqyaCkswdg6V7Al4HKDgTM0BZK", session_token: "Um2aKiwSQu0z_ziotA5wJQ"},
-  {username: "Torrey", email: "torrey", password_digest: "$2a$10$.gHHiYGI/PW5d.o8mv7VFe/XtqS4YTCY4.7BoQ/9jwiRjuQwHmTzu", session_token: "N-ZDKPDrL28AZbk_RZsAKQ"}
+  {username: "Torrey", email: "torrey", password_digest: "$2a$10$.gHHiYGI/PW5d.o8mv7VFe/XtqS4YTCY4.7BoQ/9jwiRjuQwHmTzu", session_token: "N-ZDKPDrL28AZbk_RZsAKQ"},
+  {username: "Jen", email: "je@jp.com", password_digest: "$2a$10$gDsQQVFLL5rwG6Xf0cGIPu4MbYAmG7xFPqZtoMdi4kRMfudEqhaQW", session_token: "v6xWTWVmsF7loPnUPbbiEQ"},
+  {username: "Atticus", email: "Ave", password_digest: "$2a$10$fl3HFHdSq.N5ibqIugaUheTZoumg3s3SSHDPnR5jgPR6VJr9WuFiW", session_token: "af3OnCPsX8gsmh-K6G-WKw"},
+  {username: "Kim", email: "ki@jp.com", password_digest: "$2a$10$JFEslE4dfV0RDRAh2KJ.3.I5dlzCsSibS62V2Kh2f3VszNIqCNE82", session_token: "hdi7OWrfg4WiZqEla8p6GQ"},
+  {username: "Josh", email: "jo@jp.com", password_digest: "$2a$10$gEIZhyX0QHBY8.nBAgyIiOzzOIWhiLiFebwxmS0p1Xp21es0.Ny6q", session_token: "4fiUyGJEUibxeKFXco8xSQ"},
+  {username: "Amber", email: "am@jp.com", password_digest: "$2a$10$waBWevJrPA2Spuzx7KC3seSu6U7RxLKg0lqK/AlqNwo925CAhi4my", session_token: "cVU5j66vNgFraJOX7tShuw"},
+  {username: "Jason", email: "ja@jp.com", password_digest: "$2a$10$Bx5eYzJ6E7B2ISuUdAEs2OKYUsm0vQBtFxBivhCAP02mOrMK1amEW", session_token: "WFStqnUKWSHFXjjjmcUh2w"},
+  {username: "Nick", email: "ni@jp.com", password_digest: "$2a$10$/ZqFLB50GvNT6h/q2CJTWOAtZ5x4d0wXDWbISxKDIMfxy9Upy9eTG", session_token: "qsNIVY0VUMlHcEu9Vy9R5Q"},
+  {username: "guest", email: "guest", password_digest: "$2a$10$R/IxaCMoqCF/R4zohPV30O97qaVQuNd.ZNhNOG4uk.YCtlX6XF8m.", session_token: "azxbfpyHBKXTOQkHEgQvfQ"},
+  {username: "Alex", email: "al@jp.com", password_digest: "$2a$10$rZm8aS2HPX.zdTDHSa8oKOW4R4jm5/EUFDtJFmrMcjYO4tQ09tzFC", session_token: "9D5x3e5Fm63XTE_lg7IVMQ"},
+  {username: "Test1", email: "Test1", password_digest: "$2a$10$18ne8BpMbZAMFUAxhz0GwOwy4ii3K1F7pnxWGEuOBd4HM5rVwnMQm", session_token: "GgHzt0h22z2mvX7OCHAOFQ"},
+  {username: "Lexi", email: "lexi", password_digest: "$2a$10$fXSNGU7c.ey449Vpnh7uIemR4HCn1bVFGGQbSwlSGYVnVhC5mqIca", session_token: "81AH4Ep0jEFZW0VcKE61Bg"},
+  {username: "Jimi", email: "ji@jp.com", password_digest: "$2a$10$KR9UwGblSB.QxxxrVnkf3OcuRkY.fubK0ZAJmKpyClfPxaArWTuNO", session_token: "1E98-TyUQ7MygN-Z5Y_6mw"},
+  {username: "Suzi", email: "su@jo.com", password_digest: "$2a$10$TRB3H.ou/jqZ/HjEClgHX.cMnFjZzN6XNEwxVDKBWu2h8IZJGeWtS", session_token: "4_Oz1212IsvYPaaOozEtqw"}
 ])
 Review.create!([
   {drink_id: 1, location_id: 1, user_id: 2, rating: 1, body: "Location is too stuffy!"},
@@ -55,5 +74,37 @@ Review.create!([
   {drink_id: 4, location_id: 4, user_id: 3, rating: 3, body: "A little too expensive!"},
   {drink_id: 14, location_id: 13, user_id: 9, rating: 4, body: "Two cherries!"},
   {drink_id: 15, location_id: 14, user_id: 10, rating: 1, body: "Not cold enough!"},
-  {drink_id: 9, location_id: 15, user_id: 11, rating: 4, body: "Lovely scenery"}
+  {drink_id: 9, location_id: 15, user_id: 11, rating: 4, body: "Lovely scenery"},
+  {drink_id: 2, location_id: 11, user_id: 4, rating: 2, body: "Taste just like tea!"},
+  {drink_id: 16, location_id: 16, user_id: 12, rating: 4, body: "Great Holiday cocktail!"},
+  {drink_id: 1, location_id: 17, user_id: 12, rating: 4, body: "Such a great drink!"},
+  {drink_id: 6, location_id: 6, user_id: 12, rating: 5, body: "Best Mai Tai ever!"},
+  {drink_id: 6, location_id: 6, user_id: 13, rating: 3, body: "Pretty good but not the best."},
+  {drink_id: 17, location_id: 18, user_id: 13, rating: 4, body: "Great little place!"},
+  {drink_id: 1, location_id: 17, user_id: 14, rating: 1, body: "More like a mocktail."},
+  {drink_id: 2, location_id: 18, user_id: 15, rating: 4, body: "2 Thumbs up!"},
+  {drink_id: 2, location_id: 6, user_id: 15, rating: 3, body: "Ok drink. Cool stop!"},
+  {drink_id: 1, location_id: 11, user_id: 15, rating: 5, body: "Best Place to drink!"},
+  {drink_id: 1, location_id: 17, user_id: 6, rating: 4, body: "So Good!"},
+  {drink_id: 2, location_id: 4, user_id: 16, rating: 4, body: "Great drink!"},
+  {drink_id: 3, location_id: 3, user_id: 17, rating: 4, body: "Very nice!"},
+  {drink_id: 2, location_id: 1, user_id: 18, rating: 3, body: "Great place!"},
+  {drink_id: 4, location_id: 18, user_id: 19, rating: 4, body: "Really great drink!"},
+  {drink_id: 18, location_id: 3, user_id: 20, rating: 1, body: "Worst lemon drop!"},
+  {drink_id: 2, location_id: 4, user_id: 21, rating: 5, body: "Careful these taste great!"},
+  {drink_id: 6, location_id: 6, user_id: 6, rating: 5, body: "Best Mai Tai in the bay!"},
+  {drink_id: 18, location_id: 2, user_id: 17, rating: 5, body: "So tasty!"},
+  {drink_id: 2, location_id: 3, user_id: 22, rating: 3, body: "Just ok drink!"},
+  {drink_id: 19, location_id: 1, user_id: 22, rating: 5, body: "They make a great one of these!"},
+  {drink_id: 1, location_id: 17, user_id: 19, rating: 4, body: "Favorite place on Friday night!"},
+  {drink_id: 8, location_id: 4, user_id: 19, rating: 4, body: "Very fruity and fresh."},
+  {drink_id: 4, location_id: 3, user_id: 19, rating: 4, body: "Love this stop!"},
+  {drink_id: 18, location_id: 2, user_id: 12, rating: 4, body: "So delicious!"},
+  {drink_id: 1, location_id: 11, user_id: 21, rating: 4, body: "Super good!"},
+  {drink_id: 19, location_id: 2, user_id: 15, rating: 2, body: "Great views and drinks!"},
+  {drink_id: 2, location_id: 3, user_id: 16, rating: 3, body: "Busy on the weekends."},
+  {drink_id: 20, location_id: 9, user_id: 3, rating: 4, body: "Great local bar."},
+  {drink_id: 2, location_id: 16, user_id: 18, rating: 5, body: "Best place in the city!"},
+  {drink_id: 2, location_id: 9, user_id: 17, rating: 2, body: "Wouldn't go back."},
+  {drink_id: 18, location_id: 4, user_id: 22, rating: 4, body: "Pricy but so good!"}
 ])

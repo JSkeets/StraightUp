@@ -52,6 +52,7 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 
 .review-sentence {
 	font-size: 20px;
+	max-width: 480px;
 }
 #review-rating {
 	margin-right: 20px;
@@ -112,6 +113,7 @@ ul#review-index li:nth-last-of-type(1n + 10) {
 }
 .user-buttons {
 	display: flex;
+	margin-left: auto;
 }
 
 .is-active {

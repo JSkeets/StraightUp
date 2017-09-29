@@ -14,7 +14,6 @@ class LocationProfile extends React.Component {
 	}
 
 	render() {
-		console.log("SHOW PROPS", this.props);
 		if (this.props.reviews.length === 0) {
 			return (
 				<div className="user-empty-dashboard">
@@ -40,6 +39,14 @@ class LocationProfile extends React.Component {
 								location={this.props.locations[review.location_id]}
 							/>
 						))}
+						<div className="user-title">
+							Reviews at{" "}
+							{
+								this.props.locations[
+									parseInt(this.props.match.params.locationId)
+								].name
+							}
+						</div>
 						<div className="user-title" />
 					</ul>
 				</div>
