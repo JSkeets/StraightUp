@@ -58,7 +58,8 @@ class AutoComplete extends React.Component {
 					maxLength="20"
 				/>
 				<ul className="autoNames">
-					<i className="autocomplete-header">Choose from the following</i>
+					<i className="autocomplete-header">{`Or choose your ${this.prop
+						.type}`}</i>
 					{names.map(name => {
 						return (
 							<li
